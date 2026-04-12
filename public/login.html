@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="api-url" content="https://radiusx-backend.onrender.com/">
+<title>Cashly | Sign In</title>
+
+<link rel="icon" href="assets/favicon.png">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;1,500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link rel="stylesheet" href="css/login.css">
+<script src="js/api.js"></script>
+
+<!-- Theme: apply saved preference immediately to prevent flash -->
+<script>
+(function () {
+  if (localStorage.getItem("rx_theme") === "light") {
+    document.documentElement.classList.add("light-mode-pending");
+  }
+})();
+</script>
+</head>
+<body>
+
+<!-- Theme is applied here before paint via this inline script -->
+<script>
+(function () {
+  if (localStorage.getItem("rx_theme") === "light") {
+    document.body.classList.add("light-mode");
+  }
+})();
+</script>
+
+<a class="back-home" href="index.html">
+  <i class="fa-solid fa-arrow-left"></i> Back to Cashly
+</a>
+
+<!-- THEME TOGGLE -->
+<button class="theme-toggle-btn" id="themeToggleBtn" onclick="toggleTheme()" title="Toggle light/dark mode">
+  <i class="fa-solid fa-sun"  id="themeIconSun"></i>
+  <i class="fa-solid fa-moon" id="themeIconMoon" style="display:none"></i>
+</button>
+
+<div class="auth-wrapper">
+
+  <!-- LEFT PANEL -->
+  <div class="auth-left">
+    <div class="auth-left-inner">
+      <div class="auth-logo">
+        <img src="assets/logo/cashly_dark.png" alt="Cashly" id="authLogo">
+      </div>
+      <h1 class="auth-tagline">Money when.<br><em>You need it.</em></h1>
+      <p class="auth-sub">Personal loans, business funding, and instant credit lines —
+          with zero hidden charges, transparent EMIs, and approvals
+          that don't make you wait..</p>
+      <ul class="auth-perks">
+        <li><i class="fa-solid fa-money-bill-wave"></i> Lending built on trust & speed</li>
+        <li><i class="fa-solid fa-tag"></i> Affordable Intrest Rates</li>
+        <li><i class="fa-solid fa-shield-halved"></i> Customized repayment structures</li>
+        <li><i class="fa-solid fa-bolt"></i> Fully Online Process</li>
+      </ul>
+      <div class="dot-grid" aria-hidden="true"></div>
+    </div>
+  </div>
+
+  <!-- RIGHT PANEL -->
+  <div class="auth-right">
+
+    <div class="auth-tabs" id="authTabs">
+      <button class="auth-tab active" id="tabSignIn" onclick="switchTab('signin')">Sign In</button>
+      <button class="auth-tab" id="tabSignUp" onclick="switchTab('signup')">Sign Up</button>
+      <button class="auth-tab seller-tab" id="tabSeller" onclick="switchTab('seller')">
+        <i class="fa-solid fa-store"></i> Sell on RadiusX
+      </button>
+      <span class="tab-indicator" id="tabIndicator"></span>
+    </div>
+
+    <!-- SIGN IN -->
+    <div class="auth-form" id="formSignIn">
+      <p class="form-welcome">Welcome back </p>
+
+      <div class="field-group">
+        <label>Email / Mobile</label>
+        <div class="input-wrap">
+          <i class="fa-regular fa-envelope"></i>
+          <input type="text" id="siIdentifier" placeholder="you@gmail.com or 9XXXXXXXXX">
+        </div>
+        <span class="field-error" id="siIdentifierErr"></span>
+      </div>
+
+      <div class="field-group">
+        <label>Password</label>
+        <div class="input-wrap">
+          <i class="fa-solid fa-lock"></i>
+          <input type="password" id="siPassword" placeholder="Enter your password">
+          <i class="fa-regular fa-eye toggle-pass" onclick="togglePassword('siPassword',this)"></i>
+        </div>
+        <span class="field-error" id="siPasswordErr"></span>
+      </div>
+
+      <button class="auth-btn" onclick="handleSignIn()">
+        <span>Sign In</span><i class="fa-solid fa-arrow-right"></i>
+      </button>
+
+      <!-- OAuth -->
+      <div class="oauth-divider"><span>or continue with</span></div>
+      <button class="google-btn" onclick="signInWithGoogle()">
+        <svg width="18" height="18" viewBox="0 0 48 48" style="margin-right:10px;flex-shrink:0">
+          <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.17 17.74 9.5 24 9.5z"/>
+          <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/>
+          <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/>
+          <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.18 1.48-4.97 2.36-8.16 2.36-6.26 0-11.57-3.67-13.45-8.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
+          <path fill="none" d="M0 0h48v48H0z"/>
+        </svg>
+        Continue with Google
+      </button>
+
+      <div class="auth-links">
+        <a href="#" onclick="showModal('forgot')">Forgot Password?</a>
+        <span>&#183;</span>
+        <a href="#" onclick="switchTab('signup')">Create Account</a>
+        <span>&#183;</span>
+        <a href="#" onclick="switchTab('seller')">Become a Seller</a>
+        <span>&#183;</span>
+        <a href="#" onclick="showModal('help')">Help</a>
+      </div>
+    </div>
+
+    <!-- SIGN UP -->
+    <div class="auth-form hidden" id="formSignUp">
+      <p class="form-welcome">Create your account</p>
+
+      <div class="fields-grid">
+
+        <div class="field-group">
+          <label>Full Name</label>
+          <div class="input-wrap">
+            <i class="fa-regular fa-user"></i>
+            <input type="text" id="suName" placeholder="Ravi Kumar">
+          </div>
+          <span class="field-error" id="suNameErr"></span>
+        </div>
+
+        <div class="field-group">
+          <label>Gmail Address</label>
+          <div class="input-wrap">
+            <i class="fa-regular fa-envelope"></i>
+            <input type="email" id="suEmail" placeholder="you@gmail.com">
+          </div>
+          <span class="field-error" id="suEmailErr"></span>
+        </div>
+
+        <div class="field-group">
+          <label>Mobile Number</label>
+          <div class="input-wrap">
+            <i class="fa-solid fa-mobile-screen"></i>
+            <span class="dial-code">+91</span>
+            <input type="tel" id="suMobile" placeholder="9XXXXXXXXX" maxlength="10">
+          </div>
+          <span class="field-error" id="suMobileErr"></span>
+        </div>
+
+        <div class="field-group">
+          <label>Pincode</label>
+          <div class="input-wrap">
+            <i class="fa-solid fa-map-pin"></i>
+            <input type="text" id="suPincode" placeholder="452001" maxlength="6" oninput="fetchPincode(this.value)">
+          </div>
+          <span class="field-error" id="suPincodeErr"></span>
+          <span class="pincode-resolved" id="pincodeInfo"></span>
+        </div>
+
+        <div class="field-group full-width">
+          <label>Residential Address</label>
+          <div class="input-wrap">
+            <i class="fa-solid fa-house"></i>
+            <input type="text" id="suAddress" placeholder="Flat / House no., Street, Locality">
+          </div>
+          <span class="field-error" id="suAddressErr"></span>
+        </div>
+
+        <div class="field-group">
+          <label>Password</label>
+          <div class="input-wrap">
+            <i class="fa-solid fa-lock"></i>
+            <input type="password" id="suPassword" placeholder="Min. 8 characters" oninput="checkStrength(this.value)">
+            <i class="fa-regular fa-eye toggle-pass" onclick="togglePassword('suPassword',this)"></i>
+          </div>
+          <div class="strength-bar"><span id="strengthFill"></span></div>
+          <span class="strength-label" id="strengthLabel"></span>
+          <span class="field-error" id="suPasswordErr"></span>
+        </div>
+
+        <div class="field-group">
+          <label>Confirm Password</label>
+          <div class="input-wrap">
+            <i class="fa-solid fa-lock"></i>
+            <input type="password" id="suConfirm" placeholder="Re-enter password">
+            <i class="fa-regular fa-eye toggle-pass" onclick="togglePassword('suConfirm',this)"></i>
+          </div>
+          <span class="field-error" id="suConfirmErr"></span>
+        </div>
+
+      </div>
+
+      <div class="terms-row">
+        <input type="checkbox" id="suTerms">
+        <label for="suTerms">I agree to the <a href="#">Terms &amp; Conditions</a> and <a href="#">Privacy Policy</a></label>
+      </div>
+
+      <button class="auth-btn" onclick="handleSignUp()">
+        <span>Create Account</span><i class="fa-solid fa-arrow-right"></i>
+      </button>
+
+      <div class="auth-links">
+        <a href="#" onclick="switchTab('signin')">Already have an account? Sign In</a>
+        <span>&#183;</span>
+        <a href="#" onclick="switchTab('seller')">Become a Seller</a>
+        <span>&#183;</span>
+        <a href="#" onclick="showModal('help')">Help</a>
+      </div>
+    </div>
+
+
+      <div class="auth-links" style="margin-top:16px">
+        <a href="#" onclick="switchTab('signin')">Already have an account? Sign In</a>
+        <span>&#183;</span>
+        <a href="#" onclick="showModal('help')">Help</a>
+      </div>
+
+
+
+  </div><!-- /auth-right -->
+</div><!-- /auth-wrapper -->
+
+<!-- MODALS -->
+<div class="modal-overlay" id="modalOverlay" onclick="closeModal()">
+  <div class="modal-box" onclick="event.stopPropagation()">
+    <button class="modal-close" onclick="closeModal()"><i class="fa-solid fa-xmark"></i></button>
+    <div id="modalContent"></div>
+  </div>
+</div>
+
+<!-- SUCCESS TOAST -->
+<div class="toast" id="toast"></div>
+
+<script src="js/login.js"></script>
+
+<!-- THEME TOGGLE LOGIC (self-contained, no external file) -->
+<script>
+(function () {
+  /* Boot: sync icon state on load */
+  var isLight = document.body.classList.contains("light-mode");
+  var sun  = document.getElementById("themeIconSun");
+  var moon = document.getElementById("themeIconMoon");
+  var logo = document.getElementById("authLogo");
+
+  if (isLight) {
+    if (sun)  sun.style.display  = "none";
+    if (moon) moon.style.display = "";
+    if (logo) logo.src = "assets/logo/logo-light.png";
+  }
+})();
+
+function toggleTheme() {
+  var body   = document.body;
+  var sun    = document.getElementById("themeIconSun");
+  var moon   = document.getElementById("themeIconMoon");
+  var logo   = document.getElementById("authLogo");
+  var isLight = body.classList.toggle("light-mode");
+
+  if (isLight) {
+    sun.style.display  = "none";
+    moon.style.display = "";
+    if (logo) logo.src = "assets/logo/logo-light.png";
+    localStorage.setItem("rx_theme", "light");
+  } else {
+    sun.style.display  = "";
+    moon.style.display = "none";
+    if (logo) logo.src = "assets/logo/logo.png";
+    localStorage.setItem("rx_theme", "dark");
+  }
+}
+</script>
+</body>
+</html>
