@@ -1,12 +1,4 @@
-/* ═══════════════════════════════════════════════════════
-   CASHLY — apply.css
-   Styles exclusively for apply.html
-   Inherits all tokens from style.css (loaded first)
-═══════════════════════════════════════════════════════ */
 
-/* ══════════════════════════════════════════
-   PAGE LAYOUT — two-panel split
-══════════════════════════════════════════ */
 .apply-page {
   display: grid;
   grid-template-columns: 380px 1fr;

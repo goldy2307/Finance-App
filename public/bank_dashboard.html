@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="Kashly Bank Operations — Loan Sanctioning Portal"/>
+  <title>Kashly 365 | Bank Operations Portal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="css/bank_dashboard.css"/>
+</head>
+<body>
+
+  <!-- ── TOP COMMAND BAR ── -->
+  <header class="command-bar">
+    <div class="cb-left">
+      <div class="cb-logo">
+      <!-- Dark theme logo -->
+      <img src="assets/Logos/cashly-main.png" alt="Cashly" class="logo logo-dark" height="36px" width="auto"/>
+      <!-- Light theme logo -->
+      <img src="assets/Logos/cashly-light.png" alt="Cashly" class="logo logo-light" height="36px" width="auto"/>
+     
+      </div>
+    </div>
+    <div class="cb-center">
+      <div class="cb-stats">
+        <div class="cb-stat">
+          <span class="cb-stat-val" id="cbPending">—</span>
+          <span class="cb-stat-label">Pending</span>
+        </div>
+        <div class="cb-stat-sep"></div>
+        <div class="cb-stat">
+          <span class="cb-stat-val accent" id="cbApproved">—</span>
+          <span class="cb-stat-label">Approved Today</span>
+        </div>
+        <div class="cb-stat-sep"></div>
+        <div class="cb-stat">
+          <span class="cb-stat-val warn" id="cbFlagged">—</span>
+          <span class="cb-stat-label">Flagged</span>
+        </div>
+        <div class="cb-stat-sep"></div>
+        <div class="cb-stat">
+          <span class="cb-stat-val dim" id="cbRejected">—</span>
+          <span class="cb-stat-label">Rejected</span>
+        </div>
+      </div>
+    </div>
+    <div class="cb-right">
+      <div class="cb-time" id="cbTime"></div>
+      <div class="cb-employee">
+        <div class="employee-badge">
+          <div class="emp-avatar">PK</div>
+          <div class="emp-info">
+            <div class="emp-name">Priya Kapoor</div>
+            <div class="emp-role">Sr. Loan Officer · L2</div>
+          </div>
+        </div>
+      </div>
+      <button class="cb-btn" id="themeToggle" aria-label="Toggle theme">
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- ── MAIN LAYOUT ── -->
+  <div class="ops-layout">
+
+    <!-- LEFT PANEL: APPLICATION QUEUE -->
+    <aside class="queue-panel">
+      <div class="qp-header">
+        <h2 class="qp-title">Application Queue</h2>
+        <div class="qp-controls">
+          <div class="search-wrap">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <input type="text" id="queueSearch" placeholder="Search applicant, ID…"/>
+          </div>
+          <div class="filter-pills" id="queueFilters">
+            <button class="pill active" data-filter="all">All</button>
+            <button class="pill" data-filter="pending">Pending</button>
+            <button class="pill" data-filter="review">Review</button>
+            <button class="pill" data-filter="flagged">Flagged</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="queue-list" id="queueList">
+        <!-- Injected by JS -->
+      </div>
+    </aside>
+
+    <!-- RIGHT PANEL: APPLICATION DETAIL -->
+    <main class="detail-panel" id="detailPanel">
+
+      <!-- EMPTY STATE -->
+      <div class="empty-state" id="emptyState">
+        <div class="es-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+        </div>
+        <div class="es-title">Select an Application</div>
+        <div class="es-sub">Pick a loan application from the queue to review and sanction.</div>
+      </div>
+
+      <!-- APPLICATION DETAIL (hidden until selected) -->
+      <div class="app-detail" id="appDetail" style="display:none">
+
+        <!-- Detail Header -->
+        <div class="ad-header">
+          <div class="ad-applicant">
+            <div class="ad-avatar" id="adAvatar"></div>
+            <div>
+              <div class="ad-name" id="adName"></div>
+              <div class="ad-meta">
+                <span id="adAppId"></span>
+                <span class="dot">·</span>
+                <span id="adLoanType"></span>
+                <span class="dot">·</span>
+                <span>Applied <span id="adAppliedOn"></span></span>
+              </div>
+            </div>
+          </div>
+          <div class="ad-header-right">
+            <div id="adStatusBadge"></div>
+            <div class="ad-priority" id="adPriority"></div>
+          </div>
+        </div>
+
+        <!-- RISK SCORECARD -->
+        <div class="risk-scorecard" id="riskScorecard">
+          <div class="rs-item">
+            <div class="rs-label">Credit Score</div>
+            <div class="rs-value" id="rsCredit"></div>
+            <div class="rs-bar-wrap"><div class="rs-bar" id="rsCreditBar"></div></div>
+          </div>
+          <div class="rs-item">
+            <div class="rs-label">Debt-to-Income</div>
+            <div class="rs-value" id="rsDTI"></div>
+            <div class="rs-bar-wrap"><div class="rs-bar rs-bar--warn" id="rsDTIBar"></div></div>
+          </div>
+          <div class="rs-item">
+            <div class="rs-label">Employment</div>
+            <div class="rs-value" id="rsEmployment"></div>
+            <div class="rs-bar-wrap"><div class="rs-bar" id="rsEmploymentBar"></div></div>
+          </div>
+          <div class="rs-item">
+            <div class="rs-label">Risk Score</div>
+            <div class="rs-value large" id="rsRisk"></div>
+            <div class="rs-tag" id="rsRiskTag"></div>
+          </div>
+        </div>
+
+        <!-- TWO-COLUMN DETAIL BODY -->
+        <div class="ad-body">
+
+          <!-- LEFT: Applicant Info + Financial Profile -->
+          <div class="ad-col">
+
+            <div class="detail-card">
+              <div class="dc-head">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                Applicant Profile
+              </div>
+              <div class="dc-grid" id="profileGrid"></div>
+            </div>
+
+            <div class="detail-card">
+              <div class="dc-head">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                Financial Profile
+              </div>
+              <div class="dc-grid" id="financialGrid"></div>
+            </div>
+
+            <div class="detail-card">
+              <div class="dc-head">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+                Credit History
+              </div>
+              <div class="credit-history" id="creditHistory"></div>
+            </div>
+
+          </div>
+
+          <!-- RIGHT: Loan Details + Sanctioning -->
+          <div class="ad-col">
+
+            <div class="detail-card">
+              <div class="dc-head">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
+                Loan Request
+              </div>
+              <div class="loan-request-box" id="loanRequestBox"></div>
+            </div>
+
+            <!-- SANCTION FORM -->
+            <div class="detail-card sanction-card" id="sanctionCard">
+              <div class="dc-head accent-head">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+                Sanction Decision
+              </div>
+
+              <div class="sanction-form" id="sanctionForm">
+                <div class="sf-row">
+                  <div class="sf-field">
+                    <label>Sanctioned Amount <span class="field-hint">(Requested: <span id="sfRequestedAmt"></span>)</span></label>
+                    <div class="sf-input-wrap">
+                      <span class="sf-prefix">₹</span>
+                      <input type="number" id="sfAmount" placeholder="0"/>
+                    </div>
+                  </div>
+                  <div class="sf-field">
+                    <label>Interest Rate (% p.a.)</label>
+                    <input type="number" id="sfRate" step="0.25" placeholder="10.5"/>
+                  </div>
+                </div>
+
+                <div class="sf-row">
+                  <div class="sf-field">
+                    <label>Tenure (months)</label>
+                    <select id="sfTenure">
+                      <option value="6">6 months</option>
+                      <option value="12">12 months</option>
+                      <option value="24">24 months</option>
+                      <option value="36" selected>36 months</option>
+                      <option value="48">48 months</option>
+                      <option value="60">60 months</option>
+                      <option value="84">84 months</option>
+                    </select>
+                  </div>
+                  <div class="sf-field">
+                    <label>Processing Fee (%)</label>
+                    <input type="number" id="sfFee" step="0.1" value="1.0"/>
+                  </div>
+                </div>
+
+                <!-- Live EMI Preview -->
+                <div class="emi-preview" id="emiPreview">
+                  <div class="ep-row">
+                    <span>Monthly EMI</span>
+                    <span class="ep-val mono" id="epEMI">—</span>
+                  </div>
+                  <div class="ep-row">
+                    <span>Total Interest</span>
+                    <span class="ep-val mono" id="epInterest">—</span>
+                  </div>
+                  <div class="ep-row">
+                    <span>Total Payable</span>
+                    <span class="ep-val mono accent" id="epTotal">—</span>
+                  </div>
+                  <div class="ep-row">
+                    <span>Processing Fee</span>
+                    <span class="ep-val mono" id="epFee">—</span>
+                  </div>
+                </div>
+
+                <div class="sf-field full">
+                  <label>Conditions / Remarks</label>
+                  <textarea id="sfRemarks" rows="3" placeholder="e.g. Collateral required, submit salary slips for last 6 months…"></textarea>
+                </div>
+
+                <div class="sf-field full">
+                  <label>Internal Note (not visible to applicant)</label>
+                  <textarea id="sfNote" rows="2" placeholder="Internal audit note…"></textarea>
+                </div>
+
+                <div class="sanction-actions">
+                  <button class="action-btn approve" id="btnApprove" onclick="handleDecision('approved')">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                    Sanction <br>&<br> Approve
+                  </button>
+                  <button class="action-btn review-btn" id="btnReview" onclick="handleDecision('review')">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                    Send <br>to<br> Review
+                  </button>
+                  <button class="action-btn reject" id="btnReject" onclick="handleDecision('rejected')">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                    Reject
+                  </button>
+                </div>
+              </div>
+
+              <!-- Decided state -->
+              <div class="decided-state" id="decidedState" style="display:none">
+                <div class="ds-icon" id="dsIcon"></div>
+                <div class="ds-title" id="dsTitle"></div>
+                <div class="ds-body" id="dsBody"></div>
+                <button class="action-btn review-btn" onclick="undoDecision()">← Undo Decision</button>
+              </div>
+            </div>
+
+            <!-- DOCUMENTS CHECKLIST -->
+            <div class="detail-card">
+              <div class="dc-head">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                Documents Checklist
+              </div>
+              <div class="doc-checklist" id="docChecklist"></div>
+            </div>
+
+          </div>
+
+        </div>
+
+        <!-- AUDIT TRAIL -->
+        <div class="detail-card audit-card">
+          <div class="dc-head">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+            Audit Trail
+          </div>
+          <div class="audit-timeline" id="auditTimeline"></div>
+        </div>
+
+      </div><!-- /app-detail -->
+
+    </main>
+
+  </div>
+
+  <!-- MODAL: Confirm Decision -->
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal" id="modal">
+      <div class="modal-icon" id="modalIcon"></div>
+      <div class="modal-title" id="modalTitle"></div>
+      <div class="modal-body" id="modalBody"></div>
+      <div class="modal-actions">
+        <button class="action-btn review-btn" onclick="closeModal()">Cancel</button>
+        <button class="action-btn" id="modalConfirmBtn" onclick="confirmDecision()">Confirm</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST -->
+  <div class="toast" id="toast"></div>
+
+  <script src="js/bank_dashboard.js"></script>
+</body>
+</html>

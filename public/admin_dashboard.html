@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Kashly 365| Admin Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="css/admin_dashboard.css"/>
+</head>
+<body>
+
+  <!-- ── SIDEBAR ── -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <img src="assets/Logos/cashly-main.png", alt="Kashly Logo" class="sb-logo" height="46px", width="auto"/>
+      <button class="sidebar-close" id="sidebarClose" aria-label="Close sidebar">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M18 6L6 18M6 6l12 12"/>
+        </svg>
+      </button>
+    </div>
+
+    <nav class="sb-nav">
+      <p class="sb-nav-label">Overview</p>
+      <ul>
+        <li>
+          <a href="#" class="sb-link active" data-section="dashboard">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+            Dashboard
+          </a>
+        </li>
+        <li>
+          <a href="#" class="sb-link" data-section="applications">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+            Applications
+            <span class="sb-badge">24</span>
+          </a>
+        </li>
+        <li>
+          <a href="#" class="sb-link" data-section="borrowers">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            Borrowers
+          </a>
+        </li>
+        <li>
+          <a href="#" class="sb-link" data-section="disbursals">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+            Disbursals
+          </a>
+        </li>
+        <li>
+          <a href="#" class="sb-link" data-section="repayments">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+            Repayments
+          </a>
+        </li>
+      </ul>
+
+      <p class="sb-nav-label">Risk & Compliance</p>
+      <ul>
+        <li>
+          <a href="#" class="sb-link" data-section="kyc">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            KYC Review
+            <span class="sb-badge warn">7</span>
+          </a>
+        </li>
+        <li>
+          <a href="#" class="sb-link" data-section="collections">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            Collections
+          </a>
+        </li>
+        <li>
+          <a href="#" class="sb-link" data-section="reports">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/></svg>
+            Reports
+          </a>
+        </li>
+      </ul>
+
+      <p class="sb-nav-label">Settings</p>
+      <ul>
+        <li>
+          <a href="#" class="sb-link" data-section="settings">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+            Settings
+          </a>
+        </li>
+      </ul>
+    </nav>
+
+    <div class="sb-footer">
+      <div class="sb-user">
+        <div class="sb-avatar">AD</div>
+        <div class="sb-user-info">
+          <span class="sb-user-name">Admin User</span>
+          <span class="sb-user-role">Super Admin</span>
+        </div>
+        <button class="sb-logout" title="Logout">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+        </button>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ── MAIN CONTENT ── -->
+  <div class="main-wrap">
+
+    <!-- TOP BAR -->
+    <header class="topbar">
+      <div class="topbar-left">
+        <button class="hamburger-admin" id="hamburgerAdmin" aria-label="Toggle sidebar">
+          <span></span><span></span><span></span>
+        </button>
+        <div class="breadcrumb">
+          <span class="bc-root">Kashly</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+          <span class="bc-current" id="bcCurrent">Dashboard</span>
+        </div>
+      </div>
+
+      <div class="topbar-right">
+        <div class="search-box">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <input type="text" placeholder="Search borrower, loan ID…" id="globalSearch"/>
+        </div>
+        <div class="topbar-actions">
+          <button class="icon-btn notif-btn" id="notifBtn" aria-label="Notifications">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+            <span class="notif-dot"></span>
+          </button>
+          <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+            <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/>
+              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+              <line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/>
+              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+            </svg>
+            <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- ── PAGE: DASHBOARD ── -->
+    <main class="page-content" id="pageDashboard">
+
+      <div class="page-header">
+        <div>
+          <h1 class="page-title">Good morning, Admin...  <span class="wave"><img src="assets/Logos/goodbye.png" height="35px" width="auto"/></span></h1>
+          <p class="page-sub">Here's what's happening with Kashly today — <span class="num" id="todayDate"></span></p>
+        </div>
+        <div class="page-actions">
+          <button class="btn btn-ghost" id="exportBtn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Export report
+          </button>
+          <button class="btn btn-primary" id="newLoanBtn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            New application
+          </button>
+        </div>
+      </div>
+
+      <!-- KPI CARDS -->
+      <div class="kpi-grid" id="kpiGrid">
+        <!-- filled by JS -->
+      </div>
+
+      <!-- CHARTS ROW -->
+      <div class="charts-row">
+        <!-- Disbursals chart -->
+        <div class="chart-card" id="disbursalChart">
+          <div class="chart-head">
+            <div>
+              <h3 class="chart-title">Monthly Disbursals</h3>
+              <p class="chart-sub">Last 6 months · ₹ crore</p>
+            </div>
+            <div class="chart-filter" id="chartFilter">
+              <button class="cf-btn active" data-range="6m">6M</button>
+              <button class="cf-btn" data-range="1y">1Y</button>
+            </div>
+          </div>
+          <div class="bar-chart-wrap">
+            <canvas id="barChart" height="180"></canvas>
+          </div>
+        </div>
+
+        <!-- Loan mix donut -->
+        <div class="chart-card chart-card-sm">
+          <div class="chart-head">
+            <div>
+              <h3 class="chart-title">Loan Mix</h3>
+              <p class="chart-sub">By product type</p>
+            </div>
+          </div>
+          <div class="donut-wrap">
+            <canvas id="donutChart" width="180" height="180"></canvas>
+            <div class="donut-center">
+              <span class="donut-label">Total</span>
+              <span class="donut-val num">₹850Cr</span>
+            </div>
+          </div>
+          <ul class="donut-legend" id="donutLegend"></ul>
+        </div>
+      </div>
+
+      <!-- BOTTOM ROW -->
+      <div class="bottom-row">
+        <!-- Recent Applications -->
+        <div class="table-card">
+          <div class="table-card-head">
+            <div>
+              <h3 class="chart-title">Recent Applications</h3>
+              <p class="chart-sub">Pending review</p>
+            </div>
+            <a href="#" class="link-btn" data-section="applications">View all</a>
+          </div>
+          <div class="admin-table-wrap">
+            <table class="admin-table" id="appsTable">
+              <thead>
+                <tr>
+                  <th>Applicant</th>
+                  <th>Product</th>
+                  <th>Amount</th>
+                  <th>Score</th>
+                  <th>Status</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="appsTableBody">
+                <!-- filled by JS -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Activity Feed -->
+        <div class="activity-card">
+          <div class="table-card-head">
+            <h3 class="chart-title">Activity Feed</h3>
+            <span class="live-dot"><span></span>Live</span>
+          </div>
+          <ul class="activity-list" id="activityList">
+            <!-- filled by JS -->
+          </ul>
+        </div>
+      </div>
+
+    </main>
+
+    <!-- ── PAGE: APPLICATIONS ── -->
+    <main class="page-content hidden" id="pageApplications">
+      <div class="page-header">
+        <div>
+          <h1 class="page-title">Applications</h1>
+          <p class="page-sub">Review, approve or reject loan applications</p>
+        </div>
+        <div class="page-actions">
+          <div class="filter-tabs" id="appFilterTabs">
+            <button class="ftab active" data-filter="all">All</button>
+            <button class="ftab" data-filter="pending">Pending</button>
+            <button class="ftab" data-filter="approved">Approved</button>
+            <button class="ftab" data-filter="rejected">Rejected</button>
+          </div>
+        </div>
+      </div>
+      <div class="table-card full-width">
+        <div class="admin-table-wrap">
+          <table class="admin-table" id="fullAppsTable">
+            <thead>
+              <tr>
+                <th>Loan ID</th>
+                <th>Applicant</th>
+                <th>Product</th>
+                <th>Amount</th>
+                <th>Applied</th>
+                <th>Score</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="fullAppsBody">
+              <!-- filled by JS -->
+            </tbody>
+          </table>
+        </div>
+        <div class="pagination" id="appPagination"></div>
+      </div>
+    </main>
+
+    <!-- ── PAGE: BORROWERS ── -->
+    <main class="page-content hidden" id="pageBorrowers">
+      <div class="page-header">
+        <div>
+          <h1 class="page-title">Borrowers</h1>
+          <p class="page-sub">All registered borrowers on the platform</p>
+        </div>
+      </div>
+      <div class="kpi-grid mini" id="borrowerKpi"></div>
+      <div class="table-card full-width" style="margin-top:24px;">
+        <div class="admin-table-wrap">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>Borrower</th>
+                <th>Mobile</th>
+                <th>Active Loans</th>
+                <th>Total Borrowed</th>
+                <th>Repayment Rate</th>
+                <th>KYC</th>
+                <th>Joined</th>
+              </tr>
+            </thead>
+            <tbody id="borrowersBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+
+    <!-- ── PAGE: DISBURSALS ── -->
+    <main class="page-content hidden" id="pageDisbursals">
+      <div class="page-header">
+        <div>
+          <h1 class="page-title">Disbursals</h1>
+          <p class="page-sub">Track all loan disbursements</p>
+        </div>
+        <button class="btn btn-ghost">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Export CSV
+        </button>
+      </div>
+      <div class="table-card full-width">
+        <div class="admin-table-wrap">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>Disbursal ID</th>
+                <th>Borrower</th>
+                <th>Product</th>
+                <th>Amount</th>
+                <th>Bank</th>
+                <th>Date</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody id="disbursalsBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+
+    <!-- ── PAGE: REPAYMENTS ── -->
+    <main class="page-content hidden" id="pageRepayments">
+      <div class="page-header">
+        <div>
+          <h1 class="page-title">Repayments</h1>
+          <p class="page-sub">EMI collection tracker</p>
+        </div>
+      </div>
+      <div class="kpi-grid mini" id="repaymentKpi"></div>
+      <div class="table-card full-width" style="margin-top:24px;">
+        <div class="admin-table-wrap">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>EMI ID</th>
+                <th>Borrower</th>
+                <th>Loan ID</th>
+                <th>Due Date</th>
+                <th>Amount</th>
+                <th>Paid On</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody id="repaymentsBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+
+    <!-- ── PAGE: KYC ── -->
+    <main class="page-content hidden" id="pageKyc">
+      <div class="page-header">
+        <div>
+          <h1 class="page-title">KYC Review</h1>
+          <p class="page-sub">Documents pending verification</p>
+        </div>
+      </div>
+      <div class="kyc-grid" id="kycGrid"></div>
+    </main>
+
+    <!-- ── PAGE: COLLECTIONS ── -->
+    <main class="page-content hidden" id="pageCollections">
+      <div class="page-header">
+        <div>
+          <h1 class="page-title">Collections</h1>
+          <p class="page-sub">Overdue accounts and recovery status</p>
+        </div>
+      </div>
+      <div class="table-card full-width">
+        <div class="admin-table-wrap">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>Borrower</th>
+                <th>Loan ID</th>
+                <th>Overdue EMIs</th>
+                <th>Overdue Amount</th>
+                <th>DPD</th>
+                <th>Agent</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="collectionsBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+
+    <!-- ── PAGE: REPORTS ── -->
+    <main class="page-content hidden" id="pageReports">
+      <div class="page-header">
+        <div>
+          <h1 class="page-title">Reports</h1>
+          <p class="page-sub">Generate and export compliance reports</p>
+        </div>
+      </div>
+      <div class="reports-grid" id="reportsGrid"></div>
+    </main>
+
+    <!-- ── PAGE: SETTINGS ── -->
+    <main class="page-content hidden" id="pageSettings">
+      <div class="page-header">
+        <div>
+          <h1 class="page-title">Settings</h1>
+          <p class="page-sub">Platform configuration and admin preferences</p>
+        </div>
+      </div>
+      <div class="settings-layout">
+        <div class="settings-card">
+          <h3 class="settings-section-title">Interest Rate Config</h3>
+          <div class="settings-form">
+            <div class="sf-row">
+              <label>Personal Loan Base Rate</label>
+              <div class="sf-input-wrap"><input type="number" value="10.5" step="0.5" class="sf-input"/><span class="sf-unit">% p.a.</span></div>
+            </div>
+            <div class="sf-row">
+              <label>Business Loan Base Rate</label>
+              <div class="sf-input-wrap"><input type="number" value="12.0" step="0.5" class="sf-input"/><span class="sf-unit">% p.a.</span></div>
+            </div>
+            <div class="sf-row">
+              <label>Home Loan Base Rate</label>
+              <div class="sf-input-wrap"><input type="number" value="8.5" step="0.5" class="sf-input"/><span class="sf-unit">% p.a.</span></div>
+            </div>
+            <div class="sf-row">
+              <label>Processing Fee</label>
+              <div class="sf-input-wrap"><input type="number" value="1.0" step="0.1" class="sf-input"/><span class="sf-unit">%</span></div>
+            </div>
+          </div>
+          <button class="btn btn-primary sf-save">Save changes</button>
+        </div>
+        <div class="settings-card">
+          <h3 class="settings-section-title">Auto-Approval Rules</h3>
+          <div class="settings-form">
+            <div class="sf-row">
+              <label>Min CIBIL score for auto-approve</label>
+              <div class="sf-input-wrap"><input type="number" value="750" class="sf-input"/></div>
+            </div>
+            <div class="sf-row">
+              <label>Max auto-approve amount (₹)</label>
+              <div class="sf-input-wrap"><input type="number" value="200000" class="sf-input"/></div>
+            </div>
+            <div class="sf-toggle-row">
+              <label>Enable auto-approval engine</label>
+              <label class="toggle-switch">
+                <input type="checkbox" checked/>
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+            <div class="sf-toggle-row">
+              <label>Send SMS on disbursals</label>
+              <label class="toggle-switch">
+                <input type="checkbox" checked/>
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+            <div class="sf-toggle-row">
+              <label>Require dual-admin for >₹10L loans</label>
+              <label class="toggle-switch">
+                <input type="checkbox"/>
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+          </div>
+          <button class="btn btn-primary sf-save">Save changes</button>
+        </div>
+      </div>
+    </main>
+
+  </div>
+
+  <!-- MODAL: Application Detail -->
+  <div class="modal-overlay hidden" id="appModal">
+    <div class="modal" id="appModalContent">
+      <div class="modal-header">
+        <h2 class="modal-title">Application Review</h2>
+        <button class="modal-close" id="modalClose">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+        </button>
+      </div>
+      <div class="modal-body" id="modalBody">
+        <!-- filled by JS -->
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST -->
+  <div class="toast-wrap" id="toastWrap"></div>
+
+  <script src="js/admin_dashboard.js"></script>
+</body>
+</html>

@@ -1,286 +1,437 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
-
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="api-url" content="https://radiusx-backend.onrender.com/">
-<title>Cashly | Sign In</title>
-
-<link rel="icon" href="assets/favicon.png">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;1,500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-<link rel="stylesheet" href="css/login.css">
-<script src="js/api.js"></script>
-
-<!-- Theme: apply saved preference immediately to prevent flash -->
-<script>
-(function () {
-  if (localStorage.getItem("rx_theme") === "light") {
-    document.documentElement.classList.add("light-mode-pending");
-  }
-})();
-</script>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="Cashly — Sign in to manage your loans, track EMIs, and access your dashboard."/>
+  <title>Kashly 365 | Sign In</title>
+  <link rel="icon" href="assets/Logos/favicon-light.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="css/style.css"/>
+  <link rel="stylesheet" href="css/login.css"/>
 </head>
 <body>
 
-<!-- Theme is applied here before paint via this inline script -->
-<script>
-(function () {
-  if (localStorage.getItem("rx_theme") === "light") {
-    document.body.classList.add("light-mode");
-  }
-})();
-</script>
+  <!-- ══ PAGE SPLIT ══ -->
+  <div class="login-page">
 
-<a class="back-home" href="index.html">
-  <i class="fa-solid fa-arrow-left"></i> Back to Cashly
-</a>
+    <!-- ── LEFT PANEL — branding ── -->
+    <aside class="login-aside">
 
-<!-- THEME TOGGLE -->
-<button class="theme-toggle-btn" id="themeToggleBtn" onclick="toggleTheme()" title="Toggle light/dark mode">
-  <i class="fa-solid fa-sun"  id="themeIconSun"></i>
-  <i class="fa-solid fa-moon" id="themeIconMoon" style="display:none"></i>
-</button>
-
-<div class="auth-wrapper">
-
-  <!-- LEFT PANEL -->
-  <div class="auth-left">
-    <div class="auth-left-inner">
-      <div class="auth-logo">
-        <img src="assets/Logos/cashly-main.png" alt="Cashly" id="authLogo">
+      <!-- top bar inside aside -->
+      <div class="aside-topbar">
+        <a href="index.html" class="logo-link">
+          <img src="assets/Logos/cashly-main.png" alt="Cashly" class="logo logo-dark"/>
+          <img src="assets/Logos/cashly-light.png"  alt="Cashly" class="logo logo-light"/>
+        </a>
+        <button class="theme-toggle" id="themeToggleAside" aria-label="Toggle theme">
+          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="5"/>
+            <line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+            <line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+          </svg>
+          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+          </svg>
+        </button>
       </div>
-      <h1 class="auth-tagline">Money when.<br><em>You need it.</em></h1>
-      <p class="auth-sub">Personal loans, business funding, and instant credit lines —
-          with zero hidden charges, transparent EMIs, and approvals
-          that don't make you wait..</p>
-      <ul class="auth-perks">
-        <li><i class="fa-solid fa-money-bill-wave"></i> Lending built on trust & speed</li>
-        <li><i class="fa-solid fa-tag"></i> Affordable Intrest Rates</li>
-        <li><i class="fa-solid fa-shield-halved"></i> Customized repayment structures</li>
-        <li><i class="fa-solid fa-bolt"></i> Fully Online Process</li>
-      </ul>
-      <div class="dot-grid" aria-hidden="true"></div>
-    </div>
-  </div>
 
-  <!-- RIGHT PANEL -->
-  <div class="auth-right">
-
-    <div class="auth-tabs" id="authTabs">
-      <button class="auth-tab active" id="tabSignIn" onclick="switchTab('signin')">Sign In</button>
-      <button class="auth-tab" id="tabSignUp" onclick="switchTab('signup')">Sign Up</button>
-     
-      <span class="tab-indicator" id="tabIndicator"></span>
-    </div>
-
-    <!-- SIGN IN -->
-    <div class="auth-form" id="formSignIn">
-      <p class="form-welcome">Welcome back </p>
-
-      <div class="field-group">
-        <label>Email / Mobile</label>
-        <div class="input-wrap">
-          <i class="fa-regular fa-envelope"></i>
-          <input type="text" id="siIdentifier" placeholder="you@gmail.com or 9XXXXXXXXX">
+      <!-- aside body -->
+      <div class="aside-body">
+        <div class="aside-copy">
+          <p class="aside-tag">Welcome back</p>
+          <h1 class="aside-title">
+            Your money,<br/>your <em>control.</em>
+          </h1>
+          <p class="aside-sub">
+            Sign in to track your loan, pay EMIs, check statements,
+            and manage everything in one place.
+          </p>
         </div>
-        <span class="field-error" id="siIdentifierErr"></span>
-      </div>
 
-      <div class="field-group">
-        <label>Password</label>
-        <div class="input-wrap">
-          <i class="fa-solid fa-lock"></i>
-          <input type="password" id="siPassword" placeholder="Enter your password">
-          <i class="fa-regular fa-eye toggle-pass" onclick="togglePassword('siPassword',this)"></i>
-        </div>
-        <span class="field-error" id="siPasswordErr"></span>
-      </div>
-
-      <button class="auth-btn" onclick="handleSignIn()">
-        <span>Sign In</span><i class="fa-solid fa-arrow-right"></i>
-      </button>
-
-      <!-- OAuth -->
-      <div class="oauth-divider"><span>or continue with</span></div>
-      <button class="google-btn" onclick="signInWithGoogle()">
-        <svg width="18" height="18" viewBox="0 0 48 48" style="margin-right:10px;flex-shrink:0">
-          <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.17 17.74 9.5 24 9.5z"/>
-          <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/>
-          <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/>
-          <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.18 1.48-4.97 2.36-8.16 2.36-6.26 0-11.57-3.67-13.45-8.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
-          <path fill="none" d="M0 0h48v48H0z"/>
-        </svg>
-        Continue with Google
-      </button>
-
-      <div class="auth-links">
-        <a href="#" onclick="showModal('forgot')">Forgot Password?</a>
-        <span>&#183;</span>
-        <a href="#" onclick="switchTab('signup')">Create Account</a>
-        <span>&#183;</span>
-        <a href="#" onclick="switchTab('seller')">Become a Seller</a>
-        <span>&#183;</span>
-        <a href="#" onclick="showModal('help')">Help</a>
-      </div>
-    </div>
-
-    <!-- SIGN UP -->
-    <div class="auth-form hidden" id="formSignUp">
-      <p class="form-welcome">Create your account</p>
-
-      <div class="fields-grid">
-
-        <div class="field-group">
-          <label>Full Name</label>
-          <div class="input-wrap">
-            <i class="fa-regular fa-user"></i>
-            <input type="text" id="suName" placeholder="Ravi Kumar">
+        <!-- mini stats -->
+        <div class="aside-stats">
+          <div class="aside-stat">
+            <span class="as-num num">₹850Cr+</span>
+            <span class="as-label">Disbursed</span>
           </div>
-          <span class="field-error" id="suNameErr"></span>
-        </div>
-
-        <div class="field-group">
-          <label>Gmail Address</label>
-          <div class="input-wrap">
-            <i class="fa-regular fa-envelope"></i>
-            <input type="email" id="suEmail" placeholder="you@gmail.com">
+          <div class="aside-stat-sep"></div>
+          <div class="aside-stat">
+            <span class="as-num num">1.2L+</span>
+            <span class="as-label">Borrowers</span>
           </div>
-          <span class="field-error" id="suEmailErr"></span>
-        </div>
-
-        <div class="field-group">
-          <label>Mobile Number</label>
-          <div class="input-wrap">
-            <i class="fa-solid fa-mobile-screen"></i>
-            <span class="dial-code">+91</span>
-            <input type="tel" id="suMobile" placeholder="9XXXXXXXXX" maxlength="10">
+          <div class="aside-stat-sep"></div>
+          <div class="aside-stat">
+            <span class="as-num num">4.8 ★</span>
+            <span class="as-label">App rating</span>
           </div>
-          <span class="field-error" id="suMobileErr"></span>
         </div>
 
-        <div class="field-group">
-          <label>Pincode</label>
-          <div class="input-wrap">
-            <i class="fa-solid fa-map-pin"></i>
-            <input type="text" id="suPincode" placeholder="452001" maxlength="6" oninput="fetchPincode(this.value)">
+       
+
+        <!-- trust row -->
+        <div class="aside-trust-row">
+          <div class="atr-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+            </svg>
+            RBI regulated
           </div>
-          <span class="field-error" id="suPincodeErr"></span>
-          <span class="pincode-resolved" id="pincodeInfo"></span>
-        </div>
-
-        <div class="field-group full-width">
-          <label>Residential Address</label>
-          <div class="input-wrap">
-            <i class="fa-solid fa-house"></i>
-            <input type="text" id="suAddress" placeholder="Flat / House no., Street, Locality">
+          <div class="atr-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="11" width="18" height="11" rx="2"/>
+              <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+            </svg>
+            256-bit encryption
           </div>
-          <span class="field-error" id="suAddressErr"></span>
-        </div>
-
-        <div class="field-group">
-          <label>Password</label>
-          <div class="input-wrap">
-            <i class="fa-solid fa-lock"></i>
-            <input type="password" id="suPassword" placeholder="Min. 8 characters" oninput="checkStrength(this.value)">
-            <i class="fa-regular fa-eye toggle-pass" onclick="togglePassword('suPassword',this)"></i>
+          <div class="atr-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="20 6 9 17 4 12"/>
+            </svg>
+            ISO 27001 certified
           </div>
-          <div class="strength-bar"><span id="strengthFill"></span></div>
-          <span class="strength-label" id="strengthLabel"></span>
-          <span class="field-error" id="suPasswordErr"></span>
         </div>
-
-        <div class="field-group">
-          <label>Confirm Password</label>
-          <div class="input-wrap">
-            <i class="fa-solid fa-lock"></i>
-            <input type="password" id="suConfirm" placeholder="Re-enter password">
-            <i class="fa-regular fa-eye toggle-pass" onclick="togglePassword('suConfirm',this)"></i>
-          </div>
-          <span class="field-error" id="suConfirmErr"></span>
-        </div>
-
       </div>
 
-      <div class="terms-row">
-        <input type="checkbox" id="suTerms">
-        <label for="suTerms">I agree to the <a href="#">Terms &amp; Conditions</a> and <a href="#">Privacy Policy</a></label>
+      <!-- aside footer -->
+      <div class="aside-footer">
+        © 2026 Kashly 365 Finance Pvt. Ltd.
+      </div>
+    </aside>
+
+    <!-- ── RIGHT PANEL — auth forms ── -->
+    <main class="login-main">
+
+      <!-- mobile top bar (visible only on small screens) -->
+      <div class="mobile-topbar">
+        <a href="index.html" class="logo-link">
+          <img src="assets/Logos/cashly_light.png" alt="Cashly" class="logo logo-dark" style="height:32px"/>
+          <img src="assets/Logos/cashly_dark.png"  alt="Cashly" class="logo logo-light" style="height:32px"/>
+        </a>
+        <button class="theme-toggle" id="themeToggleMobile" aria-label="Toggle theme">
+          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="5"/>
+            <line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+            <line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+          </svg>
+          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+          </svg>
+        </button>
       </div>
 
-      <button class="auth-btn" onclick="handleSignUp()">
-        <span>Create Account</span><i class="fa-solid fa-arrow-right"></i>
-      </button>
+      <div class="login-form-wrap">
 
-      <div class="auth-links">
-        <a href="#" onclick="switchTab('signin')">Already have an account? Sign In</a>
-        <span>&#183;</span>
-        <a href="#" onclick="switchTab('seller')">Become a Seller</a>
-        <span>&#183;</span>
-        <a href="#" onclick="showModal('help')">Help</a>
-      </div>
-    </div>
+        <!-- ── AUTH TABS ── -->
+        <div class="auth-tabs">
+          <button class="auth-tab active" data-tab="login">Sign in</button>
+          <button class="auth-tab" data-tab="register">Create account</button>
+        </div>
 
+        <!-- ════ LOGIN FORM ════ -->
+        <div class="auth-panel active" id="panel-login">
 
-      <div class="auth-links" style="margin-top:16px">
-        <a href="#" onclick="switchTab('signin')">Already have an account? Sign In</a>
-        <span>&#183;</span>
-        <a href="#" onclick="showModal('help')">Help</a>
-      </div>
+          <div class="auth-header">
+            <h2>Sign in to Cashly</h2>
+            <p>Enter your registered mobile or email to continue.</p>
+          </div>
 
+          <!-- social login -->
+          <div class="social-login">
+            <button class="social-login-btn" id="googleBtn">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+                <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+                <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
+                <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+              </svg>
+              Continue with Google
+            </button>
+          </div>
 
+          <div class="auth-divider">
+            <span>or sign in with credentials</span>
+          </div>
 
-  </div><!-- /auth-right -->
-</div><!-- /auth-wrapper -->
+          <form id="loginForm" novalidate>
 
-<!-- MODALS -->
-<div class="modal-overlay" id="modalOverlay" onclick="closeModal()">
-  <div class="modal-box" onclick="event.stopPropagation()">
-    <button class="modal-close" onclick="closeModal()"><i class="fa-solid fa-xmark"></i></button>
-    <div id="modalContent"></div>
-  </div>
-</div>
+            <!-- login method toggle -->
+            <div class="method-toggle" id="methodToggle">
+              <button type="button" class="method-btn active" data-method="phone">Mobile</button>
+              <button type="button" class="method-btn" data-method="email">Email</button>
+            </div>
 
-<!-- SUCCESS TOAST -->
-<div class="toast" id="toast"></div>
+            <!-- phone input (default) -->
+            <div class="form-group" id="phoneGroup">
+              <label for="loginPhone">Mobile number <span class="req">*</span></label>
+              <div class="input-wrap prefix">
+                <span class="input-prefix">+91</span>
+                <input type="tel" id="loginPhone" class="num" placeholder="98765 43210" maxlength="10" autocomplete="tel"/>
+              </div>
+            </div>
 
-<script src="js/login.js"></script>
+            <!-- email input (hidden initially) -->
+            <div class="form-group hidden" id="emailGroup">
+              <label for="loginEmail">Email address <span class="req">*</span></label>
+              <input type="email" id="loginEmail" placeholder="rahul@email.com" autocomplete="email"/>
+            </div>
 
-<!-- THEME TOGGLE LOGIC (self-contained, no external file) -->
-<script>
-(function () {
-  /* Boot: sync icon state on load */
-  var isLight = document.body.classList.contains("light-mode");
-  var sun  = document.getElementById("themeIconSun");
-  var moon = document.getElementById("themeIconMoon");
-  var logo = document.getElementById("authLogo");
+            <!-- password -->
+            <div class="form-group">
+              <div class="label-row">
+                <label for="loginPassword">Password <span class="req">*</span></label>
+                <a href="#" class="forgot-link" id="forgotLink">Forgot password?</a>
+              </div>
+              <div class="input-wrap suffix">
+                <input type="password" id="loginPassword" placeholder="Enter your password" autocomplete="current-password"/>
+                <button type="button" class="input-suffix eye-btn" id="togglePassword" aria-label="Show password">
+                  <svg class="eye-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                    <circle cx="12" cy="12" r="3"/>
+                  </svg>
+                  <svg class="eye-closed" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none">
+                    <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/>
+                    <line x1="1" y1="1" x2="23" y2="23"/>
+                  </svg>
+                </button>
+              </div>
+            </div>
 
-  if (isLight) {
-    if (sun)  sun.style.display  = "none";
-    if (moon) moon.style.display = "";
-    if (logo) logo.src = "assets/logo/logo-light.png";
-  }
-})();
+            <!-- remember me -->
+            <label class="remember-row">
+              <input type="checkbox" id="rememberMe"/>
+              <span class="checkmark"></span>
+              <span>Remember me for 30 days</span>
+            </label>
 
-function toggleTheme() {
-  var body   = document.body;
-  var sun    = document.getElementById("themeIconSun");
-  var moon   = document.getElementById("themeIconMoon");
-  var logo   = document.getElementById("authLogo");
-  var isLight = body.classList.toggle("light-mode");
+            <button type="submit" class="btn btn-primary btn-full btn-lg auth-submit" id="loginSubmitBtn">
+              Sign in
+              <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M5 12h14M12 5l7 7-7 7"/>
+              </svg>
+            </button>
 
-  if (isLight) {
-    sun.style.display  = "none";
-    moon.style.display = "";
-    if (logo) logo.src = "assets/logo/logo-light.png";
-    localStorage.setItem("rx_theme", "light");
-  } else {
-    sun.style.display  = "";
-    moon.style.display = "none";
-    if (logo) logo.src = "assets/logo/logo.png";
-    localStorage.setItem("rx_theme", "dark");
-  }
-}
-</script>
+          </form>
+
+          <p class="auth-switch">
+            Don't have an account?
+            <button class="auth-switch-btn" data-switch="register">Create one free</button>
+          </p>
+        </div>
+
+        <!-- ════ REGISTER FORM ════ -->
+        <div class="auth-panel" id="panel-register">
+
+          <div class="auth-header">
+            <h2>Create your account</h2>
+            <p>Free to join. Apply for a loan in minutes after signup.</p>
+          </div>
+
+          <!-- social signup -->
+          <div class="social-login">
+            <button class="social-login-btn" id="googleRegBtn">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+                <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+                <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
+                <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+              </svg>
+              Continue with Google
+            </button>
+          </div>
+
+          <div class="auth-divider">
+            <span>or register with email</span>
+          </div>
+
+          <form id="registerForm" novalidate>
+
+            <div class="form-row-2">
+              <div class="form-group">
+                <label for="regFirstName">First name <span class="req">*</span></label>
+                <input type="text" id="regFirstName" placeholder="Rahul" autocomplete="given-name"/>
+              </div>
+              <div class="form-group">
+                <label for="regLastName">Last name <span class="req">*</span></label>
+                <input type="text" id="regLastName" placeholder="Sharma" autocomplete="family-name"/>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="regPhone">Mobile number <span class="req">*</span></label>
+              <div class="input-wrap prefix">
+                <span class="input-prefix">+91</span>
+                <input type="tel" id="regPhone" class="num" placeholder="98765 43210" maxlength="10" autocomplete="tel"/>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="regEmail">Email address <span class="req">*</span></label>
+              <input type="email" id="regEmail" placeholder="rahul@email.com" autocomplete="email"/>
+            </div>
+
+            <!-- password with strength meter -->
+            <div class="form-group">
+              <label for="regPassword">Create password <span class="req">*</span></label>
+              <div class="input-wrap suffix">
+                <input type="password" id="regPassword" placeholder="Min. 8 characters" autocomplete="new-password"/>
+                <button type="button" class="input-suffix eye-btn" id="toggleRegPassword" aria-label="Show password">
+                  <svg class="eye-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                    <circle cx="12" cy="12" r="3"/>
+                  </svg>
+                  <svg class="eye-closed" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none">
+                    <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/>
+                    <line x1="1" y1="1" x2="23" y2="23"/>
+                  </svg>
+                </button>
+              </div>
+              <!-- password strength -->
+              <div class="strength-wrap" id="strengthWrap">
+                <div class="strength-bar">
+                  <div class="strength-fill" id="strengthFill"></div>
+                </div>
+                <span class="strength-label" id="strengthLabel">Too short</span>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="regConfirm">Confirm password <span class="req">*</span></label>
+              <div class="input-wrap suffix">
+                <input type="password" id="regConfirm" placeholder="Re-enter password" autocomplete="new-password"/>
+                <button type="button" class="input-suffix eye-btn" id="toggleRegConfirm" aria-label="Show password">
+                  <svg class="eye-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                    <circle cx="12" cy="12" r="3"/>
+                  </svg>
+                  <svg class="eye-closed" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none">
+                    <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/>
+                    <line x1="1" y1="1" x2="23" y2="23"/>
+                  </svg>
+                </button>
+              </div>
+            </div>
+
+            <!-- terms -->
+            <label class="remember-row">
+              <input type="checkbox" id="regTerms"/>
+              <span class="checkmark"></span>
+              <span>I agree to the <a href="#">Terms of Use</a> and <a href="#">Privacy Policy</a></span>
+            </label>
+
+            <button type="submit" class="btn btn-primary btn-full btn-lg auth-submit" id="registerSubmitBtn">
+              Create account
+              <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M5 12h14M12 5l7 7-7 7"/>
+              </svg>
+            </button>
+
+          </form>
+
+          <p class="auth-switch">
+            Already have an account?
+            <button class="auth-switch-btn" data-switch="login">Sign in</button>
+          </p>
+        </div>
+
+        <!-- ════ FORGOT PASSWORD PANEL ════ -->
+        <div class="auth-panel" id="panel-forgot">
+
+          <div class="auth-header">
+            <button class="back-btn" id="backFromForgot">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M19 12H5M5 12l7 7M5 12l7-7"/>
+              </svg>
+              Back to sign in
+            </button>
+            <h2>Reset password</h2>
+            <p>Enter your registered mobile number. We'll send an OTP to reset your password.</p>
+          </div>
+
+          <form id="forgotForm" novalidate>
+            <div class="form-group">
+              <label for="forgotPhone">Mobile number <span class="req">*</span></label>
+              <div class="input-wrap prefix">
+                <span class="input-prefix">+91</span>
+                <input type="tel" id="forgotPhone" class="num" placeholder="98765 43210" maxlength="10"/>
+              </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-full btn-lg auth-submit" id="forgotSubmitBtn">
+              Send OTP
+              <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="22" y1="2" x2="11" y2="13"/>
+                <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+              </svg>
+            </button>
+          </form>
+
+          <!-- OTP block (shown after submit) -->
+          <div class="otp-block hidden" id="otpBlock">
+            <p class="otp-sent-msg">OTP sent to <strong class="num" id="otpPhoneDisplay"></strong></p>
+
+            <div class="form-group">
+              <label>Enter OTP <span class="req">*</span></label>
+              <div class="otp-inputs" id="otpInputs">
+                <input type="text" class="otp-digit num" maxlength="1" inputmode="numeric"/>
+                <input type="text" class="otp-digit num" maxlength="1" inputmode="numeric"/>
+                <input type="text" class="otp-digit num" maxlength="1" inputmode="numeric"/>
+                <input type="text" class="otp-digit num" maxlength="1" inputmode="numeric"/>
+                <input type="text" class="otp-digit num" maxlength="1" inputmode="numeric"/>
+                <input type="text" class="otp-digit num" maxlength="1" inputmode="numeric"/>
+              </div>
+            </div>
+
+            <div class="otp-resend">
+              Didn't receive it?
+              <button type="button" class="resend-btn" id="resendOtpBtn" disabled>
+                Resend in <span class="num" id="otpTimer">30</span>s
+              </button>
+            </div>
+
+            <button class="btn btn-primary btn-full btn-lg" id="verifyOtpBtn">
+              Verify OTP
+              <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="20 6 9 17 4 12"/>
+              </svg>
+            </button>
+          </div>
+
+        </div>
+
+        <!-- ════ OTP VERIFY SUCCESS ════ -->
+        <div class="auth-panel" id="panel-otp-success">
+          <div class="auth-success">
+            <div class="success-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="20 6 9 17 4 12"/>
+              </svg>
+            </div>
+            <h2>OTP verified!</h2>
+            <p>Your identity is confirmed. You'll be redirected to set a new password.</p>
+            <a href="#" class="btn btn-primary btn-lg">Set new password
+              <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- bottom legal note -->
+        <p class="login-legal">
+          Protected by reCAPTCHA ·
+          <a href="#">Privacy</a> ·
+          <a href="#">Terms</a>
+        </p>
+
+      </div><!-- /login-form-wrap -->
+    </main>
+  </div><!-- /login-page -->
+
+  <script src="js/login.js"></script>
 </body>
 </html>

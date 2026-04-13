@@ -29,10 +29,10 @@
   --line-2:     rgba(255,255,255,0.14);
 
   /* brand */
-  --green:      #B8F535;
-  --green-dim:  rgba(184,245,53,0.12);
-  --green-dark: #8fc42a;
-  --green-hover:#ceff5a;
+  --green:      #D4AF37;
+  --green-dim:   rgba(212,175,55,0.12);
+  --green-dark: #9E7C1F;
+  --green-hover: #E6C65C;
 
   /* status */
   --red:        #ff4d4d;
@@ -66,10 +66,10 @@
   --line:       rgba(0,0,0,0.08);
   --line-2:     rgba(0,0,0,0.14);
 
-  --green:      #5a9e00;
-  --green-dim:  rgba(90,158,0,0.1);
-  --green-dark: #3f7000;
-  --green-hover:#4d8c00;
+  --green:      #D4AF37;
+  --green-dim:   rgba(212,175,55,0.12);
+  --green-dark: #9E7C1F;
+  --green-hover: #E6C65C;
 
   --red:        #cc2200;
 
@@ -245,7 +245,7 @@ nav.scrolled { background: var(--nav-bg-scroll); }
 /* logo */
 .logo-link { display: flex; align-items: center; flex-shrink: 0; }
 .logo {
-  height: 66px;
+  height: 36px;
   width: auto;
   display: block;
 }
