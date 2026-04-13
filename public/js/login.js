@@ -24,7 +24,6 @@ document.addEventListener("DOMContentLoaded", function () {
   })
 
   if (tab === "signup")       switchTab("signup")
-  else if (tab === "seller")  switchTab("seller")
   else                        switchTab("signin")
 })
 
@@ -37,10 +36,9 @@ function switchTab(tab) {
   var indicator  = document.getElementById("tabIndicator")
   var tabSignIn  = document.getElementById("tabSignIn")
   var tabSignUp  = document.getElementById("tabSignUp")
-  var tabSeller  = document.getElementById("tabSeller")
   var formSignIn = document.getElementById("formSignIn")
   var formSignUp = document.getElementById("formSignUp")
-  var formSeller = document.getElementById("formSeller")
+ 
 
   tabSignIn.classList.remove("active")
   tabSignUp.classList.remove("active")
@@ -63,14 +61,7 @@ function switchTab(tab) {
     formSignUp.style.animation = "none"
     formSignUp.offsetHeight
     formSignUp.style.animation = ""
-  } else if (tab === "seller") {
-    tabSeller.classList.add("active")
-    indicator.classList.add("pos-3")
-    formSeller.classList.remove("hidden")
-    formSeller.style.animation = "none"
-    formSeller.offsetHeight
-    formSeller.style.animation = ""
-  }
+  } 
 }
 
 

@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="Cashly — Contact us. Reach our team via chat, call, or message. We're here 24/7."/>
+  <title>Contact Us — Cashly</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="css/style.css"/>
+  <link rel="stylesheet" href="css/contact.css"/>
+</head>
+<body>
+
+  <!-- ── NAV ── -->
+  <nav id="navbar">
+    <a href="index.html" class="logo-link">
+      <img src="assets/Logos/cashly-main.png" alt="Cashly" class="logo logo-dark"/>
+      <img src="assets/Logos/cashly-light.png"  alt="Cashly" class="logo logo-light"/>
+    </a>
+
+    <ul class="nav-links">
+      <li><a href="index.html#products">Products</a></li>
+      <li><a href="index.html#how-it-works">How it works</a></li>
+      <li><a href="index.html#calculator">EMI Calculator</a></li>
+      <li><a href="index.html#features">Why Cashly</a></li>
+    </ul>
+
+    <div class="nav-actions">
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="5"/>
+          <line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+          <line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+        </svg>
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+      </button>
+      <a href="login.html" class="btn btn-ghost">Sign in</a>
+      <a href="apply.html" class="btn btn-primary">Apply now</a>
+    </div>
+
+    <div class="nav-right-mobile">
+      <button class="theme-toggle" id="themeToggleMobile" aria-label="Toggle theme">
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="5"/>
+          <line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+          <line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+        </svg>
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+      </button>
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- mobile drawer -->
+  <div class="mobile-drawer" id="mobileDrawer">
+    <ul>
+      <li><a href="index.html#products"     class="drawer-link">Products</a></li>
+      <li><a href="index.html#how-it-works" class="drawer-link">How it works</a></li>
+      <li><a href="index.html#calculator"   class="drawer-link">EMI Calculator</a></li>
+      <li><a href="index.html#features"     class="drawer-link">Why Cashly</a></li>
+    </ul>
+    <div class="drawer-actions">
+      <a href="login.html" class="btn btn-ghost  btn-full">Sign in</a>
+      <a href="apply.html" class="btn btn-primary btn-full">Apply now</a>
+    </div>
+  </div>
+
+  <!-- ══ HERO STRIP ══ -->
+  <section class="contact-hero">
+    <div class="contact-hero-inner">
+      <a href="index.html" class="back-link">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M19 12H5M5 12l7 7M5 12l7-7"/>
+        </svg>
+        Back to home
+      </a>
+      <p class="section-tag">Contact us</p>
+      <h1 class="contact-hero-title">
+        We're here to<br/><em>help you.</em>
+      </h1>
+      <p class="contact-hero-sub">
+        Questions about your loan? Application status? Repayments?
+        Our team is available 24/7 — reach us any way you prefer.
+      </p>
+
+      <!-- response time pills -->
+      <div class="response-pills">
+        <div class="response-pill">
+          <span class="rp-dot"></span>
+          Chat — under 2 min
+        </div>
+        <div class="response-pill">
+          <span class="rp-dot"></span>
+          Phone — under 5 min
+        </div>
+        <div class="response-pill">
+          <span class="rp-dot"></span>
+          Email — within 4 hrs
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ MAIN CONTENT ══ -->
+  <main class="contact-main">
+
+    <!-- ── CHANNEL CARDS ── -->
+    <section class="channels-section">
+      <div class="channels-grid" id="channelsGrid">
+        <!-- injected by contact.js -->
+      </div>
+    </section>
+
+    <!-- ── TWO-PANEL: Form + Info ── -->
+    <section class="contact-body">
+
+      <!-- LEFT — contact form -->
+      <div class="contact-form-panel">
+        <div class="form-panel-head">
+          <h2>Send us a message</h2>
+          <p>Fill this in and we'll get back to you within 4 hours on business days.</p>
+        </div>
+
+        <!-- topic selector tabs -->
+        <div class="topic-tabs" id="topicTabs">
+          <!-- injected by contact.js -->
+        </div>
+
+        <!-- form -->
+        <form id="contactForm" novalidate>
+
+          <div class="form-row-2">
+            <div class="form-group">
+              <label for="cfName">Full name <span class="req">*</span></label>
+              <input type="text" id="cfName" placeholder="Rahul Sharma"/>
+            </div>
+            <div class="form-group">
+              <label for="cfPhone">Mobile number <span class="req">*</span></label>
+              <div class="input-wrap prefix">
+                <span class="input-prefix">+91</span>
+                <input type="tel" id="cfPhone" class="num" placeholder="98765 43210" maxlength="10"/>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="cfEmail">Email address <span class="req">*</span></label>
+            <input type="email" id="cfEmail" placeholder="rahul@email.com"/>
+          </div>
+
+          <div class="form-group" id="loanIdGroup">
+            <label for="cfLoanId">Loan / Application ID
+              <span class="optional-tag">optional</span>
+            </label>
+            <input type="text" id="cfLoanId" class="num" placeholder="CLY-XXXXXX"/>
+          </div>
+
+          <div class="form-group">
+            <label for="cfSubject">Subject <span class="req">*</span></label>
+            <input type="text" id="cfSubject" placeholder="Brief description of your query"/>
+          </div>
+
+          <div class="form-group">
+            <label for="cfMessage">Message <span class="req">*</span></label>
+            <textarea id="cfMessage" rows="5" placeholder="Tell us more — include any relevant details, dates, or amounts…"></textarea>
+          </div>
+
+          <!-- priority -->
+          <div class="form-group">
+            <label>Priority</label>
+            <div class="priority-row" id="priorityRow">
+              <label class="priority-chip">
+                <input type="radio" name="priority" value="low" checked/>
+                <span>Low</span>
+              </label>
+              <label class="priority-chip">
+                <input type="radio" name="priority" value="medium"/>
+                <span>Medium</span>
+              </label>
+              <label class="priority-chip active">
+                <input type="radio" name="priority" value="high"/>
+                <span>High</span>
+              </label>
+              <label class="priority-chip urgent">
+                <input type="radio" name="priority" value="urgent"/>
+                <span>Urgent</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- file attachment -->
+          <div class="form-group">
+            <label>Attach a file
+              <span class="optional-tag">optional</span>
+            </label>
+            <div class="attach-zone" id="attachZone">
+              <input type="file" id="cfAttachment" class="attach-input" accept=".jpg,.jpeg,.png,.pdf,.doc,.docx"/>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"/>
+              </svg>
+              <div class="attach-copy">
+                <span class="attach-label">Drop file here or <span class="attach-browse">browse</span></span>
+                <span class="attach-hint">PDF, JPG, PNG, DOC — max 10 MB</span>
+              </div>
+              <span class="attach-filename" id="attachFilename"></span>
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-lg btn-full" id="cfSubmitBtn">
+            Send message
+            <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="22" y1="2" x2="11" y2="13"/>
+              <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+            </svg>
+          </button>
+
+        </form>
+
+        <!-- success state (hidden by default) -->
+        <div class="form-success" id="formSuccess">
+          <div class="fs-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="20 6 9 17 4 12"/>
+            </svg>
+          </div>
+          <h3>Message sent!</h3>
+          <p>We've received your message. Our team will respond to <strong id="cfEmailConfirm">your email</strong> within <strong>4 hours</strong>.</p>
+          <div class="fs-ticket">
+            Ticket ID: <span class="num" id="ticketId">—</span>
+          </div>
+          <button class="btn btn-ghost" id="sendAnotherBtn">Send another message</button>
+        </div>
+      </div>
+
+      <!-- RIGHT — info panel -->
+      <div class="contact-info-panel">
+
+        <!-- office info -->
+        <div class="info-card" id="officeCard">
+          <div class="info-card-head">
+            <div class="info-card-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+                <polyline points="9 22 9 12 15 12 15 22"/>
+              </svg>
+            </div>
+            <h3>Our offices</h3>
+          </div>
+
+          <div class="office-list" id="officeList">
+            <!-- injected by contact.js -->
+          </div>
+        </div>
+
+        <!-- operating hours -->
+        <div class="info-card">
+          <div class="info-card-head">
+            <div class="info-card-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"/>
+                <polyline points="12 6 12 12 16 14"/>
+              </svg>
+            </div>
+            <h3>Support hours</h3>
+          </div>
+
+          <div class="hours-list" id="hoursList">
+            <!-- injected by contact.js -->
+          </div>
+
+          <div class="hours-note">
+            <span class="live-dot"></span>
+            Support is active right now
+          </div>
+        </div>
+
+        <!-- FAQ quick links -->
+        <div class="info-card">
+          <div class="info-card-head">
+            <div class="info-card-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/>
+                <line x1="12" y1="17" x2="12.01" y2="17"/>
+              </svg>
+            </div>
+            <h3>Quick answers</h3>
+          </div>
+
+          <div class="faq-list" id="faqList">
+            <!-- injected by contact.js -->
+          </div>
+        </div>
+
+        <!-- social links -->
+        <div class="info-card social-card">
+          <div class="info-card-head">
+            <div class="info-card-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                <circle cx="9" cy="7" r="4"/>
+                <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+              </svg>
+            </div>
+            <h3>Follow us</h3>
+          </div>
+          <div class="social-row" id="socialRow">
+            <!-- injected by contact.js -->
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ── MAP STRIP ── -->
+    <section class="map-section">
+      <div class="map-section-head reveal">
+        <p class="section-tag">Find us</p>
+        <h2 class="section-title">Visit our <em>Mumbai HQ</em></h2>
+      </div>
+      <div class="map-wrap reveal">
+        <!-- Real map embed placeholder — replace src with Google Maps embed URL -->
+        <div class="map-placeholder">
+          <svg viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+            <circle cx="12" cy="10" r="3"/>
+          </svg>
+          <p>Cashly Finance Pvt. Ltd.<br/>Level 14, One BKC, Bandra Kurla Complex<br/>Mumbai — 400051</p>
+          <a href="https://maps.google.com" target="_blank" class="btn btn-primary">
+            Open in Maps
+            <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M17 7H9M17 7V15"/></svg>
+          </a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ── FOOTER ── -->
+  <footer>
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a href="index.html" class="logo-link footer-logo">
+          <img src="assets/Logos/cashly-main.png" alt="Cashly" class="logo logo-dark"/>
+          <img src="assets/Logos/cashly-light.png"  alt="Cashly" class="logo logo-light"/>
+        </a>
+        <p class="footer-tagline">Fast, fair, transparent lending<br/>for every Indian.</p>
+      </div>
+      <div class="footer-links-group">
+        <div class="footer-col">
+          <h4>Products</h4>
+          <ul>
+            <li><a href="#">Personal Loan</a></li>
+            <li><a href="#">Business Loan</a></li>
+            <li><a href="#">Home Loan</a></li>
+            <li><a href="#">Education Loan</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Company</h4>
+          <ul>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Careers</a></li>
+            <li><a href="#">Blog</a></li>
+            <li><a href="#">Press</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Legal</h4>
+          <ul>
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Terms of Use</a></li>
+            <li><a href="#">Fair Practice Code</a></li>
+            <li><a href="#">Grievance Redressal</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span class="footer-copy">© 2026 Cashly Finance Pvt. Ltd. &nbsp;|&nbsp; RBI Registered NBFC &nbsp;|&nbsp; CIN: U65910MH2024PTC123456</span>
+      <ul class="footer-legal-links">
+        <li><a href="#">MITC</a></li>
+        <li><a href="#">Nodal Officer</a></li>
+        <li><a href="#">Sitemap</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <script src="js/contact.js"></script>
+</body>
+</html>

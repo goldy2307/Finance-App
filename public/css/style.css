@@ -245,7 +245,7 @@ nav.scrolled { background: var(--nav-bg-scroll); }
 /* logo */
 .logo-link { display: flex; align-items: center; flex-shrink: 0; }
 .logo {
-  height: 56px;
+  height: 66px;
   width: auto;
   display: block;
 }
