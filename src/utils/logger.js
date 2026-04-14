@@ -1,51 +1,62 @@
 'use strict';
 
 const { createLogger, format, transports } = require('winston');
-require('winston-daily-rotate-file');
+const DailyRotateFile = require('winston-daily-rotate-file');
 const path = require('path');
 const config = require('../config');
 
-const { combine, timestamp, printf, colorize, errors } = format;
+const { combine, timestamp, printf, colorize, errors, json } = format;
 
-const logFormat = printf(({ level, message, timestamp, stack }) => {
-  return `${timestamp} [${level}] ${stack || message}`;
+// ── Console format (dev) ──────────────────────────────────────────────────
+const devFormat = combine(
+  colorize({ all: true }),
+  timestamp({ format: 'HH:mm:ss' }),
+  errors({ stack: true }),
+  printf(({ level, message, timestamp: ts, stack }) =>
+    stack
+      ? `${ts} [${level}] ${message}\n${stack}`
+      : `${ts} [${level}] ${message}`
+  )
+);
+
+// ── JSON format (prod) ────────────────────────────────────────────────────
+const prodFormat = combine(
+  timestamp(),
+  errors({ stack: true }),
+  json()
+);
+
+// ── Rotating file transport ───────────────────────────────────────────────
+const fileTransport = new DailyRotateFile({
+  dirname:       path.resolve(config.log.dir),
+  filename:      'cashly-%DATE%.log',
+  datePattern:   'YYYY-MM-DD',
+  zippedArchive: true,
+  maxSize:       '20m',
+  maxFiles:      '30d',
+  format:        prodFormat,
+});
+
+const errorFileTransport = new DailyRotateFile({
+  dirname:       path.resolve(config.log.dir),
+  filename:      'cashly-error-%DATE%.log',
+  datePattern:   'YYYY-MM-DD',
+  level:         'error',
+  zippedArchive: true,
+  maxSize:       '20m',
+  maxFiles:      '60d',
+  format:        prodFormat,
 });
 
 const logger = createLogger({
-  level: config.log.level,
-  format: combine(
-    timestamp({ format: 'YYYY-MM-DD HH:mm:ss' }),
-    errors({ stack: true }),
-    logFormat
-  ),
+  level:       config.log.level,
+  exitOnError: false,
   transports: [
-    // Console — colourised in dev, plain in prod
     new transports.Console({
-      format: combine(
-        colorize(),
-        timestamp({ format: 'YYYY-MM-DD HH:mm:ss' }),
-        errors({ stack: true }),
-        logFormat
-      ),
-      silent: config.env === 'test',
+      format: config.isDev ? devFormat : prodFormat,
     }),
-
-    // Daily rotating file — errors only
-    new transports.DailyRotateFile({
-      filename:    path.join(config.log.dir, 'error-%DATE%.log'),
-      datePattern: 'YYYY-MM-DD',
-      level:       'error',
-      maxFiles:    '30d',
-      zippedArchive: true,
-    }),
-
-    // Daily rotating file — all levels
-    new transports.DailyRotateFile({
-      filename:    path.join(config.log.dir, 'combined-%DATE%.log'),
-      datePattern: 'YYYY-MM-DD',
-      maxFiles:    '14d',
-      zippedArchive: true,
-    }),
+    fileTransport,
+    errorFileTransport,
   ],
 });
 

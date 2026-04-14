@@ -2,67 +2,111 @@
 
 /**
  * User Repository
- * Services call ONLY this file for user data access.
- * All DB-specific logic lives here — services stay DB-agnostic.
+ * Services call ONLY these methods — never touch models directly.
+ * Internally routes to Mongo or PG based on DB_DRIVER.
  */
 
-const User = require('../models/mongo/user.model');
+const config = require('../../config');
 
-async function findById(id) {
-  return User.findById(id).lean();
+// ── Lazy-load the right model ─────────────────────────────────────────────
+function getModel() {
+  if (config.db.driver === 'mongo') {
+    return require('../models/mongo/user.model');
+  }
+  return require('../models/pg/index').getModels().User;
 }
 
-async function findByEmail(email) {
-  return User.findOne({ email: email.toLowerCase() }).lean();
-}
-
-async function findByPhone(phone) {
-  return User.findOne({ phone }).lean();
-}
-
-/** Used only for login — need passwordHash which is select:false */
-async function findByEmailWithPassword(email) {
-  return User.findOne({ email: email.toLowerCase() }).select('+passwordHash');
-}
-
-async function findByPhoneWithPassword(phone) {
-  return User.findOne({ phone }).select('+passwordHash');
-}
-
+// ── CREATE ────────────────────────────────────────────────────────────────
 async function create(data) {
-  const user = new User(data);
-  return user.save();
+  const Model = getModel();
+  if (config.db.driver === 'mongo') {
+    const doc = await Model.create(data);
+    return doc.toJSON();
+  }
+  const record = await Model.create(data);
+  return record.toJSON();
 }
 
-async function updateById(id, updates) {
-  return User.findByIdAndUpdate(
-    id,
-    { $set: updates },
-    { new: true, runValidators: true }
-  ).lean();
+// ── READ ──────────────────────────────────────────────────────────────────
+async function findById(id, includePassword = false) {
+  const Model = getModel();
+  if (config.db.driver === 'mongo') {
+    const q = Model.findById(id);
+    if (includePassword) q.select('+password +refreshTokens');
+    return q.lean();
+  }
+  return Model.findByPk(id, {
+    attributes: includePassword ? undefined : { exclude: ['password', 'refreshTokens'] },
+  });
 }
 
-async function setLastLogin(id) {
-  return User.findByIdAndUpdate(id, { $set: { lastLoginAt: new Date() } });
+async function findByEmail(email, includePassword = false) {
+  const Model = getModel();
+  if (config.db.driver === 'mongo') {
+    const q = Model.findOne({ email: email.toLowerCase() });
+    if (includePassword) q.select('+password +refreshTokens');
+    return q.lean();
+  }
+  return Model.findOne({
+    where: { email: email.toLowerCase() },
+    attributes: includePassword ? undefined : { exclude: ['password'] },
+  });
 }
 
+async function findByPhone(phone, includePassword = false) {
+  const Model = getModel();
+  if (config.db.driver === 'mongo') {
+    const q = Model.findOne({ phone });
+    if (includePassword) q.select('+password +refreshTokens');
+    return q.lean();
+  }
+  return Model.findOne({
+    where: { phone },
+    attributes: includePassword ? undefined : { exclude: ['password'] },
+  });
+}
+
+// ── UPDATE ────────────────────────────────────────────────────────────────
+async function updateById(id, data) {
+  const Model = getModel();
+  if (config.db.driver === 'mongo') {
+    return Model.findByIdAndUpdate(id, { $set: data }, { new: true, runValidators: true }).lean();
+  }
+  await Model.update(data, { where: { id } });
+  return findById(id);
+}
+
+// ── DELETE (soft) ─────────────────────────────────────────────────────────
+async function deactivate(id) {
+  return updateById(id, { isActive: false });
+}
+
+// ── EXISTS ────────────────────────────────────────────────────────────────
 async function existsByEmail(email) {
-  return User.exists({ email: email.toLowerCase() });
+  const Model = getModel();
+  if (config.db.driver === 'mongo') {
+    return !!(await Model.exists({ email: email.toLowerCase() }));
+  }
+  const count = await Model.count({ where: { email: email.toLowerCase() } });
+  return count > 0;
 }
 
 async function existsByPhone(phone) {
-  return User.exists({ phone });
+  const Model = getModel();
+  if (config.db.driver === 'mongo') {
+    return !!(await Model.exists({ phone }));
+  }
+  const count = await Model.count({ where: { phone } });
+  return count > 0;
 }
 
 module.exports = {
+  create,
   findById,
   findByEmail,
   findByPhone,
-  findByEmailWithPassword,
-  findByPhoneWithPassword,
-  create,
   updateById,
-  setLastLogin,
+  deactivate,
   existsByEmail,
   existsByPhone,
 };

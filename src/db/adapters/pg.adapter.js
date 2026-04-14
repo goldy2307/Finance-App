@@ -4,54 +4,44 @@ const { Sequelize } = require('sequelize');
 const config        = require('../../config');
 const logger        = require('../../utils/logger');
 
-/**
- * PostgreSQL adapter — implements the same IDbAdapter interface
- * as mongo.adapter.js.  Swap DB_DRIVER=pg in .env to activate.
- */
+let sequelize = null;
 
-const { host, port, user, password, database, ssl } = config.db.pg;
+function getInstance() {
+  if (sequelize) return sequelize;
 
-const sequelize = new Sequelize(database, user, password, {
-  host,
-  port,
-  dialect: 'postgres',
-  logging: msg => logger.debug(msg),
-  dialectOptions: ssl ? { ssl: { require: true, rejectUnauthorized: false } } : {},
-  pool: {
-    max:     10,
-    min:     2,
-    acquire: 30000,
-    idle:    10000,
-  },
-});
+  const { host, port, database, username, password, ssl } = config.pg;
 
-let _connected = false;
+  sequelize = new Sequelize(database, username, password, {
+    host,
+    port,
+    dialect: 'postgres',
+    logging: (sql) => logger.debug(`[PG] ${sql}`),
+    pool: {
+      max:     10,
+      min:     2,
+      acquire: 30000,
+      idle:    10000,
+    },
+    dialectOptions: ssl
+      ? { ssl: { require: true, rejectUnauthorized: false } }
+      : {},
+  });
 
-async function connect() {
-  if (_connected) return;
-  try {
-    await sequelize.authenticate();
-    _connected = true;
-    logger.info('[PostgreSQL] Connected successfully');
-  } catch (err) {
-    logger.error(`[PostgreSQL] Connection failed: ${err.message}`);
-    throw err;
-  }
-}
-
-async function disconnect() {
-  if (!_connected) return;
-  await sequelize.close();
-  _connected = false;
-  logger.info('[PostgreSQL] Disconnected');
-}
-
-function isConnected() {
-  return _connected;
-}
-
-function getClient() {
   return sequelize;
 }
 
-module.exports = { connect, disconnect, isConnected, getClient };
+async function connect() {
+  const instance = getInstance();
+  await instance.authenticate();
+  logger.info('[PostgreSQL] Connection authenticated');
+}
+
+async function disconnect() {
+  if (sequelize) {
+    await sequelize.close();
+    sequelize = null;
+    logger.info('[PostgreSQL] Disconnected gracefully');
+  }
+}
+
+module.exports = { connect, disconnect, getInstance };

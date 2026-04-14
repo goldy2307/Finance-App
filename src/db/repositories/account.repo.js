@@ -1,68 +1,58 @@
 'use strict';
 
-/**
- * User Repository
- * Services call ONLY this file for user data access.
- * All DB-specific logic lives here — services stay DB-agnostic.
- */
+const config = require('../../config');
 
-const User = require('../models/mongo/user.model');
-
-async function findById(id) {
-  return User.findById(id).lean();
-}
-
-async function findByEmail(email) {
-  return User.findOne({ email: email.toLowerCase() }).lean();
-}
-
-async function findByPhone(phone) {
-  return User.findOne({ phone }).lean();
-}
-
-/** Used only for login — need passwordHash which is select:false */
-async function findByEmailWithPassword(email) {
-  return User.findOne({ email: email.toLowerCase() }).select('+passwordHash');
-}
-
-async function findByPhoneWithPassword(phone) {
-  return User.findOne({ phone }).select('+passwordHash');
+function getModel() {
+  if (config.db.driver === 'mongo') return require('../models/mongo/account.model');
+  return require('../models/pg/index').getModels().Account;
 }
 
 async function create(data) {
-  const user = new User(data);
-  return user.save();
+  const Model = getModel();
+  if (config.db.driver === 'mongo') return (await Model.create(data)).toJSON();
+  return (await Model.create(data)).toJSON();
 }
 
-async function updateById(id, updates) {
-  return User.findByIdAndUpdate(
-    id,
-    { $set: updates },
-    { new: true, runValidators: true }
-  ).lean();
+async function findByUserId(userId) {
+  const Model = getModel();
+  if (config.db.driver === 'mongo') return Model.findOne({ userId }).lean();
+  return Model.findOne({ where: { userId } });
 }
 
-async function setLastLogin(id) {
-  return User.findByIdAndUpdate(id, { $set: { lastLoginAt: new Date() } });
+async function updateByUserId(userId, data) {
+  const Model = getModel();
+  if (config.db.driver === 'mongo') {
+    return Model.findOneAndUpdate(
+      { userId },
+      { $set: data },
+      { new: true, upsert: true, runValidators: true }
+    ).lean();
+  }
+  await Model.upsert({ userId, ...data });
+  return findByUserId(userId);
 }
 
-async function existsByEmail(email) {
-  return User.exists({ email: email.toLowerCase() });
+/**
+ * Atomically increment/decrement numeric fields.
+ * delta: e.g. { outstandingPaise: -5000, totalRepaidPaise: 5000 }
+ */
+async function incrementFields(userId, delta) {
+  const Model = getModel();
+  if (config.db.driver === 'mongo') {
+    return Model.findOneAndUpdate(
+      { userId },
+      { $inc: delta },
+      { new: true }
+    ).lean();
+  }
+  // Sequelize: increment/decrement per field
+  const instance = await Model.findOne({ where: { userId } });
+  if (!instance) throw new Error(`Account not found for user ${userId}`);
+  for (const [field, value] of Object.entries(delta)) {
+    if (value > 0) await instance.increment(field, { by: value });
+    if (value < 0) await instance.decrement(field, { by: Math.abs(value) });
+  }
+  return instance.reload();
 }
 
-async function existsByPhone(phone) {
-  return User.exists({ phone });
-}
-
-module.exports = {
-  findById,
-  findByEmail,
-  findByPhone,
-  findByEmailWithPassword,
-  findByPhoneWithPassword,
-  create,
-  updateById,
-  setLastLogin,
-  existsByEmail,
-  existsByPhone,
-};
+module.exports = { create, findByUserId, updateByUserId, incrementFields };

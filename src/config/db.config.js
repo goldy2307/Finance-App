@@ -1,38 +1,30 @@
 'use strict';
 
 const config = require('./index');
+const logger = require('../utils/logger');
 
 /**
- * DB adapter factory.
- * Returns the correct adapter based on DB_DRIVER env var.
- * Services and repositories never import adapters directly —
- * they get the instance through this module.
- *
- * To migrate from MongoDB → PostgreSQL:
- *   1. Set DB_DRIVER=pg in .env
- *   2. Restart the app
- *   Zero application-layer changes needed.
+ * Connects to whichever database DB_DRIVER points to.
+ * Swap the env var — nothing else changes.
  */
-
-let _adapter = null;
-
-function getAdapter() {
-  if (_adapter) return _adapter;
-
+async function connectDB() {
   const driver = config.db.driver;
 
   if (driver === 'mongo') {
-    _adapter = require('../db/adapters/mongo.adapter');
-  } else if (driver === 'pg') {
-    _adapter = require('../db/adapters/pg.adapter');
-  } else {
-    throw new Error(
-      `[DB Config] Unknown DB_DRIVER: "${driver}". ` +
-      'Valid options: "mongo" | "pg"'
-    );
+    const mongoAdapter = require('../db/adapters/mongo.adapter');
+    await mongoAdapter.connect();
+    logger.info(`[DB] MongoDB connected`);
+    return;
   }
 
-  return _adapter;
+  if (driver === 'pg') {
+    const pgAdapter = require('../db/adapters/pg.adapter');
+    await pgAdapter.connect();
+    logger.info(`[DB] PostgreSQL connected`);
+    return;
+  }
+
+  throw new Error(`Unknown DB_DRIVER: "${driver}". Use 'mongo' or 'pg'.`);
 }
 
-module.exports = { getAdapter };
+module.exports = { connectDB };

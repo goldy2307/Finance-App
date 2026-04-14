@@ -2,63 +2,57 @@
 
 require('dotenv').config();
 
-/**
- * Central config object — import this everywhere instead of
- * calling process.env directly in application code.
- * Validates required variables at startup so the app fails
- * fast with a clear message rather than silently misbehaving.
- */
-
-const REQUIRED = [
-  'JWT_SECRET',
-  'JWT_REFRESH_SECRET',
-];
-
-function validate() {
-  const missing = REQUIRED.filter(k => !process.env[k]);
-  if (missing.length) {
-    throw new Error(
-      `[Config] Missing required environment variables: ${missing.join(', ')}\n` +
-      'Copy .env.example to .env and fill in the values.'
-    );
+// Fail fast — crash at startup if any critical env var is missing
+const required = ['JWT_SECRET', 'DB_DRIVER'];
+required.forEach((key) => {
+  if (!process.env[key]) {
+    throw new Error(`Missing required environment variable: ${key}`);
   }
-}
-
-// Only enforce in non-test environments
-if (process.env.NODE_ENV !== 'test') validate();
+});
 
 const config = {
-  env:  process.env.NODE_ENV || 'development',
-  port: parseInt(process.env.PORT, 10) || 5000,
-  apiVersion: process.env.API_VERSION || 'v1',
+  env:  process.env.NODE_ENV  || 'development',
+  port: parseInt(process.env.PORT || '5000', 10),
+  isDev:  process.env.NODE_ENV === 'development',
+  isProd: process.env.NODE_ENV === 'production',
 
   db: {
-    driver:   process.env.DB_DRIVER || 'mongo',   // 'mongo' | 'pg'
-    mongoUri: process.env.MONGO_URI || 'mongodb://localhost:27017/cashly',
-    pg: {
-      host:     process.env.PG_HOST     || 'localhost',
-      port:     parseInt(process.env.PG_PORT, 10) || 5432,
-      user:     process.env.PG_USER     || 'cashly_user',
-      password: process.env.PG_PASSWORD || '',
-      database: process.env.PG_DATABASE || 'cashly_db',
-      ssl:      process.env.PG_SSL === 'true',
-    },
+    driver: process.env.DB_DRIVER, // 'mongo' | 'pg'
+  },
+
+  mongo: {
+    uri: process.env.MONGO_URI || 'mongodb://localhost:27017/cashly_dev',
+  },
+
+  pg: {
+    host:     process.env.PG_HOST     || 'localhost',
+    port:     parseInt(process.env.PG_PORT || '5432', 10),
+    database: process.env.PG_DATABASE || 'cashly_dev',
+    username: process.env.PG_USER     || 'postgres',
+    password: process.env.PG_PASSWORD || '',
+    ssl:      process.env.PG_SSL === 'true',
   },
 
   jwt: {
-    secret:             process.env.JWT_SECRET         || 'dev-secret',
-    expiresIn:          process.env.JWT_EXPIRES_IN     || '7d',
-    refreshSecret:      process.env.JWT_REFRESH_SECRET || 'dev-refresh-secret',
+    secret:             process.env.JWT_SECRET,
+    expiresIn:          process.env.JWT_EXPIRES_IN         || '7d',
+    refreshSecret:      process.env.JWT_REFRESH_SECRET     || process.env.JWT_SECRET,
     refreshExpiresIn:   process.env.JWT_REFRESH_EXPIRES_IN || '30d',
   },
 
-  cors: {
-    origin: process.env.CORS_ORIGIN || 'http://localhost:3000',
+  bcrypt: {
+    rounds: parseInt(process.env.BCRYPT_ROUNDS || '12', 10),
   },
 
   rateLimit: {
-    windowMs: parseInt(process.env.RATE_LIMIT_WINDOW_MS, 10) || 15 * 60 * 1000,
-    max:      parseInt(process.env.RATE_LIMIT_MAX, 10)        || 100,
+    windowMs: parseInt(process.env.RATE_LIMIT_WINDOW_MS || '900000', 10),
+    max:      parseInt(process.env.RATE_LIMIT_MAX        || '100',    10),
+  },
+
+  cors: {
+    origins: (process.env.ALLOWED_ORIGINS || 'http://localhost:3000')
+      .split(',')
+      .map((o) => o.trim()),
   },
 
   log: {
@@ -66,8 +60,12 @@ const config = {
     dir:   process.env.LOG_DIR   || 'logs',
   },
 
-  bcrypt: {
-    saltRounds: parseInt(process.env.BCRYPT_SALT_ROUNDS, 10) || 12,
+  email: {
+    host:   process.env.SMTP_HOST  || 'smtp.mailtrap.io',
+    port:   parseInt(process.env.SMTP_PORT || '587', 10),
+    user:   process.env.SMTP_USER  || '',
+    pass:   process.env.SMTP_PASS  || '',
+    from:   process.env.EMAIL_FROM || 'noreply@cashly.in',
   },
 };
 

@@ -1,151 +1,207 @@
 'use strict';
 
-const { v4: uuidv4 }   = require('uuid');
-const loanRepo          = require('../db/repositories/loan.repo');
-const transactionRepo   = require('../db/repositories/transaction.repo');
-const { calcEMI }       = require('../utils/currency');
-const { addMonths }     = require('../utils/date');
-const auditLogger       = require('./audit.logger');
-const logger            = require('../utils/logger');
+const loanRepo    = require('../db/repositories/loan.repo');
+const accountRepo = require('../db/repositories/account.repo');
+const txnRepo     = require('../db/repositories/transaction.repo');
+const audit       = require('./audit.logger');
+const { toPaise, toRupees, calcEMI } = require('../utils/currency');
+const { now, addMonths }             = require('../utils/date');
+const logger = require('../utils/logger');
 
-/** Generate a human-readable application ID like CLY-A7X3K1 */
-function generateAppId() {
-  return 'CLY-' + uuidv4().replace(/-/g, '').toUpperCase().slice(0, 6);
+// ── Interest rate map ─────────────────────────────────────────────────────
+const BASE_RATES = {
+  personal:  10.5,
+  business:  12.0,
+  home:       8.75,
+  education:  9.25,
+};
+
+// ── Apply for a loan ──────────────────────────────────────────────────────
+async function apply(userId, data, meta = {}) {
+  const {
+    loanType,
+    amountRupees,
+    tenureMonths,
+    purpose,
+    employmentType,
+    monthlyIncomeRupees,
+  } = data;
+
+  // Check for active loan of same type (business rule)
+  const existing = await loanRepo.findByUser(userId, { loanType, status: 'disbursed' });
+  if (existing.length > 0) {
+    throw Object.assign(
+      new Error(`You already have an active ${loanType} loan.`),
+      { statusCode: 409 }
+    );
+  }
+
+  const interestRatePct  = BASE_RATES[loanType];
+  const principalPaise   = toPaise(amountRupees);
+  const emiPaise         = calcEMI(principalPaise, interestRatePct, tenureMonths);
+
+  const loan = await loanRepo.create({
+    userId,
+    loanType,
+    principalPaise,
+    outstandingPaise: principalPaise,
+    interestRatePct,
+    tenureMonths,
+    emiPaise,
+    purpose,
+    employmentType,
+    monthlyIncomePaise: toPaise(monthlyIncomeRupees || 0),
+    status: 'pending',
+  });
+
+  audit.log({
+    action:       audit.ACTIONS.LOAN_APPLIED,
+    actorId:      userId,
+    actorRole:    'borrower',
+    resourceId:   loan.applicationId,
+    resourceType: 'loan',
+    after:        { loanType, amountRupees, tenureMonths },
+    ...meta,
+  });
+
+  return formatLoan(loan);
 }
 
-class LoanService {
+// ── Get a single loan ─────────────────────────────────────────────────────
+async function getById(loanId, requestingUserId, requestingRole) {
+  const loan = await loanRepo.findById(loanId);
+  if (!loan) throw Object.assign(new Error('Loan not found.'), { statusCode: 404 });
 
-  /** Submit a new loan application */
-  async apply({ userId, type, principal, interestRate, tenureMonths, purpose }) {
-    const emi           = calcEMI(principal, interestRate, tenureMonths);
-    const applicationId = generateAppId();
-
-    const loan = await loanRepo.create({
-      userId,
-      applicationId,
-      type,
-      principal,
-      interestRate,
-      tenureMonths,
-      emi,
-      purpose,
-      status:              'pending',
-      outstandingPrincipal: principal,
-      totalEmis:            tenureMonths,
-    });
-
-    await auditLogger.log({
-      action:   'LOAN_APPLICATION_SUBMITTED',
-      userId,
-      entityId: loan._id,
-      meta:     { applicationId, type, principal },
-    });
-
-    logger.info(`[Loan] Application submitted: ${applicationId}`);
-    return loan;
+  // Borrowers can only see their own loans
+  const ownerId = String(loan.userId._id || loan.userId);
+  if (requestingRole === 'borrower' && ownerId !== requestingUserId) {
+    throw Object.assign(new Error('Forbidden.'), { statusCode: 403 });
   }
 
-  /** Get loans for a specific user */
-  async getByUser(userId, filters) {
-    return loanRepo.findByUserId(userId, filters);
-  }
-
-  /** Get single loan — checks ownership */
-  async getById(loanId, requestingUserId, requestingRole) {
-    const loan = await loanRepo.findById(loanId);
-    if (!loan) throw Object.assign(new Error('Loan not found'), { status: 404 });
-
-    const isOwner = loan.userId.toString() === requestingUserId.toString();
-    const isAdmin = ['admin', 'auditor'].includes(requestingRole);
-    if (!isOwner && !isAdmin) throw Object.assign(new Error('Forbidden'), { status: 403 });
-
-    return loan;
-  }
-
-  /** Admin: approve a loan */
-  async approve(loanId, adminUserId) {
-    const loan = await loanRepo.findById(loanId);
-    if (!loan) throw Object.assign(new Error('Loan not found'), { status: 404 });
-    if (loan.status !== 'pending' && loan.status !== 'under_review') {
-      throw Object.assign(new Error(`Cannot approve loan in status: ${loan.status}`), { status: 400 });
-    }
-
-    const nextEmiDue = addMonths(new Date(), 1);
-    const updated    = await loanRepo.updateStatus(loanId, 'approved', {
-      approvedBy: adminUserId,
-      approvedAt: new Date(),
-      nextEmiDue,
-    });
-
-    await auditLogger.log({
-      action:   'LOAN_APPROVED',
-      userId:   adminUserId,
-      entityId: loanId,
-      meta:     { loanId },
-    });
-
-    return updated;
-  }
-
-  /** Admin: reject a loan */
-  async reject(loanId, adminUserId, reason) {
-    const loan = await loanRepo.findById(loanId);
-    if (!loan) throw Object.assign(new Error('Loan not found'), { status: 404 });
-
-    const updated = await loanRepo.updateStatus(loanId, 'rejected', {
-      rejectionNote: reason,
-    });
-
-    await auditLogger.log({
-      action:   'LOAN_REJECTED',
-      userId:   adminUserId,
-      entityId: loanId,
-      meta:     { reason },
-    });
-
-    return updated;
-  }
-
-  /** Disburse an approved loan — creates disbursement transaction */
-  async disburse(loanId, adminUserId, bankAccountMasked) {
-    const loan = await loanRepo.findById(loanId);
-    if (!loan) throw Object.assign(new Error('Loan not found'), { status: 404 });
-    if (loan.status !== 'approved') {
-      throw Object.assign(new Error('Loan must be approved before disbursement'), { status: 400 });
-    }
-
-    // Create disbursement transaction
-    await transactionRepo.create({
-      transactionId: uuidv4(),
-      userId:        loan.userId,
-      loanId:        loan._id,
-      type:          'disbursement',
-      amount:        loan.principal,
-      status:        'completed',
-      debitAccount:  'CASHLY_FLOAT',
-      creditAccount: bankAccountMasked,
-      notes:         `Loan disbursement for ${loan.applicationId}`,
-    });
-
-    const updated = await loanRepo.updateStatus(loanId, 'active', {
-      disbursedAt: new Date(),
-      disbursedTo: bankAccountMasked,
-    });
-
-    await auditLogger.log({
-      action:   'LOAN_DISBURSED',
-      userId:   adminUserId,
-      entityId: loanId,
-      meta:     { amount: loan.principal },
-    });
-
-    return updated;
-  }
-
-  /** Admin: list all loans */
-  async listAll(filters) {
-    return loanRepo.findAll(filters);
-  }
+  return formatLoan(loan);
 }
 
-module.exports = new LoanService();
+// ── List loans for a user ─────────────────────────────────────────────────
+async function listByUser(userId, filters = {}) {
+  const loans = await loanRepo.findByUser(userId, filters);
+  return loans.map(formatLoan);
+}
+
+// ── Admin: list all loans with pagination ────────────────────────────────
+async function listAll(filters = {}, pagination = {}) {
+  const result = await loanRepo.findAll(filters, pagination);
+  return { ...result, data: result.data.map(formatLoan) };
+}
+
+// ── Admin: approve loan ───────────────────────────────────────────────────
+async function approve(loanId, adminId, meta = {}) {
+  const loan = await loanRepo.findById(loanId);
+  if (!loan) throw Object.assign(new Error('Loan not found.'), { statusCode: 404 });
+  if (loan.status !== 'pending' && loan.status !== 'under_review') {
+    throw Object.assign(new Error(`Cannot approve a loan with status: ${loan.status}`), { statusCode: 400 });
+  }
+
+  const updated = await loanRepo.updateStatus(loanId, 'approved');
+
+  audit.log({
+    action:       audit.ACTIONS.LOAN_APPROVED,
+    actorId:      adminId,
+    actorRole:    'admin',
+    resourceId:   loan.applicationId,
+    resourceType: 'loan',
+    before:       { status: loan.status },
+    after:        { status: 'approved' },
+    ...meta,
+  });
+
+  return formatLoan(updated);
+}
+
+// ── Admin: reject loan ────────────────────────────────────────────────────
+async function reject(loanId, adminId, reason, meta = {}) {
+  const loan = await loanRepo.findById(loanId);
+  if (!loan) throw Object.assign(new Error('Loan not found.'), { statusCode: 404 });
+
+  const updated = await loanRepo.updateStatus(loanId, 'rejected', { rejectionReason: reason });
+
+  audit.log({
+    action:       audit.ACTIONS.LOAN_REJECTED,
+    actorId:      adminId,
+    actorRole:    'admin',
+    resourceId:   loan.applicationId,
+    resourceType: 'loan',
+    before:       { status: loan.status },
+    after:        { status: 'rejected', reason },
+    ...meta,
+  });
+
+  return formatLoan(updated);
+}
+
+// ── Admin: disburse loan ──────────────────────────────────────────────────
+async function disburse(loanId, adminId, meta = {}) {
+  const loan = await loanRepo.findById(loanId);
+  if (!loan) throw Object.assign(new Error('Loan not found.'), { statusCode: 404 });
+  if (loan.status !== 'approved') {
+    throw Object.assign(new Error('Only approved loans can be disbursed.'), { statusCode: 400 });
+  }
+
+  const startDate   = now();
+  const endDate     = addMonths(startDate, loan.tenureMonths);
+  const nextDueDate = addMonths(startDate, 1);
+  const userId      = String(loan.userId._id || loan.userId);
+
+  // Update loan to disbursed
+  const updated = await loanRepo.updateStatus(loanId, 'disbursed', {
+    disbursedPaise: loan.principalPaise,
+    startDate,
+    endDate,
+    nextDueDate,
+  });
+
+  // Record disbursement transaction
+  await txnRepo.create({
+    loanId:      loanId,
+    userId,
+    type:        'disbursement',
+    amountPaise: loan.principalPaise,
+    status:      'success',
+    paymentMode: 'internal',
+    processedAt: now(),
+    description: `Loan disbursed — ${loan.applicationId}`,
+  });
+
+  // Update account balances
+  await accountRepo.incrementFields(userId, {
+    totalLoanedPaise: loan.principalPaise,
+    outstandingPaise: loan.principalPaise,
+    activeLoanCount:  1,
+  });
+
+  audit.log({
+    action:       audit.ACTIONS.LOAN_DISBURSED,
+    actorId:      adminId,
+    actorRole:    'admin',
+    resourceId:   loan.applicationId,
+    resourceType: 'loan',
+    before:       { status: loan.status },
+    after:        { status: 'disbursed', disbursedPaise: loan.principalPaise },
+    ...meta,
+  });
+
+  return formatLoan(updated);
+}
+
+// ── Format helper: paise → rupees for API response ────────────────────────
+function formatLoan(loan) {
+  if (!loan) return null;
+  return {
+    ...loan,
+    principalRupees:  toRupees(loan.principalPaise),
+    disbursedRupees:  toRupees(loan.disbursedPaise  || 0),
+    outstandingRupees:toRupees(loan.outstandingPaise || 0),
+    emiRupees:        toRupees(loan.emiPaise         || 0),
+  };
+}
+
+module.exports = { apply, getById, listByUser, listAll, approve, reject, disburse };

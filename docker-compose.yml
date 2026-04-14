@@ -1,0 +1,119 @@
+version: '3.9'
+
+services:
+
+  # ── Node.js API ───────────────────────────────────────────────────────────
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: cashly_api
+    restart: unless-stopped
+    ports:
+      - '5000:5000'
+    environment:
+      NODE_ENV:   development
+      PORT:       5000
+      DB_DRIVER:  mongo          # Switch to 'pg' to use PostgreSQL
+      MONGO_URI:  mongodb://mongo:27017/cashly_dev
+      PG_HOST:    postgres
+      PG_PORT:    5432
+      PG_DATABASE: cashly_dev
+      PG_USER:    cashly
+      PG_PASSWORD: cashly_secret
+      JWT_SECRET: replace_this_in_production_with_a_real_secret
+      JWT_EXPIRES_IN: 7d
+      LOG_LEVEL:  info
+    volumes:
+      - .:/app
+      - /app/node_modules
+    depends_on:
+      mongo:
+        condition: service_healthy
+      postgres:
+        condition: service_healthy
+    command: npm run dev
+    networks:
+      - cashly_net
+
+  # ── MongoDB ───────────────────────────────────────────────────────────────
+  mongo:
+    image: mongo:7.0
+    container_name: cashly_mongo
+    restart: unless-stopped
+    ports:
+      - '27017:27017'
+    volumes:
+      - mongo_data:/data/db
+    healthcheck:
+      test:     ['CMD', 'mongosh', '--quiet', '--eval', 'db.adminCommand("ping")']
+      interval: 10s
+      timeout:  5s
+      retries:  5
+    networks:
+      - cashly_net
+
+  # ── PostgreSQL ────────────────────────────────────────────────────────────
+  postgres:
+    image: postgres:16-alpine
+    container_name: cashly_postgres
+    restart: unless-stopped
+    ports:
+      - '5432:5432'
+    environment:
+      POSTGRES_DB:       cashly_dev
+      POSTGRES_USER:     cashly
+      POSTGRES_PASSWORD: cashly_secret
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+    healthcheck:
+      test:     ['CMD-SHELL', 'pg_isready -U cashly -d cashly_dev']
+      interval: 10s
+      timeout:  5s
+      retries:  5
+    networks:
+      - cashly_net
+
+  # ── Mongo Express (dev UI) ────────────────────────────────────────────────
+  mongo-express:
+    image: mongo-express:1.0.2
+    container_name: cashly_mongoexpress
+    restart: unless-stopped
+    ports:
+      - '8081:8081'
+    environment:
+      ME_CONFIG_MONGODB_URL: mongodb://mongo:27017/
+      ME_CONFIG_BASICAUTH:   false
+    depends_on:
+      mongo:
+        condition: service_healthy
+    profiles:
+      - tools          # only starts with: docker compose --profile tools up
+    networks:
+      - cashly_net
+
+  # ── pgAdmin (dev UI) ──────────────────────────────────────────────────────
+  pgadmin:
+    image: dpage/pgadmin4:8
+    container_name: cashly_pgadmin
+    restart: unless-stopped
+    ports:
+      - '8082:80'
+    environment:
+      PGADMIN_DEFAULT_EMAIL:    admin@cashly.in
+      PGADMIN_DEFAULT_PASSWORD: admin
+    depends_on:
+      postgres:
+        condition: service_healthy
+    profiles:
+      - tools
+    networks:
+      - cashly_net
+
+volumes:
+  mongo_data:
+  pg_data:
+
+networks:
+  cashly_net:
+    driver: bridge

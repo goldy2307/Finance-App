@@ -4,49 +4,76 @@ const mongoose = require('mongoose');
 
 const loanSchema = new mongoose.Schema(
   {
-    userId:       { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true, index: true },
-    applicationId:{ type: String, required: true, unique: true },   // e.g. CLY-A7X3K1
-
-    // Loan configuration
-    type:         { type: String, enum: ['personal','business','home','education'], required: true },
-    principal:    { type: Number, required: true, min: 10000 },      // in rupees
-    interestRate: { type: Number, required: true },                  // annual % e.g. 10.5
-    tenureMonths: { type: Number, required: true },
-    emi:          { type: Number },                                  // calculated, stored for reference
-    purpose:      { type: String },
-
-    // Lifecycle
-    status: {
-      type: String,
-      enum: ['pending','under_review','approved','rejected','active','closed','foreclosed'],
-      default: 'pending',
-      index: true,
+    applicationId: {
+      type:    String,
+      unique:  true,
+      default: () => 'CLY-' + Date.now().toString(36).toUpperCase(),
     },
 
-    // Disbursement
-    disbursedAt:  { type: Date },
-    disbursedTo:  { type: String },    // bank account masked
+    userId: {
+      type:     mongoose.Schema.Types.ObjectId,
+      ref:      'User',
+      required: true,
+      index:    true,
+    },
 
-    // Repayment tracking
-    outstandingPrincipal: { type: Number },
-    nextEmiDue:           { type: Date },
-    emisPaid:             { type: Number, default: 0 },
-    totalEmis:            { type: Number },
+    loanType: {
+      type:     String,
+      enum:     ['personal', 'business', 'home', 'education'],
+      required: true,
+    },
 
-    // Audit fields
-    approvedBy:   { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
-    approvedAt:   { type: Date },
-    closedAt:     { type: Date },
-    rejectionNote:{ type: String },
+    // All monetary values stored in PAISE
+    principalPaise: { type: Number, required: true, min: 1000000 }, // min ₹10,000
+    disbursedPaise: { type: Number, default: 0 },
+    outstandingPaise:{ type: Number, default: 0 },
+
+    interestRatePct: { type: Number, required: true }, // e.g. 10.5
+    tenureMonths:    { type: Number, required: true },
+    emiPaise:        { type: Number },                 // calculated on create
+
+    purpose: { type: String, trim: true },
+
+    status: {
+      type:    String,
+      enum:    ['pending', 'under_review', 'approved', 'rejected', 'disbursed', 'closed', 'npa'],
+      default: 'pending',
+      index:   true,
+    },
+
+    startDate:    { type: Date },
+    endDate:      { type: Date },
+    nextDueDate:  { type: Date },
+
+    // Employment snapshot at time of application
+    employmentType:  { type: String, enum: ['salaried', 'self_employed', 'business'] },
+    monthlyIncomePaise: { type: Number },
+
+    // Documents
+    documents: [
+      {
+        type:       { type: String }, // 'pan', 'aadhaar', 'salary', 'photo'
+        url:        String,
+        verifiedAt: Date,
+        status:     { type: String, enum: ['pending', 'verified', 'rejected'], default: 'pending' },
+      },
+    ],
+
+    // Agent / admin notes
+    notes: [
+      {
+        text:      String,
+        addedBy:   { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+        createdAt: { type: Date, default: Date.now },
+      },
+    ],
+
+    rejectionReason: { type: String },
   },
-  {
-    timestamps: true,
-    versionKey: false,
-  }
+  { timestamps: true, versionKey: false }
 );
 
-// Compound index for common query patterns
 loanSchema.index({ userId: 1, status: 1 });
-loanSchema.index({ applicationId: 1 }, { unique: true });
+loanSchema.index({ applicationId: 1 });
 
 module.exports = mongoose.model('Loan', loanSchema);

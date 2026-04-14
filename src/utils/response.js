@@ -1,68 +1,50 @@
 'use strict';
 
 /**
- * Standardised API response envelope.
- * Every endpoint returns the same shape so the frontend
- * can handle success/error uniformly.
+ * Unified API response format for every endpoint.
  *
- * Success:  { success: true,  data: {...},  message: "..." }
- * Error:    { success: false, error: "...", code: "ERR_CODE" }
+ * Success:  { success: true,  data: <payload>,   meta?: <pagination> }
+ * Error:    { success: false, error: { code, message, details? } }
  */
 
-function success(res, data = {}, message = 'OK', statusCode = 200) {
-  return res.status(statusCode).json({
-    success: true,
-    message,
-    data,
-  });
-}
+const success = (res, data = null, statusCode = 200, meta = null) => {
+  const body = { success: true, data };
+  if (meta) body.meta = meta;
+  return res.status(statusCode).json(body);
+};
 
-function created(res, data = {}, message = 'Created') {
-  return success(res, data, message, 201);
-}
+const created = (res, data = null) => success(res, data, 201);
 
-function paginated(res, data, pagination) {
-  return res.status(200).json({
-    success: true,
-    data,
-    pagination: {
-      page:       pagination.page,
-      limit:      pagination.limit,
-      total:      pagination.total,
-      totalPages: Math.ceil(pagination.total / pagination.limit),
-    },
-  });
-}
+const noContent = (res) => res.status(204).send();
 
-function error(res, message = 'Something went wrong', statusCode = 500, code = 'SERVER_ERROR') {
-  return res.status(statusCode).json({
+const error = (res, message, statusCode = 500, code = 'INTERNAL_ERROR', details = null) => {
+  const body = {
     success: false,
-    error:   message,
-    code,
-  });
-}
+    error: { code, message },
+  };
+  if (details) body.error.details = details;
+  return res.status(statusCode).json(body);
+};
 
-function notFound(res, message = 'Resource not found') {
-  return error(res, message, 404, 'NOT_FOUND');
-}
+const badRequest   = (res, message, details = null) =>
+  error(res, message, 400, 'BAD_REQUEST', details);
 
-function badRequest(res, message = 'Bad request') {
-  return error(res, message, 400, 'BAD_REQUEST');
-}
+const unauthorized = (res, message = 'Unauthorized') =>
+  error(res, message, 401, 'UNAUTHORIZED');
 
-function unauthorized(res, message = 'Unauthorized') {
-  return error(res, message, 401, 'UNAUTHORIZED');
-}
+const forbidden    = (res, message = 'Forbidden') =>
+  error(res, message, 403, 'FORBIDDEN');
 
-function forbidden(res, message = 'Forbidden') {
-  return error(res, message, 403, 'FORBIDDEN');
-}
+const notFound     = (res, message = 'Resource not found') =>
+  error(res, message, 404, 'NOT_FOUND');
 
-function conflict(res, message = 'Conflict') {
-  return error(res, message, 409, 'CONFLICT');
-}
+const conflict     = (res, message) =>
+  error(res, message, 409, 'CONFLICT');
+
+const unprocessable = (res, message, details = null) =>
+  error(res, message, 422, 'UNPROCESSABLE', details);
 
 module.exports = {
-  success, created, paginated,
-  error, notFound, badRequest, unauthorized, forbidden, conflict,
+  success, created, noContent,
+  error, badRequest, unauthorized, forbidden, notFound, conflict, unprocessable,
 };
