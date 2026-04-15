@@ -358,6 +358,68 @@ function initSmoothScroll() {
 }
 
 /* ─────────────────────────────────────────
+   8. AUTH NAV — show avatar when logged in
+───────────────────────────────────────── */
+const AUTH_KEY = 'kashly_user';
+
+function getStoredUser() {
+  try { return JSON.parse(localStorage.getItem(AUTH_KEY)); }
+  catch { return null; }
+}
+
+function getInitials(name) {
+  return name.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase();
+}
+
+function initAuthNav() {
+  const user      = getStoredUser();
+  const navSignIn = document.getElementById('navSignIn');
+  const navUser   = document.getElementById('navUser');
+  const avatarBtn = document.getElementById('navAvatarBtn');
+  const dropdown  = document.getElementById('navDropdown');
+  const logoutBtn = document.getElementById('navLogoutBtn');
+  const resetBtn  = document.getElementById('navResetPasswordBtn');
+
+  if (!navSignIn || !navUser) return;
+
+  if (user) {
+    navSignIn.style.display  = 'none';
+    navUser.style.display    = 'flex';
+    navUser.style.alignItems = 'center';
+
+    document.getElementById('navAvatarInitials').textContent = getInitials(user.name || 'U');
+    document.getElementById('navDdName').textContent         = user.name  || 'User';
+    document.getElementById('navDdEmail').textContent        = user.email || '';
+  }
+
+  avatarBtn?.addEventListener('click', (e) => {
+    e.stopPropagation();
+    dropdown.classList.toggle('open');
+  });
+
+  document.addEventListener('click', (e) => {
+    if (!navUser.contains(e.target)) dropdown.classList.remove('open');
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') dropdown.classList.remove('open');
+  });
+
+  logoutBtn?.addEventListener('click', () => {
+    localStorage.removeItem(AUTH_KEY);
+    localStorage.removeItem('kashly_token');
+    localStorage.removeItem('kashly_refresh_token');
+    window.location.href = 'index.html';
+  });
+
+  // 👇 New: redirect to reset password page (adjust URL as needed)
+  resetBtn?.addEventListener('click', () => {
+    dropdown.classList.remove('open');
+    window.location.href = 'reset-password.html';
+  });
+}
+
+/* ─────────────────────────────────────────
    INIT — DOMContentLoaded
 ───────────────────────────────────────── */
 document.addEventListener('DOMContentLoaded', () => {
@@ -370,4 +432,5 @@ document.addEventListener('DOMContentLoaded', () => {
   initReveal();
   initNav();
   initSmoothScroll();
+  initAuthNav();
 });

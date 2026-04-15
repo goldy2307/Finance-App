@@ -12,7 +12,8 @@
    10. OTP countdown timer + resend
    11. Panel router utility
 ═══════════════════════════════════════════════════════ */
-
+// At the top of login.js and auth.js
+const API_BASE = 'http://localhost:5000';
 /* ─────────────────────────────────────────
    1. THEME
 ───────────────────────────────────────── */
@@ -170,7 +171,7 @@ function initLoginForm() {
   const btn  = document.getElementById('loginSubmitBtn');
   if (!form) return;
 
-  form.addEventListener('submit', e => {
+  form.addEventListener('submit', async e => {
     e.preventDefault();
     clearErrors(form);
 
@@ -201,12 +202,52 @@ function initLoginForm() {
     if (!valid) return;
 
     // simulate login
-    btn.textContent = 'Signing in…';
-    btn.disabled    = true;
-    setTimeout(() => {
-      // redirect to dashboard (replace with actual route)
-      window.location.href = 'dashboard.html';
-    }, 1200);
+  btn.textContent = 'Signing in…';
+btn.disabled = true;
+
+try {
+  const usePhone = document.getElementById('emailGroup')
+    ?.classList.contains('hidden');
+
+  const identifier = usePhone
+    ? document.getElementById('loginPhone')?.value.trim()
+    : document.getElementById('loginEmail')?.value.trim();
+
+  const pwEl = document.getElementById('loginPassword');
+
+  const res = await fetch('http://localhost:5000/api/v1', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      identifier: identifier, // or phone depending on backend
+      password: pwEl.value
+    })
+  });
+
+  const data = await res.json();
+
+  if (!res.ok) {
+    btn.textContent = 'Sign in';
+    btn.disabled = false;
+    showError(pwEl, data.message || 'Invalid credentials.');
+    return;
+  }
+
+  // Save JWT + user
+  localStorage.setItem('kashly_token', data.accessToken);
+  localStorage.setItem('kashly_refresh_token', data.refreshToken);
+  localStorage.setItem('kashly_user', JSON.stringify({
+    name:  data.user.name,
+    email: data.user.email,
+  }));
+
+  window.location.href = 'index.html';
+
+} catch (err) {
+  btn.textContent = 'Sign in';
+  btn.disabled = false;
+  showError(document.getElementById('loginPassword'), 'Network error. Try again.');
+}
   });
 }
 
@@ -275,11 +316,20 @@ function initRegisterForm() {
       return;
     }
 
-    btn.textContent = 'Creating account…';
-    btn.disabled    = true;
-    setTimeout(() => {
-      window.location.href = 'dashboard.html';
-    }, 1400);
+   btn.textContent = 'Creating account…';
+btn.disabled    = true;
+setTimeout(() => {
+  const firstName = document.getElementById('regFirstName')?.value.trim() || '';
+  const lastName  = document.getElementById('regLastName')?.value.trim()  || '';
+  const email     = document.getElementById('regEmail')?.value.trim()     || '';
+
+  localStorage.setItem('kashly_user', JSON.stringify({
+    name:  `${firstName} ${lastName}`.trim(),
+    email: email,
+  }));
+
+  window.location.href = 'index.html';
+}, 1400);
   });
 }
 

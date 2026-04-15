@@ -522,7 +522,11 @@
 
   <!-- TOAST -->
   <div class="toast-wrap" id="toastWrap"></div>
-
+  <script src="js/auth.js"></script>
+  <script>
+  // Redirect to login if not authenticated
+  requireAuth();
+</script>
   <script src="js/admin_dashboard.js"></script>
 </body>
 </html>

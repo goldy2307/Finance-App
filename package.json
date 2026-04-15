@@ -11,7 +11,7 @@
     "dev": "nodemon src/server.js",
     "test": "jest --runInBand --forceExit",
     "test:unit": "jest tests/unit --runInBand",
-    "test:int": "jest tests/integration --runInBand",
+    "test:int": "jest --testPathPattern=tests/integration --runInBand",
     "lint": "eslint src/**/*.js",
     "migrate": "node src/db/migrations/runner.js up",
     "migrate:down": "node src/db/migrations/runner.js down"
