@@ -1,5 +1,5 @@
-/* ═══════════════════════════════════════════════════════
-   CASHLY — login.js
+﻿/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+   CASHLY â€” login.js
    1.  Theme toggle
    2.  Auth tabs (Sign in / Register)
    3.  Login method toggle (mobile / email)
@@ -11,12 +11,12 @@
    9.  OTP digit input auto-advance + paste
    10. OTP countdown timer + resend
    11. Panel router utility
-═══════════════════════════════════════════════════════ */
+â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 // At the top of login.js and auth.js
-const API_BASE = 'http://localhost:5000';
-/* ─────────────────────────────────────────
+// API base comes from auth.js (CASHLY_API_BASE)
+/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
    1. THEME
-───────────────────────────────────────── */
+â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 const THEME_KEY = 'cashly-theme';
 
 function applyTheme(theme) {
@@ -34,9 +34,9 @@ function initTheme() {
   ).forEach(btn => btn && btn.addEventListener('click', toggleTheme));
 }
 
-/* ─────────────────────────────────────────
-   11. PANEL ROUTER — central show/hide
-───────────────────────────────────────── */
+/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+   11. PANEL ROUTER â€” central show/hide
+â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 // Panels: 'login' | 'register' | 'forgot' | 'otp-success'
 // Tabs only track login / register
 function showPanel(id) {
@@ -50,9 +50,9 @@ function showPanel(id) {
   });
 }
 
-/* ─────────────────────────────────────────
+/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
    2. AUTH TABS
-───────────────────────────────────────── */
+â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 function initAuthTabs() {
   document.querySelectorAll('.auth-tab').forEach(tab => {
     tab.addEventListener('click', () => showPanel(tab.dataset.tab));
@@ -64,9 +64,9 @@ function initAuthTabs() {
   });
 }
 
-/* ─────────────────────────────────────────
+/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
    3. LOGIN METHOD TOGGLE (mobile / email)
-───────────────────────────────────────── */
+â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 function initMethodToggle() {
   const btns      = document.querySelectorAll('.method-btn');
   const phoneGrp  = document.getElementById('phoneGroup');
@@ -89,9 +89,9 @@ function initMethodToggle() {
   });
 }
 
-/* ─────────────────────────────────────────
+/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
    4. PASSWORD VISIBILITY TOGGLES
-───────────────────────────────────────── */
+â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 function wireEyeBtn(btnId, inputId) {
   const btn   = document.getElementById(btnId);
   const input = document.getElementById(inputId);
@@ -112,9 +112,9 @@ function initEyeButtons() {
   wireEyeBtn('toggleRegConfirm',  'regConfirm');
 }
 
-/* ─────────────────────────────────────────
+/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
    5. PASSWORD STRENGTH METER
-───────────────────────────────────────── */
+â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 function getStrength(pw) {
   if (!pw || pw.length < 4) return { level: 0, label: 'Too short',  cls: ''       };
   let score = 0;
@@ -143,9 +143,9 @@ function initStrengthMeter() {
   });
 }
 
-/* ─────────────────────────────────────────
+/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
    VALIDATION HELPERS
-───────────────────────────────────────── */
+â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 function clearErrors(scope) {
   const root = scope || document;
   root.querySelectorAll('.field-error').forEach(e => e.remove());
@@ -163,9 +163,9 @@ function showError(el, msg) {
     ?.appendChild(err);
 }
 
-/* ─────────────────────────────────────────
+/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
    6. LOGIN FORM
-───────────────────────────────────────── */
+â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 function initLoginForm() {
   const form = document.getElementById('loginForm');
   const btn  = document.getElementById('loginSubmitBtn');
@@ -173,6 +173,7 @@ function initLoginForm() {
 
   form.addEventListener('submit', async e => {
     e.preventDefault();
+    
     clearErrors(form);
 
     let valid = true;
@@ -181,8 +182,8 @@ function initLoginForm() {
 
     if (usePhone) {
       const ph = document.getElementById('loginPhone');
-      if (!ph.value.trim() || !/^\d{10}$/.test(ph.value.trim())) {
-        showError(ph, 'Enter a valid 10-digit mobile number.');
+      if (!ph.value.trim() || !/^[6-9]\d{9}$/.test(ph.value.trim())) {
+        showError(ph, 'Enter a valid 10-digit Indian mobile number.');
         valid = false;
       }
     } else {
@@ -202,7 +203,7 @@ function initLoginForm() {
     if (!valid) return;
 
     // simulate login
-  btn.textContent = 'Signing in…';
+  btn.textContent = 'Signing in ...';
 btn.disabled = true;
 
 try {
@@ -215,7 +216,7 @@ try {
 
   const pwEl = document.getElementById('loginPassword');
 
-  const res = await fetch('http://localhost:5000/api/v1', {
+  const res = await fetch(apiUrl('/auth/login'), {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
@@ -224,24 +225,24 @@ try {
     })
   });
 
-  const data = await res.json();
+  const body = await res.json().catch(() => null);
 
   if (!res.ok) {
     btn.textContent = 'Sign in';
     btn.disabled = false;
-    showError(pwEl, data.message || 'Invalid credentials.');
+    showError(pwEl, (body && body.error ? body.error.message : null) || 'Invalid credentials.');
     return;
   }
-
   // Save JWT + user
-  localStorage.setItem('kashly_token', data.accessToken);
-  localStorage.setItem('kashly_refresh_token', data.refreshToken);
-  localStorage.setItem('kashly_user', JSON.stringify({
-    name:  data.user.name,
-    email: data.user.email,
-  }));
+  const payload = body && body.data ? body.data : null;
+  setSession({
+    accessToken:  payload && payload.accessToken,
+    refreshToken: payload && payload.refreshToken,
+    user:         payload && payload.user,
+  });
 
-  window.location.href = 'index.html';
+ const redirect = safeRedirectTarget(new URLSearchParams(window.location.search).get('redirect'));
+window.location.href = redirect || getDashboardForRole(payload.user.role);
 
 } catch (err) {
   btn.textContent = 'Sign in';
@@ -251,15 +252,15 @@ try {
   });
 }
 
-/* ─────────────────────────────────────────
+/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
    7. REGISTER FORM
-───────────────────────────────────────── */
+â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 function initRegisterForm() {
   const form = document.getElementById('registerForm');
   const btn  = document.getElementById('registerSubmitBtn');
   if (!form) return;
 
-  form.addEventListener('submit', e => {
+  form.addEventListener('submit', async e => {
     e.preventDefault();
     clearErrors(form);
 
@@ -275,8 +276,8 @@ function initRegisterForm() {
     });
 
     const phone = document.getElementById('regPhone');
-    if (!phone.value.trim() || !/^\d{10}$/.test(phone.value.trim())) {
-      showError(phone, 'Enter a valid 10-digit mobile number.');
+    if (!phone.value.trim() || !/^[6-9]\d{9}$/.test(phone.value.trim())) {
+      showError(phone, 'Enter a valid 10-digit Indian mobile number.');
       valid = false;
     }
 
@@ -316,26 +317,58 @@ function initRegisterForm() {
       return;
     }
 
-   btn.textContent = 'Creating account…';
-btn.disabled    = true;
-setTimeout(() => {
-  const firstName = document.getElementById('regFirstName')?.value.trim() || '';
-  const lastName  = document.getElementById('regLastName')?.value.trim()  || '';
-  const email     = document.getElementById('regEmail')?.value.trim()     || '';
+   btn.textContent = 'Creating account...';
+    btn.disabled    = true;
 
-  localStorage.setItem('kashly_user', JSON.stringify({
-    name:  `${firstName} ${lastName}`.trim(),
-    email: email,
-  }));
+    try {
+      const firstName = document.getElementById('regFirstName')?.value.trim() || '';
+      const lastName  = document.getElementById('regLastName')?.value.trim()  || '';
+      const emailVal  = document.getElementById('regEmail')?.value.trim()     || '';
+      const phoneVal  = document.getElementById('regPhone')?.value.trim()     || '';
+      const pwVal     = document.getElementById('regPassword')?.value         || '';
 
-  window.location.href = 'index.html';
-}, 1400);
+      const res = await fetch(apiUrl('/auth/register'), {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          firstName,
+          lastName,
+          email: emailVal,
+          phone: phoneVal,
+          password: pwVal,
+        }),
+      });
+
+      const body = await res.json().catch(() => null);
+      if (!res.ok) {
+        btn.textContent = 'Create account';
+        btn.disabled    = false;
+        const msg = (body && body.error ? body.error.message : null) || 'Unable to register.';
+        showError(document.getElementById('regEmail'), msg);
+        return;
+      }
+
+      const payload = body && body.data ? body.data : null;
+      setSession({
+        accessToken:  payload && payload.accessToken,
+        refreshToken: payload && payload.refreshToken,
+        user:         payload && payload.user,
+      });
+
+const redirect = safeRedirectTarget(new URLSearchParams(window.location.search).get('redirect'));
+window.location.href = redirect || getDashboardForRole(payload.user.role);
+
+    } catch {
+      btn.textContent = 'Create account';
+      btn.disabled    = false;
+      showError(document.getElementById('regEmail'), 'Network error. Try again.');
+    }
   });
 }
 
-/* ─────────────────────────────────────────
+/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
    8. FORGOT PASSWORD FLOW
-───────────────────────────────────────── */
+â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 function initForgotFlow() {
   // open forgot panel
   const forgotLink = document.getElementById('forgotLink');
@@ -359,17 +392,17 @@ function initForgotFlow() {
   const otpDisplay = document.getElementById('otpPhoneDisplay');
 
   if (forgotForm) {
-    forgotForm.addEventListener('submit', e => {
+    forgotForm.addEventListener('submit', async e => {
       e.preventDefault();
       clearErrors(forgotForm);
 
       const ph = document.getElementById('forgotPhone');
-      if (!ph.value.trim() || !/^\d{10}$/.test(ph.value.trim())) {
-        showError(ph, 'Enter a valid 10-digit mobile number.');
+      if (!ph.value.trim() || !/^[6-9]\d{9}$/.test(ph.value.trim())) {
+        showError(ph, 'Enter a valid 10-digit Indian mobile number.');
         return;
       }
 
-      forgotBtn.textContent = 'Sending OTP…';
+      forgotBtn.textContent = 'Sending OTPâ€¦';
       forgotBtn.disabled    = true;
 
       setTimeout(() => {
@@ -398,16 +431,16 @@ function initForgotFlow() {
         }
         return;
       }
-      verifyBtn.textContent = 'Verifying…';
+      verifyBtn.textContent = 'Verifyingâ€¦';
       verifyBtn.disabled    = true;
       setTimeout(() => showPanel('otp-success'), 900);
     });
   }
 }
 
-/* ─────────────────────────────────────────
-   9. OTP INPUT — auto-advance + paste
-───────────────────────────────────────── */
+/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+   9. OTP INPUT â€” auto-advance + paste
+â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 function initOTPInputs() {
   const digits = document.querySelectorAll('.otp-digit');
   if (!digits.length) return;
@@ -454,9 +487,9 @@ shakeStyle.textContent = `
 `;
 document.head.appendChild(shakeStyle);
 
-/* ─────────────────────────────────────────
+/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
    10. OTP COUNTDOWN + RESEND
-───────────────────────────────────────── */
+â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 let otpInterval = null;
 
 function startOTPTimer(seconds = 30) {
@@ -491,9 +524,9 @@ function startOTPTimer(seconds = 30) {
   }, { once: true });
 }
 
-/* ─────────────────────────────────────────
+/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
    INIT
-───────────────────────────────────────── */
+â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 document.addEventListener('DOMContentLoaded', () => {
   initTheme();
   initAuthTabs();
@@ -505,3 +538,4 @@ document.addEventListener('DOMContentLoaded', () => {
   initForgotFlow();
   initOTPInputs();
 });
+

@@ -1,23 +1,24 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en" data-theme="dark">
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <meta name="description" content="Cashly — Sign in to manage your loans, track EMIs, and access your dashboard."/>
+  <meta name="description" content="Cashly â€” Sign in to manage your loans, track EMIs, and access your dashboard."/>
   <title>Kashly 365 | Sign In</title>
   <link rel="icon" href="assets/Logos/favicon-light.png">
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="css/style.css"/>
   <link rel="stylesheet" href="css/login.css"/>
 </head>
 <body>
 
-  <!-- ══ PAGE SPLIT ══ -->
+  <!-- â•â• PAGE SPLIT â•â• -->
   <div class="login-page">
 
-    <!-- ── LEFT PANEL — branding ── -->
+    <!-- â”€â”€ LEFT PANEL â€” branding â”€â”€ -->
     <aside class="login-aside">
 
       <!-- top bar inside aside -->
@@ -56,7 +57,8 @@
         <!-- mini stats -->
         <div class="aside-stats">
           <div class="aside-stat">
-            <span class="as-num num">₹850Cr+</span>
+            <span class="as-num num"><i class="fa-solid fa-indian-rupee-sign"></i>
+850Cr+</span>
             <span class="as-label">Disbursed</span>
           </div>
           <div class="aside-stat-sep"></div>
@@ -66,7 +68,7 @@
           </div>
           <div class="aside-stat-sep"></div>
           <div class="aside-stat">
-            <span class="as-num num">4.8 ★</span>
+            <span class="as-num num">4.8 <i class="fa-regular fa-star"></i></span>
             <span class="as-label">App rating</span>
           </div>
         </div>
@@ -103,7 +105,7 @@
       </div>
     </aside>
 
-    <!-- ── RIGHT PANEL — auth forms ── -->
+    <!-- â”€â”€ RIGHT PANEL â€” auth forms â”€â”€ -->
     <main class="login-main">
 
       <!-- mobile top bar (visible only on small screens) -->
@@ -128,13 +130,13 @@
 
       <div class="login-form-wrap">
 
-        <!-- ── AUTH TABS ── -->
+        <!-- â”€â”€ AUTH TABS â”€â”€ -->
         <div class="auth-tabs">
           <button class="auth-tab active" data-tab="login">Sign in</button>
           <button class="auth-tab" data-tab="register">Create account</button>
         </div>
 
-        <!-- ════ LOGIN FORM ════ -->
+        <!-- â•â•â•â• LOGIN FORM â•â•â•â• -->
         <div class="auth-panel active" id="panel-login">
 
           <div class="auth-header">
@@ -170,7 +172,7 @@
             <div class="form-group">
               <div class="label-row">
                 <label for="loginPassword">Password <span class="req">*</span></label>
-                <a href="#" class="forgot-link" id="forgotLink">Forgot password?</a>
+                <a href="forgot-password.html" class="forgot-link">Forgot password?</a>
               </div>
               <div class="input-wrap suffix">
                 <input type="password" id="loginPassword" placeholder="Enter your password" autocomplete="current-password"/>
@@ -209,7 +211,7 @@
           </p>
         </div>
 
-        <!-- ════ REGISTER FORM ════ -->
+        <!-- â•â•â•â• REGISTER FORM â•â•â•â• -->
         <div class="auth-panel" id="panel-register">
 
           <div class="auth-header">
@@ -308,91 +310,11 @@
           </p>
         </div>
 
-        <!-- ════ FORGOT PASSWORD PANEL ════ -->
-        <div class="auth-panel" id="panel-forgot">
-
-          <div class="auth-header">
-            <button class="back-btn" id="backFromForgot">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M19 12H5M5 12l7 7M5 12l7-7"/>
-              </svg>
-              Back to sign in
-            </button>
-            <h2>Reset password</h2>
-            <p>Enter your registered mobile number. We'll send an OTP to reset your password.</p>
-          </div>
-
-          <form id="forgotForm" novalidate>
-            <div class="form-group">
-              <label for="forgotPhone">Mobile number <span class="req">*</span></label>
-              <div class="input-wrap prefix">
-                <span class="input-prefix">+91</span>
-                <input type="tel" id="forgotPhone" class="num" placeholder="98765 43210" maxlength="10"/>
-              </div>
-            </div>
-
-            <button type="submit" class="btn btn-primary btn-full btn-lg auth-submit" id="forgotSubmitBtn">
-              Send OTP
-              <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                <line x1="22" y1="2" x2="11" y2="13"/>
-                <polygon points="22 2 15 22 11 13 2 9 22 2"/>
-              </svg>
-            </button>
-          </form>
-
-          <!-- OTP block (shown after submit) -->
-          <div class="otp-block hidden" id="otpBlock">
-            <p class="otp-sent-msg">OTP sent to <strong class="num" id="otpPhoneDisplay"></strong></p>
-
-            <div class="form-group">
-              <label>Enter OTP <span class="req">*</span></label>
-              <div class="otp-inputs" id="otpInputs">
-                <input type="text" class="otp-digit num" maxlength="1" inputmode="numeric"/>
-                <input type="text" class="otp-digit num" maxlength="1" inputmode="numeric"/>
-                <input type="text" class="otp-digit num" maxlength="1" inputmode="numeric"/>
-                <input type="text" class="otp-digit num" maxlength="1" inputmode="numeric"/>
-                <input type="text" class="otp-digit num" maxlength="1" inputmode="numeric"/>
-                <input type="text" class="otp-digit num" maxlength="1" inputmode="numeric"/>
-              </div>
-            </div>
-
-            <div class="otp-resend">
-              Didn't receive it?
-              <button type="button" class="resend-btn" id="resendOtpBtn" disabled>
-                Resend in <span class="num" id="otpTimer">30</span>s
-              </button>
-            </div>
-
-            <button class="btn btn-primary btn-full btn-lg" id="verifyOtpBtn">
-              Verify OTP
-              <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                <polyline points="20 6 9 17 4 12"/>
-              </svg>
-            </button>
-          </div>
-
-        </div>
-
-        <!-- ════ OTP VERIFY SUCCESS ════ -->
-        <div class="auth-panel" id="panel-otp-success">
-          <div class="auth-success">
-            <div class="success-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                <polyline points="20 6 9 17 4 12"/>
-              </svg>
-            </div>
-            <h2>OTP verified!</h2>
-            <p>Your identity is confirmed. You'll be redirected to set a new password.</p>
-            <a href="#" class="btn btn-primary btn-lg">Set new password
-              <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-            </a>
-          </div>
-        </div>
 
         <!-- bottom legal note -->
         <p class="login-legal">
-          Protected by reCAPTCHA ·
-          <a href="#">Privacy</a> ·
+          Protected by reCAPTCHA |
+          <a href="#">Privacy</a> |
           <a href="#">Terms</a>
         </p>
 
@@ -400,6 +322,8 @@
     </main>
   </div><!-- /login-page -->
 
+  <script src="js/auth.js"></script>
   <script src="js/login.js"></script>
 </body>
 </html>
+

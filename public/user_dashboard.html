@@ -19,9 +19,7 @@
     <img src="assets/Logos/cashly-main.png" alt="Kashly" class="logo logo-dark" />
       <img src="assets/Logos/cashly-light.png"  alt="Kashly" class="logo logo-light" />
       </a>
-      <button class="sidebar-close" id="sidebarClose" aria-label="Close sidebar">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-      </button>
+      
     </div>
 
     <nav class="sidebar-nav">
@@ -32,30 +30,47 @@
             <span>Overview</span>
           </a>
         </li>
-        <li class="nav-item">
-          <a href="#" class="nav-link" data-page="loans">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
-            <span>My Loans</span>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a href="#" class="nav-link" data-page="repayments">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-            <span>Repayments</span>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a href="#" class="nav-link" data-page="documents">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
-            <span>Documents</span>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a href="#" class="nav-link" data-page="support">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-            <span>Support</span>
-          </a>
-        </li>
+   <!-- ─────────────────────────────────────────────────────────
+  SNIPPET 1 — SIDEBAR NAV ITEMS
+  INSERT: inside <ul> in .sidebar-nav, after the existing <li>
+  for "Support" (data-page="support")
+───────────────────────────────────────────────────────────── -->
+<li class="nav-item">
+  <a href="#" class="nav-link" data-page="kyc">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+    <span>KYC</span>
+  </a>
+</li>
+<li class="nav-item">
+  <a href="#" class="nav-link" data-page="credit-score">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+    <span>Credit Score</span>
+  </a>
+</li>
+<li class="nav-item">
+  <a href="#" class="nav-link" data-page="accounts">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
+    <span>Accounts</span>
+  </a>
+</li>
+<li class="nav-item">
+  <a href="#" class="nav-link" data-page="quick-links">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+    <span>Quick Links</span>
+  </a>
+</li>
+<li class="nav-item">
+  <a href="#" class="nav-link" data-page="settings">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+    <span>Settings</span>
+  </a>
+</li>
+<li class="nav-item">
+  <a href="#" class="nav-link" data-page="profile">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+    <span>Profile</span>
+  </a>
+</li>
       </ul>
     </nav>
 
@@ -79,18 +94,12 @@
           <div class="profile-name">Arjun Rao</div>
           <div class="profile-email">arjun@example.com</div>
         </div>
-        <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
-          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="12" cy="12" r="5"/>
-            <line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/>
-            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
-            <line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/>
-            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
-          </svg>
-          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
-          </svg>
-        </button>
+       <button class="sidebar-collapse-btn" id="sidebarCollapseBtn" aria-label="Collapse sidebar">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+</button>
+<button class="sidebar-logout-btn" id="sidebarLogoutBtn" aria-label="Sign out" title="Sign out">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+</button>
       </div>
     </div>
   </aside>
@@ -119,6 +128,7 @@
         </button>
         <div class="topbar-avatar">AR</div>
       </div>
+      
     </header>
 
     <!-- CONTENT -->
@@ -129,7 +139,7 @@
 
         <div class="page-header">
           <div>
-            <h1 class="page-title">Good morning, <em>Arjun</em> 👋</h1>
+            <h1 class="page-title">Good morning, <em>Arjun</em> </h1>
             <p class="page-sub">Here's your financial snapshot for today.</p>
           </div>
           <a href="apply.html" class="btn btn-primary">
@@ -352,7 +362,398 @@
           </div>
         </div>
       </div>
-
+<div class="page" id="page-profile">
+  <div class="page-header">
+    <div>
+      <h1 class="page-title">My <em>Profile</em></h1>
+      <p class="page-sub">Manage your personal info, security and preferences.</p>
+    </div>
+  </div>
+ 
+  <div class="profile-grid">
+ 
+    <!-- Basic Info -->
+    <div class="card profile-section" id="profileBasicCard">
+      <div class="card-head">
+        <h3 class="card-title">Basic Information</h3>
+        <button class="btn-edit" id="editBasicBtn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+          Edit
+        </button>
+      </div>
+      <div class="profile-fields" id="profileFieldsView">
+        <div class="pf-row"><span class="pf-label">Full Name</span><span class="pf-val" id="pfName">—</span></div>
+        <div class="pf-row"><span class="pf-label">Email</span><span class="pf-val" id="pfEmail">—</span></div>
+        <div class="pf-row"><span class="pf-label">Phone</span><span class="pf-val" id="pfPhone">—</span></div>
+      </div>
+      <form class="profile-edit-form hidden" id="profileEditForm" autocomplete="off">
+        <div class="pef-field"><label>Full Name</label><input type="text" id="pefName" autocomplete="name"/></div>
+        <div class="pef-field"><label>Email</label><input type="email" id="pefEmail" autocomplete="email"/></div>
+        <div class="pef-field"><label>Phone</label><input type="tel" id="pefPhone" autocomplete="tel"/></div>
+        <div class="pef-actions">
+          <button type="submit" class="btn btn-primary" id="saveBasicBtn">Save changes</button>
+          <button type="button" class="btn btn-ghost" id="cancelBasicBtn">Cancel</button>
+        </div>
+      </form>
+    </div>
+ 
+    <!-- Identity Snapshot -->
+    <div class="card profile-section">
+      <div class="card-head">
+        <h3 class="card-title">Identity & KYC</h3>
+        <span class="badge" id="kycStatusBadge">—</span>
+      </div>
+      <div class="pf-row"><span class="pf-label">Aadhaar</span><span class="pf-val mono">XXXX XXXX 4321</span></div>
+      <div class="pf-row"><span class="pf-label">PAN</span><span class="pf-val mono">ABCDE••••F</span></div>
+      <button class="btn btn-ghost mt-12" data-nav="kyc">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="width:15px;height:15px"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        Complete KYC
+      </button>
+    </div>
+ 
+    <!-- Linked Accounts -->
+    <div class="card profile-section">
+      <div class="card-head">
+        <h3 class="card-title">Linked Accounts</h3>
+        <button class="btn btn-ghost btn-sm" data-nav="accounts">Manage</button>
+      </div>
+      <div class="pf-row"><span class="pf-label">Bank</span><span class="pf-val mono">SBI ••••6789</span></div>
+      <div class="pf-row"><span class="pf-label">UPI</span><span class="pf-val mono">arjun@upi</span></div>
+    </div>
+ 
+    <!-- Security -->
+    <div class="card profile-section" id="securityCard">
+      <div class="card-head"><h3 class="card-title">Security</h3></div>
+      <div class="security-rows">
+        <div class="sec-row">
+          <div class="sec-info">
+            <div class="sec-title">Password</div>
+            <div class="sec-sub">Last changed 30 days ago</div>
+          </div>
+          <button class="btn btn-ghost btn-sm" id="changePasswordBtn">Change</button>
+        </div>
+        <div class="sec-row">
+          <div class="sec-info">
+            <div class="sec-title">Two-Factor Authentication</div>
+            <div class="sec-sub">Adds extra login security</div>
+          </div>
+          <label class="toggle-switch">
+            <input type="checkbox" id="twoFAToggle"/>
+            <span class="toggle-track"><span class="toggle-thumb"></span></span>
+          </label>
+        </div>
+        <div class="sec-row">
+          <div class="sec-info">
+            <div class="sec-title">Active Sessions</div>
+            <div class="sec-sub">2 devices currently active</div>
+          </div>
+          <button class="btn btn-ghost btn-sm" id="logoutAllBtn">Logout all</button>
+        </div>
+      </div>
+      <!-- Change password inline form -->
+      <form class="change-pw-form hidden" id="changePwForm" autocomplete="off">
+        <div class="pef-field"><label>Current Password</label><input type="password" id="cpCurrent" autocomplete="current-password"/></div>
+        <div class="pef-field"><label>New Password</label><input type="password" id="cpNew" autocomplete="new-password"/></div>
+        <div class="pef-field"><label>Confirm New Password</label><input type="password" id="cpConfirm" autocomplete="new-password"/></div>
+        <div class="pef-actions">
+          <button type="submit" class="btn btn-primary">Update Password</button>
+          <button type="button" class="btn btn-ghost" id="cancelPwBtn">Cancel</button>
+        </div>
+      </form>
+    </div>
+ 
+    <!-- Preferences -->
+    <div class="card profile-section">
+      <div class="card-head"><h3 class="card-title">Preferences</h3></div>
+      <div class="pref-section">
+        <div class="pref-label-group">Theme</div>
+        <div class="theme-selector" id="themeSelector">
+          <button class="theme-opt" data-theme="dark">
+            <span class="theme-swatch dark-swatch"></span> Dark
+          </button>
+          <button class="theme-opt" data-theme="light">
+            <span class="theme-swatch light-swatch"></span> Light
+          </button>
+        </div>
+      </div>
+      <div class="pref-section">
+        <div class="pref-label-group">Notifications</div>
+        <div class="notif-toggles">
+          <div class="notif-row">
+            <span>Email alerts</span>
+            <label class="toggle-switch"><input type="checkbox" id="prefEmail" checked/><span class="toggle-track"><span class="toggle-thumb"></span></span></label>
+          </div>
+          <div class="notif-row">
+            <span>SMS alerts</span>
+            <label class="toggle-switch"><input type="checkbox" id="prefSMS" checked/><span class="toggle-track"><span class="toggle-thumb"></span></span></label>
+          </div>
+          <div class="notif-row">
+            <span>Push notifications</span>
+            <label class="toggle-switch"><input type="checkbox" id="prefPush"/><span class="toggle-track"><span class="toggle-thumb"></span></span></label>
+          </div>
+        </div>
+      </div>
+    </div>
+ 
+    <!-- Account Actions -->
+    <div class="card profile-section danger-zone">
+      <div class="card-head"><h3 class="card-title">Account Actions</h3></div>
+      <div class="account-actions-list">
+        <div class="aa-row">
+          <div><div class="aa-title">Terms & Conditions</div><div class="aa-sub">View our legal terms</div></div>
+          <button class="btn btn-ghost btn-sm" id="openTermsBtn">View</button>
+        </div>
+        <div class="aa-row">
+          <div><div class="aa-title">Privacy Policy</div><div class="aa-sub">How we use your data</div></div>
+          <button class="btn btn-ghost btn-sm" id="openPrivacyBtn">View</button>
+        </div>
+        <div class="aa-row danger-row">
+          <div><div class="aa-title">Delete Account</div><div class="aa-sub">Permanently remove your data</div></div>
+          <button class="btn btn-danger btn-sm" id="deleteAccountBtn">Delete</button>
+        </div>
+      </div>
+    </div>
+ 
+  </div><!-- /profile-grid -->
+</div>
+ 
+<!-- ══ PAGE: KYC ══ -->
+<div class="page" id="page-kyc">
+  <div class="page-header">
+    <div>
+      <h1 class="page-title">KYC <em>Verification</em></h1>
+      <p class="page-sub">Complete your KYC to unlock higher loan limits.</p>
+    </div>
+  </div>
+ 
+  <!-- Step progress bar -->
+  <div class="step-progress" id="kycProgress">
+    <div class="sp-step active" data-step="1"><div class="sp-dot">1</div><div class="sp-label">Mobile</div></div>
+    <div class="sp-line"></div>
+    <div class="sp-step" data-step="2"><div class="sp-dot">2</div><div class="sp-label">Aadhaar</div></div>
+    <div class="sp-line"></div>
+    <div class="sp-step" data-step="3"><div class="sp-dot">3</div><div class="sp-label">PAN</div></div>
+    <div class="sp-line"></div>
+    <div class="sp-step" data-step="4"><div class="sp-dot">4</div><div class="sp-label">Review</div></div>
+  </div>
+ 
+  <!-- Step panels -->
+  <div class="card kyc-card" id="kycStepPanel">
+ 
+    <!-- Step 1: Mobile -->
+    <div class="kyc-step active" id="kycStep1">
+      <div class="kyc-step-icon"><svg viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="1.8"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg></div>
+      <h3 class="kyc-step-title">Verify Mobile Number</h3>
+      <p class="kyc-step-sub">We'll send a 6-digit OTP to confirm your number.</p>
+      <div class="kyc-form" id="kycMobileForm">
+        <div class="pef-field">
+          <label>Mobile Number</label>
+          <div class="input-prefix-wrap"><span class="input-prefix">+91</span><input type="tel" id="kycMobile" maxlength="10" placeholder="9876543210"/></div>
+        </div>
+        <button class="btn btn-primary" id="kycSendOtpBtn">Send OTP</button>
+      </div>
+      <div class="kyc-otp-form hidden" id="kycOtpForm">
+        <p class="otp-sent-msg">OTP sent to <strong id="kycOtpTarget"></strong></p>
+        <div class="otp-digits" id="kycOtpDigits">
+          <input class="otp-digit" maxlength="1" type="text" inputmode="numeric"/>
+          <input class="otp-digit" maxlength="1" type="text" inputmode="numeric"/>
+          <input class="otp-digit" maxlength="1" type="text" inputmode="numeric"/>
+          <input class="otp-digit" maxlength="1" type="text" inputmode="numeric"/>
+          <input class="otp-digit" maxlength="1" type="text" inputmode="numeric"/>
+          <input class="otp-digit" maxlength="1" type="text" inputmode="numeric"/>
+        </div>
+        <div class="otp-actions">
+          <button class="btn btn-primary" id="kycVerifyOtpBtn">Verify OTP</button>
+          <button class="btn btn-ghost btn-sm" id="kycResendBtn" disabled>Resend in <span id="kycTimer">30s</span></button>
+        </div>
+      </div>
+    </div>
+ 
+    <!-- Step 2: Aadhaar -->
+    <div class="kyc-step" id="kycStep2">
+      <div class="kyc-step-icon"><svg viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="1.8"><rect x="3" y="4" width="18" height="16" rx="2"/><line x1="8" y1="10" x2="16" y2="10"/><line x1="8" y1="14" x2="12" y2="14"/></svg></div>
+      <h3 class="kyc-step-title">Aadhaar Verification</h3>
+      <p class="kyc-step-sub">Enter your 12-digit Aadhaar number to receive an OTP on your registered mobile.</p>
+      <div class="kyc-form" id="kycAadhaarForm">
+        <div class="pef-field"><label>Aadhaar Number</label><input type="text" id="kycAadhaar" maxlength="12" placeholder="XXXX XXXX XXXX"/></div>
+        <button class="btn btn-primary" id="kycAadhaarSendBtn">Send OTP</button>
+      </div>
+      <div class="kyc-otp-form hidden" id="kycAadhaarOtpForm">
+        <p class="otp-sent-msg">OTP sent to your Aadhaar-registered mobile</p>
+        <div class="otp-digits" id="kycAadhaarOtpDigits">
+          <input class="otp-digit" maxlength="1" type="text" inputmode="numeric"/>
+          <input class="otp-digit" maxlength="1" type="text" inputmode="numeric"/>
+          <input class="otp-digit" maxlength="1" type="text" inputmode="numeric"/>
+          <input class="otp-digit" maxlength="1" type="text" inputmode="numeric"/>
+          <input class="otp-digit" maxlength="1" type="text" inputmode="numeric"/>
+          <input class="otp-digit" maxlength="1" type="text" inputmode="numeric"/>
+        </div>
+        <button class="btn btn-primary" id="kycAadhaarVerifyBtn">Verify OTP</button>
+      </div>
+    </div>
+ 
+    <!-- Step 3: PAN -->
+    <div class="kyc-step" id="kycStep3">
+      <div class="kyc-step-icon"><svg viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="1.8"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div>
+      <h3 class="kyc-step-title">PAN Verification</h3>
+      <p class="kyc-step-sub">Your PAN is used for tax and identity verification.</p>
+      <div class="kyc-form">
+        <div class="pef-field"><label>PAN Number</label><input type="text" id="kycPAN" maxlength="10" placeholder="ABCDE1234F" style="text-transform:uppercase"/></div>
+        <button class="btn btn-primary" id="kycPanVerifyBtn">Verify PAN</button>
+      </div>
+    </div>
+ 
+    <!-- Step 4: Review -->
+    <div class="kyc-step" id="kycStep4">
+      <div class="kyc-step-icon success"><svg viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></div>
+      <h3 class="kyc-step-title">KYC Submitted</h3>
+      <p class="kyc-step-sub">Your documents are under review. This usually takes 1–2 business hours.</p>
+      <div class="kyc-review-grid" id="kycReviewGrid"></div>
+      <div class="kyc-status-badge" id="kycFinalStatus"></div>
+    </div>
+ 
+  </div>
+</div>
+ 
+<!-- ══ PAGE: CREDIT SCORE ══ -->
+<div class="page" id="page-credit-score">
+  <div class="page-header">
+    <div>
+      <h1 class="page-title">Credit <em>Score</em></h1>
+      <p class="page-sub">Check your live credit score. No impact on your score.</p>
+    </div>
+  </div>
+  <div class="card kyc-card">
+ 
+    <!-- Step 1: Consent -->
+    <div class="kyc-step active" id="csStep1">
+      <div class="kyc-step-icon"><svg viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="1.8"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+      <h3 class="kyc-step-title">Credit Bureau Consent</h3>
+      <p class="kyc-step-sub">We'll fetch your credit report from CIBIL/Experian. This is a soft enquiry — no score impact.</p>
+      <div class="consent-points">
+        <div class="cp-item"><svg viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2.5" style="width:16px;height:16px;flex-shrink:0"><polyline points="20 6 9 17 4 12"/></svg> Soft enquiry — score unaffected</div>
+        <div class="cp-item"><svg viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2.5" style="width:16px;height:16px;flex-shrink:0"><polyline points="20 6 9 17 4 12"/></svg> Data encrypted and never shared</div>
+        <div class="cp-item"><svg viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2.5" style="width:16px;height:16px;flex-shrink:0"><polyline points="20 6 9 17 4 12"/></svg> Updated every 30 days</div>
+      </div>
+      <label class="consent-check"><input type="checkbox" id="csConsent"/> I consent to fetching my credit report</label>
+      <button class="btn btn-primary" id="csFetchBtn">Fetch Credit Score</button>
+    </div>
+ 
+    <!-- Step 2: Result -->
+    <div class="kyc-step" id="csStep2">
+      <div class="credit-score-display">
+        <div class="cs-gauge-wrap">
+          <svg class="cs-gauge" viewBox="0 0 200 120">
+            <path d="M 20 100 A 80 80 0 0 1 180 100" fill="none" stroke="var(--line-2)" stroke-width="14" stroke-linecap="round"/>
+            <path class="cs-gauge-fill" d="M 20 100 A 80 80 0 0 1 180 100" fill="none" stroke="var(--green)" stroke-width="14" stroke-linecap="round" stroke-dasharray="251" stroke-dashoffset="251"/>
+          </svg>
+          <div class="cs-score-text">
+            <div class="cs-score-val mono" id="csScoreVal">—</div>
+            <div class="cs-score-label" id="csScoreLabel">—</div>
+          </div>
+        </div>
+        <div class="cs-range-labels"><span>300</span><span>900</span></div>
+      </div>
+      <div class="cs-insights" id="csInsights"></div>
+      <button class="btn btn-ghost mt-12" id="csRefreshBtn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="width:15px;height:15px"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+        Refresh Score
+      </button>
+    </div>
+ 
+  </div>
+</div>
+ 
+<!-- ══ PAGE: ACCOUNTS ══ -->
+<div class="page" id="page-accounts">
+  <div class="page-header">
+    <div>
+      <h1 class="page-title">Linked <em>Accounts</em></h1>
+      <p class="page-sub">Manage your bank accounts and UPI IDs.</p>
+    </div>
+    <button class="btn btn-primary" id="addAccountBtn">
+      <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+      Add Account
+    </button>
+  </div>
+  <div class="card">
+    <div class="card-head"><h3 class="card-title">Bank Accounts</h3></div>
+    <div class="accounts-list" id="accountsList">
+      <div class="empty-accounts">No accounts linked yet.</div>
+    </div>
+  </div>
+ 
+  <!-- Add Account Form (hidden by default) -->
+  <div class="card mt-16 hidden" id="addAccountForm">
+    <div class="card-head"><h3 class="card-title">Add Bank Account</h3></div>
+    <form id="addAccountFormEl" autocomplete="off">
+      <div class="two-field-row">
+        <div class="pef-field"><label>Account Holder Name</label><input type="text" id="accName"/></div>
+        <div class="pef-field"><label>Account Number</label><input type="text" id="accNumber"/></div>
+      </div>
+      <div class="two-field-row">
+        <div class="pef-field"><label>IFSC Code</label><input type="text" id="accIFSC" style="text-transform:uppercase"/></div>
+        <div class="pef-field"><label>Bank Name</label><input type="text" id="accBank"/></div>
+      </div>
+      <div class="pef-actions">
+        <button type="submit" class="btn btn-primary">Save Account</button>
+        <button type="button" class="btn btn-ghost" id="cancelAddAccBtn">Cancel</button>
+      </div>
+    </form>
+  </div>
+</div>
+ 
+<!-- ══ PAGE: QUICK LINKS ══ -->
+<div class="page" id="page-quick-links">
+  <div class="page-header">
+    <div>
+      <h1 class="page-title">Quick <em>Actions</em></h1>
+      <p class="page-sub">Everything you need, one tap away.</p>
+    </div>
+  </div>
+  <div class="quick-links-grid" id="quickLinksGrid"></div>
+</div>
+ 
+<!-- ══ PAGE: SETTINGS ══ -->
+<div class="page" id="page-settings">
+  <div class="page-header">
+    <div>
+      <h1 class="page-title">App <em>Settings</em></h1>
+      <p class="page-sub">Control your app experience.</p>
+    </div>
+  </div>
+  <div class="settings-sections">
+ 
+    <div class="card">
+      <div class="card-head"><h3 class="card-title">Appearance</h3></div>
+      <div class="pref-section">
+        <div class="theme-selector" id="settingsThemeSelector">
+          <button class="theme-opt" data-theme="dark"><span class="theme-swatch dark-swatch"></span> Dark</button>
+          <button class="theme-opt" data-theme="light"><span class="theme-swatch light-swatch"></span> Light</button>
+        </div>
+      </div>
+    </div>
+ 
+    <div class="card mt-16">
+      <div class="card-head"><h3 class="card-title">Notifications</h3></div>
+      <div class="notif-toggles">
+        <div class="notif-row"><span>Email Alerts</span><label class="toggle-switch"><input type="checkbox" id="settPrefEmail" checked/><span class="toggle-track"><span class="toggle-thumb"></span></span></label></div>
+        <div class="notif-row"><span>SMS Alerts</span><label class="toggle-switch"><input type="checkbox" id="settPrefSMS" checked/><span class="toggle-track"><span class="toggle-thumb"></span></span></label></div>
+        <div class="notif-row"><span>Push Notifications</span><label class="toggle-switch"><input type="checkbox" id="settPrefPush"/><span class="toggle-track"><span class="toggle-thumb"></span></span></label></div>
+        <div class="notif-row"><span>EMI Reminders</span><label class="toggle-switch"><input type="checkbox" id="settPrefEMI" checked/><span class="toggle-track"><span class="toggle-thumb"></span></span></label></div>
+      </div>
+    </div>
+ 
+    <div class="card mt-16">
+      <div class="card-head"><h3 class="card-title">Privacy</h3></div>
+      <div class="notif-toggles">
+        <div class="notif-row"><span>Share analytics data</span><label class="toggle-switch"><input type="checkbox" id="settPrivAnalytics"/><span class="toggle-track"><span class="toggle-thumb"></span></span></label></div>
+        <div class="notif-row"><span>Personalised offers</span><label class="toggle-switch"><input type="checkbox" id="settPrivOffers" checked/><span class="toggle-track"><span class="toggle-thumb"></span></span></label></div>
+      </div>
+    </div>
+ 
+  </div>
+</div>
     </main>
   </div>
 
@@ -372,6 +773,36 @@
     </div>
     <ul class="notif-list" id="notifList"></ul>
   </div>
+  <div class="modal-backdrop hidden" id="deleteAccountModal">
+  <div class="modal-box">
+    <div class="modal-icon danger">
+      <svg viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg>
+    </div>
+    <h3 class="modal-title">Delete Account?</h3>
+    <p class="modal-body">This will permanently delete your account and all associated data. This action cannot be undone.</p>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" id="cancelDeleteBtn">Cancel</button>
+      <button class="btn btn-danger" id="confirmDeleteBtn">Yes, Delete</button>
+    </div>
+  </div>
+</div>
+ 
+<!-- TERMS MODAL -->
+<div class="modal-backdrop hidden" id="legalModal">
+  <div class="modal-box modal-lg">
+    <div class="modal-header-row">
+      <div class="legal-tabs">
+        <button class="legal-tab active" data-tab="terms">Terms & Conditions</button>
+        <button class="legal-tab" data-tab="privacy">Privacy Policy</button>
+        <button class="legal-tab" data-tab="agreement">User Agreement</button>
+      </div>
+      <button class="modal-close-btn" id="closeLegalModal">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="legal-content" id="legalContent"></div>
+  </div>
+</div>
   <script src="js/auth.js"></script>
   <script>
   // Redirect to login if not authenticated

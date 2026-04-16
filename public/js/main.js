@@ -1,17 +1,17 @@
-/* ═══════════════════════════════════════════════════════
-   CASHLY — main.js
-   1. Theme toggle (dark / light) — persists via localStorage
+﻿/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+   CASHLY â€” main.js
+   1. Theme toggle (dark / light) â€” persists via localStorage
    2. Dynamic content injection
    3. EMI Calculator
    4. Scroll reveal (IntersectionObserver)
    5. Navbar scroll + active link
    6. Mobile drawer + hamburger
    7. Smooth anchor scrolling (offset for fixed nav)
-═══════════════════════════════════════════════════════ */
+â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 
-/* ─────────────────────────────────────────
+/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
    1. THEME TOGGLE
-───────────────────────────────────────── */
+â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 const THEME_KEY = 'cashly-theme';
 
 function getStoredTheme() {
@@ -38,9 +38,9 @@ function initTheme() {
   });
 }
 
-/* ─────────────────────────────────────────
+/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
    2. DATA
-───────────────────────────────────────── */
+â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 const PRODUCTS = [
   {
     title: 'Personal Loan',
@@ -54,7 +54,7 @@ const PRODUCTS = [
   {
     title: 'Business Loan',
     rate:  '12% p.a.',
-    desc:  'Scale operations, buy inventory, or expand to new markets — up to ₹50 lakhs.',
+    desc:  'Scale operations, buy inventory, or expand to new markets â€” up to â‚¹50 lakhs.',
     icon: `<svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
              <rect x="2" y="7" width="20" height="14" rx="2"/>
              <path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/>
@@ -114,7 +114,7 @@ const FEATURES = [
   },
   {
     title: '100% online process',
-    desc:  'From application to disbursal — no branch visits, no physical paperwork, ever.',
+    desc:  'From application to disbursal â€” no branch visits, no physical paperwork, ever.',
     icon: `<svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
              <rect x="2" y="3" width="20" height="14" rx="2"/>
              <line x1="8" y1="21" x2="16" y2="21"/>
@@ -153,16 +153,16 @@ const FEATURES = [
 ];
 
 const DISBURSALS = [
-  { name: 'Rahul M.',  type: 'personal',  badge: 'badge-personal',  location: 'Mumbai, MH',    amount: '₹3,50,000' },
-  { name: 'Priya S.',  type: 'business',  badge: 'badge-business',  location: 'Bengaluru, KA', amount: '₹12,00,000' },
-  { name: 'Arjun T.',  type: 'home',      badge: 'badge-home',      location: 'Pune, MH',      amount: '₹28,00,000' },
-  { name: 'Sneha K.',  type: 'personal',  badge: 'badge-personal',  location: 'Hyderabad, TS', amount: '₹1,80,000' },
-  { name: 'Dev R.',    type: 'education', badge: 'badge-education', location: 'Delhi, DL',     amount: '₹6,25,000' },
+  { name: 'Rahul M.',  type: 'personal',  badge: 'badge-personal',  location: 'Mumbai, MH',    amount: 'â‚¹3,50,000' },
+  { name: 'Priya S.',  type: 'business',  badge: 'badge-business',  location: 'Bengaluru, KA', amount: 'â‚¹12,00,000' },
+  { name: 'Arjun T.',  type: 'home',      badge: 'badge-home',      location: 'Pune, MH',      amount: 'â‚¹28,00,000' },
+  { name: 'Sneha K.',  type: 'personal',  badge: 'badge-personal',  location: 'Hyderabad, TS', amount: 'â‚¹1,80,000' },
+  { name: 'Dev R.',    type: 'education', badge: 'badge-education', location: 'Delhi, DL',     amount: 'â‚¹6,25,000' },
 ];
 
-/* ─────────────────────────────────────────
+/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
    3. INJECT DYNAMIC CONTENT
-───────────────────────────────────────── */
+â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 function buildProducts() {
   const grid = document.getElementById('productsGrid');
   if (!grid) return;
@@ -219,9 +219,9 @@ function capitalise(str) {
   return str.charAt(0).toUpperCase() + str.slice(1);
 }
 
-/* ─────────────────────────────────────────
+/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
    4. EMI CALCULATOR
-───────────────────────────────────────── */
+â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 function calcEMI(principal, annualRate, months) {
   if (annualRate === 0) return principal / months;
   const r = annualRate / 12 / 100;
@@ -229,11 +229,11 @@ function calcEMI(principal, annualRate, months) {
 }
 
 function formatINR(amount) {
-  return '₹ ' + Math.round(amount).toLocaleString('en-IN');
+  return 'â‚¹ ' + Math.round(amount).toLocaleString('en-IN');
 }
 
 function formatINRLabel(amount) {
-  return '₹' + Number(amount).toLocaleString('en-IN');
+  return 'â‚¹' + Number(amount).toLocaleString('en-IN');
 }
 
 function updateCalc() {
@@ -276,9 +276,9 @@ function initCalc() {
   updateCalc(); // initial render
 }
 
-/* ─────────────────────────────────────────
+/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
    5. SCROLL REVEAL
-───────────────────────────────────────── */
+â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 function initReveal() {
   const items = document.querySelectorAll('.reveal');
   if (!items.length) return;
@@ -298,9 +298,9 @@ function initReveal() {
   items.forEach(el => io.observe(el));
 }
 
-/* ─────────────────────────────────────────
+/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
    6. NAVBAR
-───────────────────────────────────────── */
+â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 function initNav() {
   const navbar    = document.getElementById('navbar');
   const hamburger = document.getElementById('hamburger');
@@ -339,9 +339,9 @@ function initNav() {
   }, { passive: true });
 }
 
-/* ─────────────────────────────────────────
+/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
    7. SMOOTH SCROLL (offset for fixed nav)
-───────────────────────────────────────── */
+â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 function initSmoothScroll() {
   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', e => {
@@ -357,73 +357,16 @@ function initSmoothScroll() {
   });
 }
 
-/* ─────────────────────────────────────────
-   8. AUTH NAV — show avatar when logged in
-───────────────────────────────────────── */
-const AUTH_KEY = 'kashly_user';
+/* ---------------------------------------------
+   8. AUTH NAV -- handled by auth.js
+---------------------------------------------- */
 
-function getStoredUser() {
-  try { return JSON.parse(localStorage.getItem(AUTH_KEY)); }
-  catch { return null; }
-}
+/* ---------------------------------------------
+   INIT -- DOMContentLoaded
+---------------------------------------------- */
 
-function getInitials(name) {
-  return name.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase();
-}
-
-function initAuthNav() {
-  const user      = getStoredUser();
-  const navSignIn = document.getElementById('navSignIn');
-  const navUser   = document.getElementById('navUser');
-  const avatarBtn = document.getElementById('navAvatarBtn');
-  const dropdown  = document.getElementById('navDropdown');
-  const logoutBtn = document.getElementById('navLogoutBtn');
-  const resetBtn  = document.getElementById('navResetPasswordBtn');
-
-  if (!navSignIn || !navUser) return;
-
-  if (user) {
-    navSignIn.style.display  = 'none';
-    navUser.style.display    = 'flex';
-    navUser.style.alignItems = 'center';
-
-    document.getElementById('navAvatarInitials').textContent = getInitials(user.name || 'U');
-    document.getElementById('navDdName').textContent         = user.name  || 'User';
-    document.getElementById('navDdEmail').textContent        = user.email || '';
-  }
-
-  avatarBtn?.addEventListener('click', (e) => {
-    e.stopPropagation();
-    dropdown.classList.toggle('open');
-  });
-
-  document.addEventListener('click', (e) => {
-    if (!navUser.contains(e.target)) dropdown.classList.remove('open');
-  });
-
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') dropdown.classList.remove('open');
-  });
-
-  logoutBtn?.addEventListener('click', () => {
-    localStorage.removeItem(AUTH_KEY);
-    localStorage.removeItem('kashly_token');
-    localStorage.removeItem('kashly_refresh_token');
-    window.location.href = 'index.html';
-  });
-
-  // 👇 New: redirect to reset password page (adjust URL as needed)
-  resetBtn?.addEventListener('click', () => {
-    dropdown.classList.remove('open');
-    window.location.href = 'reset-password.html';
-  });
-}
-
-/* ─────────────────────────────────────────
-   INIT — DOMContentLoaded
-───────────────────────────────────────── */
 document.addEventListener('DOMContentLoaded', () => {
-  initTheme();        // must be first — sets data-theme before any paint
+  initTheme();        // must be first â€” sets data-theme before any paint
   buildProducts();
   buildSteps();
   buildFeatures();
@@ -434,3 +377,6 @@ document.addEventListener('DOMContentLoaded', () => {
   initSmoothScroll();
   initAuthNav();
 });
+
+
+

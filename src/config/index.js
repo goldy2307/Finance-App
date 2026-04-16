@@ -21,7 +21,7 @@ const config = {
   },
 
   mongo: {
-    uri: process.env.MONGO_URI || 'mongodb://localhost:27017/cashly_dev',
+    uri: process.env.MONGO_URI || 'mongodb+srv://switchitpvt_db_user:o1pMAVHgVoi6SxAf@kashly365.3vx3us7.mongodb.net/?appName=Kashly365',
   },
 
   pg: {
@@ -50,7 +50,7 @@ const config = {
   },
 
   cors: {
-    origins: (process.env.ALLOWED_ORIGINS || 'http://localhost:3000')
+    origins: (process.env.ALLOWED_ORIGINS || 'http://localhost:5000')
       .split(',')
       .map((o) => o.trim()),
   },

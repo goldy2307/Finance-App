@@ -1,5 +1,5 @@
-/* ═══════════════════════════════════════════════════════
-   CASHLY — apply.js
+﻿/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+   CASHLY â€” apply.js
    1. Theme toggle  (re-used from main.js pattern)
    2. Nav scroll + hamburger
    3. Loan type selector
@@ -9,11 +9,11 @@
    7. File upload handlers
    8. Per-step validation
    9. Form submission + success screen
-═══════════════════════════════════════════════════════ */
+â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 
-/* ─────────────────────────────────────────
+/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
    1. THEME
-───────────────────────────────────────── */
+â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 const THEME_KEY = 'cashly-theme';
 
 function applyTheme(theme) {
@@ -30,9 +30,9 @@ function initTheme() {
     .forEach(btn => btn.addEventListener('click', toggleTheme));
 }
 
-/* ─────────────────────────────────────────
+/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
    2. NAV
-───────────────────────────────────────── */
+â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 function initNav() {
   const navbar    = document.getElementById('navbar');
   const hamburger = document.getElementById('hamburger');
@@ -56,9 +56,9 @@ function initNav() {
   }
 }
 
-/* ─────────────────────────────────────────
+/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
    3. LOAN TYPES DATA + SELECTOR
-───────────────────────────────────────── */
+â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 const LOAN_TYPES = [
   {
     id:    'personal',
@@ -137,9 +137,9 @@ function selectLoanType(id) {
   updateAsideSummary();
 }
 
-/* ─────────────────────────────────────────
+/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
    4. PROGRESS BAR + STEP NAVIGATION
-───────────────────────────────────────── */
+â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 const STEP_LABELS = ['Loan details', 'Personal info', 'Employment', 'Documents'];
 
 function buildProgressSteps() {
@@ -208,9 +208,9 @@ function initStepNavigation() {
   }
 }
 
-/* ─────────────────────────────────────────
+/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
    5. LIVE EMI PREVIEW
-───────────────────────────────────────── */
+â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 function calcEMI(principal, annualRate, months) {
   if (!principal || !months || annualRate === 0) return 0;
   const r = annualRate / 12 / 100;
@@ -218,8 +218,8 @@ function calcEMI(principal, annualRate, months) {
 }
 
 function formatINR(n) {
-  if (!n || isNaN(n)) return '—';
-  return '₹ ' + Math.round(n).toLocaleString('en-IN');
+  if (!n || isNaN(n)) return 'â€”';
+  return 'â‚¹ ' + Math.round(n).toLocaleString('en-IN');
 }
 
 function recalcEMI() {
@@ -233,7 +233,7 @@ function recalcEMI() {
   const rate      = RATE_MAP[state.selectedLoan]  || 10.5;
 
   const emi = calcEMI(principal, rate, months);
-  previewEl.textContent = emi > 0 ? formatINR(emi) : '—';
+  previewEl.textContent = emi > 0 ? formatINR(emi) : 'â€”';
 
   updateAsideSummary();
 }
@@ -245,9 +245,9 @@ function initEMIPreview() {
   });
 }
 
-/* ─────────────────────────────────────────
+/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
    6. ASIDE SUMMARY
-───────────────────────────────────────── */
+â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 function updateAsideSummary() {
   const amountEl = document.getElementById('loanAmountInp');
   const tenureEl = document.getElementById('tenureInp');
@@ -260,25 +260,25 @@ function updateAsideSummary() {
 
   const loanLabel = loanId
     ? LOAN_TYPES.find(l => l.id === loanId)?.label + ' Loan'
-    : '—';
+    : 'â€”';
 
   const amountEl2 = document.getElementById('summaryAmount');
-  if (amountEl2) amountEl2.textContent = amount > 0 ? formatINR(amount) : '₹ —';
+  if (amountEl2) amountEl2.textContent = amount > 0 ? formatINR(amount) : 'â‚¹ â€”';
 
   const typeEl = document.getElementById('summaryType');
   if (typeEl) typeEl.textContent = loanLabel;
 
-  const tenureDisplay = months > 0 ? months + ' months' : '—';
+  const tenureDisplay = months > 0 ? months + ' months' : 'â€”';
   const tenureEl2 = document.getElementById('summaryTenure');
   if (tenureEl2) tenureEl2.textContent = tenureDisplay;
 
   const emiEl = document.getElementById('summaryEMI');
-  if (emiEl) emiEl.textContent = emi > 0 ? formatINR(emi) + '/mo' : '—';
+  if (emiEl) emiEl.textContent = emi > 0 ? formatINR(emi) + '/mo' : 'â€”';
 }
 
-/* ─────────────────────────────────────────
+/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
    7. FILE UPLOADS
-───────────────────────────────────────── */
+â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 function initUploads() {
   document.querySelectorAll('.upload-input').forEach(input => {
     input.addEventListener('change', e => {
@@ -311,9 +311,9 @@ function initUploads() {
   });
 }
 
-/* ─────────────────────────────────────────
+/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
    8. VALIDATION
-───────────────────────────────────────── */
+â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 function clearErrors() {
   document.querySelectorAll('.field-error').forEach(e => e.remove());
   document.querySelectorAll('.error').forEach(e => e.classList.remove('error'));
@@ -345,7 +345,7 @@ function validateStep(step) {
     }
     const amt = document.getElementById('loanAmountInp');
     if (!amt.value || parseFloat(amt.value) < 10000) {
-      showError(amt, 'Enter a valid loan amount (min ₹10,000).');
+      showError(amt, 'Enter a valid loan amount (min â‚¹10,000).');
       valid = false;
     }
     const ten = document.getElementById('tenureInp');
@@ -398,7 +398,7 @@ function validateStep(step) {
     }
     const income = document.getElementById('monthlyIncome');
     if (!income.value || parseFloat(income.value) < 5000) {
-      showError(income, 'Enter your monthly income (min ₹5,000).');
+      showError(income, 'Enter your monthly income (min â‚¹5,000).');
       valid = false;
     }
     const employer = document.getElementById('employer');
@@ -438,40 +438,92 @@ function validateStep(step) {
   return valid;
 }
 
-/* ─────────────────────────────────────────
+/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
    9. SUBMISSION
-───────────────────────────────────────── */
+â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 function generateAppId() {
   return 'CLY-' + Date.now().toString(36).toUpperCase().slice(-6);
 }
 
-function handleSubmit() {
+async function handleSubmit() {
   if (!validateStep(4)) return;
 
   const btn = document.getElementById('submitBtn');
   if (btn) {
-    btn.textContent = 'Submitting…';
+    btn.textContent = 'Submitting...';
     btn.disabled = true;
   }
 
-  // Simulate API call
-  setTimeout(() => {
-    const appId = generateAppId();
+  try {
+    const amountRupees = Number(document.getElementById('loanAmountInp')?.value || 0);
+    const tenureMonths = Number(document.getElementById('tenureInp')?.value || 0);
+    const purpose = document.getElementById('loanPurpose')?.value || '';
+    const empType = document.querySelector('input[name="empType"]:checked')?.value || '';
+    const monthlyIncomeRupees = Number(document.getElementById('monthlyIncome')?.value || 0);
+
+    const res = await authFetch('/loans', {
+      method: 'POST',
+      body: JSON.stringify({
+        loanType: state.selectedLoan,
+        amountRupees,
+        tenureMonths,
+        purpose,
+        employmentType: empType,
+        monthlyIncomeRupees,
+      }),
+    });
+
+    if (!res) return; // authFetch may redirect on auth failure
+
+    const body = await res.json().catch(() => null);
+    if (!res.ok) {
+      if (btn) {
+        btn.textContent = 'Submit application';
+        btn.disabled = false;
+      }
+      const msg = (body && body.error ? body.error.message : null) || 'Unable to submit application.';
+      const anchor = document.querySelector('.consent-block') || document.getElementById('submitBtn');
+      if (anchor) {
+        const note = document.createElement('div');
+        note.className = 'field-error';
+        note.style.marginTop = '8px';
+        note.textContent = msg;
+        anchor.insertAdjacentElement('afterend', note);
+      }
+      return;
+    }
+
+    const loan = body && body.data ? body.data.loan : null;
+    const appId = loan && loan.applicationId ? loan.applicationId : generateAppId();
+
     const appIdEl = document.getElementById('appId');
     if (appIdEl) appIdEl.textContent = appId;
 
     goToStep(5);
 
-    // hide progress bar on success screen
     const progressWrap = document.querySelector('.progress-bar-wrap');
     if (progressWrap) progressWrap.style.display = 'none';
-  }, 1400);
-}
 
-/* ─────────────────────────────────────────
+  } catch {
+    if (btn) {
+      btn.textContent = 'Submit application';
+      btn.disabled = false;
+    }
+    const anchor = document.querySelector('.consent-block') || document.getElementById('submitBtn');
+    if (anchor) {
+      const note = document.createElement('div');
+      note.className = 'field-error';
+      note.style.marginTop = '8px';
+      note.textContent = 'Network error. Please try again.';
+      anchor.insertAdjacentElement('afterend', note);
+    }
+  }
+}
+/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
    INIT
-───────────────────────────────────────── */
+â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 document.addEventListener('DOMContentLoaded', () => {
+  requireAuth();
   initTheme();
   initNav();
   buildLoanTypes();

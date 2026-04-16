@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en" data-theme="dark">
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <meta name="description" content="Cashly — Apply for a loan in minutes. Fast, transparent, 100% online."/>
+  <meta name="description" content="Cashly â€” Apply for a loan in minutes. Fast, transparent, 100% online."/>
   <title>Kashly 365 | Apply for a Loan</title>
   <link rel="icon" href="assets/Logos/favicon-light.png">
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
@@ -14,7 +14,7 @@
 </head>
 <body>
 
-  <!-- ── NAV ── -->
+  <!-- â”€â”€ NAV â”€â”€ -->
   <nav id="navbar">
     <a href="index.html" class="logo-link">
       <img src="assets/Logos/cashly-main.png" alt="Cashly" class="logo logo-dark"/>
@@ -41,7 +41,49 @@
           <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
         </svg>
       </button>
-      <a href="login.html" class="btn btn-ghost">Sign in</a>
+            <a href="login.html" class="btn btn-ghost" id="navSignIn">Sign in</a>
+
+      <div class="nav-user" id="navUser" style="display:none">
+        <button class="nav-avatar-btn" id="navAvatarBtn" aria-label="Account menu">
+          <span class="nav-avatar-initials" id="navAvatarInitials">AR</span>
+        </button>
+        <div class="nav-dropdown" id="navDropdown">
+          <div class="nav-dropdown-header">
+            <div class="nav-dd-name" id="navDdName">Arjun Rao</div>
+            <div class="nav-dd-email" id="navDdEmail">arjun@example.com</div>
+          </div>
+          <div class="nav-dropdown-divider"></div>
+
+          <a href="user_dashboard.html" class="nav-dd-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+            Dashboard
+          </a>
+
+          <a href="profile.html" class="nav-dd-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            Profile
+          </a>
+
+          <a href="settings.html" class="nav-dd-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+            Settings
+          </a>
+
+          <div class="nav-dropdown-divider"></div>
+
+          <button class="nav-dd-item" id="navResetPasswordBtn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            Set / Reset Password
+          </button>
+
+          <div class="nav-dropdown-divider"></div>
+
+          <button class="nav-dd-item nav-dd-logout" id="navLogoutBtn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+            Sign out
+          </button>
+        </div>
+      </div>
       <a href="#"          class="btn btn-primary">Apply now</a>
     </div>
 
@@ -77,10 +119,10 @@
     </div>
   </div>
 
-  <!-- ── PAGE WRAPPER ── -->
+  <!-- â”€â”€ PAGE WRAPPER â”€â”€ -->
   <main class="apply-page">
 
-    <!-- LEFT PANEL — static info -->
+    <!-- LEFT PANEL â€” static info -->
     <aside class="apply-aside">
       <div class="aside-inner">
 
@@ -128,19 +170,19 @@
         <!-- loan summary card (updates dynamically) -->
         <div class="aside-summary" id="asideSummary">
           <div class="summary-label">Your selected offer</div>
-          <div class="summary-amount num" id="summaryAmount">₹ —</div>
+          <div class="summary-amount num" id="summaryAmount">â‚¹ â€”</div>
           <div class="summary-rows">
             <div class="summary-row">
               <span>Loan type</span>
-              <span class="num" id="summaryType">—</span>
+              <span class="num" id="summaryType">â€”</span>
             </div>
             <div class="summary-row">
               <span>Tenure</span>
-              <span class="num" id="summaryTenure">—</span>
+              <span class="num" id="summaryTenure">â€”</span>
             </div>
             <div class="summary-row">
               <span>Est. EMI</span>
-              <span class="num" id="summaryEMI">—</span>
+              <span class="num" id="summaryEMI">â€”</span>
             </div>
           </div>
         </div>
@@ -148,7 +190,7 @@
       </div>
     </aside>
 
-    <!-- RIGHT PANEL — multi-step form -->
+    <!-- RIGHT PANEL â€” multi-step form -->
     <section class="apply-form-wrap">
 
       <!-- progress bar -->
@@ -161,7 +203,7 @@
         </div>
       </div>
 
-      <!-- STEP 1 — Loan details -->
+      <!-- STEP 1 â€” Loan details -->
       <div class="form-step active" id="step-1">
         <div class="step-header">
           <h2>What kind of loan<br/>do you need?</h2>
@@ -177,10 +219,10 @@
           <div class="form-group">
             <label for="loanAmountInp">Loan amount <span class="req">*</span></label>
             <div class="input-wrap prefix">
-              <span class="input-prefix">₹</span>
+              <span class="input-prefix">â‚¹</span>
               <input type="number" id="loanAmountInp" class="num" placeholder="5,00,000" min="10000" max="5000000"/>
             </div>
-            <div class="range-hint">₹10,000 — ₹50,00,000</div>
+            <div class="range-hint">â‚¹10,000 â€” â‚¹50,00,000</div>
           </div>
           <div class="form-group">
             <label for="tenureInp">Preferred tenure <span class="req">*</span></label>
@@ -214,7 +256,7 @@
         <!-- EMI preview -->
         <div class="emi-preview" id="emiPreview">
           <div class="emi-preview-label">Estimated monthly EMI</div>
-          <div class="emi-preview-val num" id="emiPreviewVal">—</div>
+          <div class="emi-preview-val num" id="emiPreviewVal">â€”</div>
           <div class="emi-preview-note">at 10.5% p.a. (rate may vary based on profile)</div>
         </div>
 
@@ -226,11 +268,11 @@
         </div>
       </div>
 
-      <!-- STEP 2 — Personal details -->
+      <!-- STEP 2 â€” Personal details -->
       <div class="form-step" id="step-2">
         <div class="step-header">
           <h2>Tell us about<br/>yourself</h2>
-          <p>Basic personal information — takes less than a minute.</p>
+          <p>Basic personal information â€” takes less than a minute.</p>
         </div>
 
         <div class="form-row-2">
@@ -297,7 +339,7 @@
         </div>
       </div>
 
-      <!-- STEP 3 — Employment & income -->
+      <!-- STEP 3 â€” Employment & income -->
       <div class="form-step" id="step-3">
         <div class="step-header">
           <h2>Employment &amp;<br/>income details</h2>
@@ -341,9 +383,9 @@
             <select id="workExp">
               <option value="">Select</option>
               <option>Less than 1 year</option>
-              <option>1 – 2 years</option>
-              <option>2 – 5 years</option>
-              <option>5 – 10 years</option>
+              <option>1 â€“ 2 years</option>
+              <option>2 â€“ 5 years</option>
+              <option>5 â€“ 10 years</option>
               <option>10+ years</option>
             </select>
           </div>
@@ -353,14 +395,14 @@
           <div class="form-group">
             <label for="monthlyIncome">Monthly income (net) <span class="req">*</span></label>
             <div class="input-wrap prefix">
-              <span class="input-prefix">₹</span>
+              <span class="input-prefix">â‚¹</span>
               <input type="number" id="monthlyIncome" class="num" placeholder="75,000"/>
             </div>
           </div>
           <div class="form-group">
             <label for="existingEMI">Existing EMI obligations</label>
             <div class="input-wrap prefix">
-              <span class="input-prefix">₹</span>
+              <span class="input-prefix">â‚¹</span>
               <input type="number" id="existingEMI" class="num" placeholder="0 (if none)"/>
             </div>
           </div>
@@ -393,7 +435,7 @@
         </div>
       </div>
 
-      <!-- STEP 4 — Documents & consent -->
+      <!-- STEP 4 â€” Documents & consent -->
       <div class="form-step" id="step-4">
         <div class="step-header">
           <h2>Upload documents<br/>&amp; confirm</h2>
@@ -412,7 +454,7 @@
             </div>
             <div class="upload-info">
               <div class="upload-title">PAN Card</div>
-              <div class="upload-hint">JPG, PNG or PDF — max 5 MB</div>
+              <div class="upload-hint">JPG, PNG or PDF â€” max 5 MB</div>
             </div>
             <label class="upload-btn">
               <input type="file" accept=".jpg,.jpeg,.png,.pdf" class="upload-input" data-doc="pan"/>
@@ -431,7 +473,7 @@
             </div>
             <div class="upload-info">
               <div class="upload-title">Aadhaar Card</div>
-              <div class="upload-hint">Front &amp; back — JPG, PNG or PDF</div>
+              <div class="upload-hint">Front &amp; back â€” JPG, PNG or PDF</div>
             </div>
             <label class="upload-btn">
               <input type="file" accept=".jpg,.jpeg,.png,.pdf" class="upload-input" data-doc="aadhaar"/>
@@ -449,7 +491,7 @@
             </div>
             <div class="upload-info">
               <div class="upload-title">Salary slips / Bank statement</div>
-              <div class="upload-hint">Last 3 months — PDF preferred</div>
+              <div class="upload-hint">Last 3 months â€” PDF preferred</div>
             </div>
             <label class="upload-btn">
               <input type="file" accept=".jpg,.jpeg,.png,.pdf" class="upload-input" data-doc="salary"/>
@@ -467,7 +509,7 @@
             </div>
             <div class="upload-info">
               <div class="upload-title">Passport photo</div>
-              <div class="upload-hint">Recent, clear photo — JPG or PNG</div>
+              <div class="upload-hint">Recent, clear photo â€” JPG or PNG</div>
             </div>
             <label class="upload-btn">
               <input type="file" accept=".jpg,.jpeg,.png" class="upload-input" data-doc="photo"/>
@@ -509,7 +551,7 @@
         </div>
       </div>
 
-      <!-- STEP 5 — Success -->
+      <!-- STEP 5 â€” Success -->
       <div class="form-step" id="step-5">
         <div class="success-screen">
           <div class="success-icon">
@@ -518,7 +560,7 @@
             </svg>
           </div>
           <h2 class="success-title">Application submitted!</h2>
-          <p class="success-sub">Your application ID is <strong class="num" id="appId">—</strong>. We'll review it and get back within <strong>4 hours</strong> via SMS and email.</p>
+          <p class="success-sub">Your application ID is <strong class="num" id="appId">â€”</strong>. We'll review it and get back within <strong>4 hours</strong> via SMS and email.</p>
 
           <div class="success-steps">
             <div class="ss-item done">

@@ -1,8 +1,13 @@
+# Ignore The admin script
+src/scripts/create-admin.js
+
 # Dependencies
 node_modules/
 
 # Environment
 *.env
+.env
+.env.development
 .env.local
 .env.production
 

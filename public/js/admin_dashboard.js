@@ -23,6 +23,15 @@ const CONFIG = {
   DATE_LOCALE: 'en-IN',
 };
 
+const AuthService = {
+  getToken() { return localStorage.getItem('kashly_token') || ''; },
+  getHeaders() {
+    return {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${this.getToken()}`,
+    };
+  },
+};
 /* ══════════════════════════════════════════
    UTILS
 ══════════════════════════════════════════ */
