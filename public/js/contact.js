@@ -64,7 +64,7 @@ const CHANNELS = [
     title: 'Live chat',
     value: 'Start a chat',
     desc:  'Talk to a support agent instantly. Available around the clock.',
-    badge: 'Under 2 min',
+    badge: 'Under 10 min',
     href:  '#chat',
     icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
@@ -74,7 +74,7 @@ const CHANNELS = [
     title: 'Phone support',
     value: '1800-123-4567',
     desc:  'Toll-free. Speak to a loan advisor Monday–Sunday.',
-    badge: 'Under 5 min',
+    badge: 'Under 15 min',
     href:  'tel:18001234567',
     icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.36 12a19.79 19.79 0 0 1-3.07-8.67 2 2 0 0 1 1.99-2.18h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
@@ -84,7 +84,7 @@ const CHANNELS = [
     title: 'Email us',
     value: 'support@cashly.in',
     desc:  'Write to us for detailed queries. We reply within 4 hours.',
-    badge: 'Within 4 hrs',
+    badge: 'Within 1 hour',
     href:  'mailto:support@cashly.in',
     icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
@@ -358,24 +358,15 @@ function buildFAQs() {
 ───────────────────────────────────────── */
 const OFFICES = [
   {
-    city: 'Mumbai',
+    city: 'Indore',
     hq:   true,
-    addr: 'Level 14, One BKC, Bandra Kurla Complex, Mumbai — 400051',
+    addr: '615, Shekhar Central, Manorama Ganj, Indore — 452001',
   },
-  {
-    city: 'Bengaluru',
-    hq:   false,
-    addr: '4th Floor, Prestige Tower, MG Road, Bengaluru — 560001',
-  },
-  {
-    city: 'Delhi NCR',
-    hq:   false,
-    addr: 'DLF Cyber City, Tower B, Gurugram — 122002',
-  },
+ 
 ];
 
 const HOURS = [
-  { day: 'Monday – Friday', time: '9:00 AM – 9:00 PM', open: true  },
+  { day: 'Monday – Friday', time: '10:00 AM – 8:00 PM', open: true  },
   { day: 'Saturday',        time: '10:00 AM – 6:00 PM', open: true  },
   { day: 'Sunday',          time: '10:00 AM – 4:00 PM', open: true  },
   { day: 'Public holidays', time: 'Closed',             open: false },
