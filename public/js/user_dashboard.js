@@ -23,7 +23,7 @@
    CONFIG
 â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 const CONFIG = {
-  API_BASE: '/api/v1',          // â† point to your Express server
+  API_BASE: '/api/v1', // or your deployed backend URL,          // â† point to your Express server
   CURRENCY: 'INR',
   LOCALE:   'en-IN',
 };
@@ -36,14 +36,16 @@ const CONFIG = {
 const AuthService = {
   getToken() {
     // In production: return localStorage.getItem('kashly_token');
-    return localStorage.getItem('kashly_token') || '';
+ return localStorage.getItem('kashly_token') || '';
   },
-  getHeaders() {
-    return {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${this.getToken()}`,
-    };
-  },
+getHeaders() {
+  const token = this.getToken();
+
+  return {
+    'Content-Type': 'application/json',
+    ...(token && { Authorization: `Bearer ${token}` })
+  };
+},
 };
 
 /* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
@@ -58,14 +60,16 @@ const MockDataProvider = {
   });
   if (!res.ok) {
     // Token expired or invalid — send back to login
-    window.location.href = 'login.html';
-    return null;
+    window.location.href = '/login';
+    console.error('API failed', res.status);
+    throw new Error('API error');
+    
   }
   const body = await res.json();
-  const user = body.data?.user || body.user;
+  const user = body.data?.user || body.data || body.user;
   return {
     id:           user._id || user.id,
-    name:         user.name || `${user.firstName} ${user.lastName}`.trim(),
+    name: user.name || [user.firstName, user.lastName].filter(Boolean).join(' '),
     email:        user.email || '',
     initials:     getInitials(user.name || user.email || 'U'),
     creditScore:  user.creditScore  || null,
@@ -73,74 +77,59 @@ const MockDataProvider = {
   };
 },
 
-  async getLoans() {
-    // REAL: return fetch(`${CONFIG.API_BASE}/loans`, { headers: AuthService.getHeaders() }).then(r => r.json());
-    return [
-      {
-        id: 'LN20240001',
-        type: 'Personal Loan',
-        principal: 500000,
-        outstanding: 342800,
-        emiAmount: 16133,
-        interestRate: 10.5,
-        tenureMonths: 36,
-        monthsPaid: 9,
-        nextDue: '2026-04-15',
-        status: 'active',
-        disbursedOn: '2025-07-01',
-      },
-      {
-        id: 'LN20240032',
-        type: 'Business Loan',
-        principal: 200000,
-        outstanding: 0,
-        emiAmount: 0,
-        interestRate: 12.0,
-        tenureMonths: 12,
-        monthsPaid: 12,
-        nextDue: null,
-        status: 'closed',
-        disbursedOn: '2024-04-01',
-      },
-    ];
-  },
+ async getLoans() {
+  const res = await fetch(`${CONFIG.API_BASE}/loans`, {
+    headers: AuthService.getHeaders(),
+  });
+  const result = await res.json();
+ return result?.data?.loans || result?.loans || result?.data || [];
+},
 
   async getTransactions() {
-    // REAL: return fetch(`${CONFIG.API_BASE}/transactions`, { headers: AuthService.getHeaders() }).then(r => r.json());
-    const months = ['Apr 2026','Mar 2026','Feb 2026','Jan 2026','Dec 2025','Nov 2025','Oct 2025','Sep 2025','Aug 2025','Jul 2025'];
-    return months.map((m, i) => ({
-      id: `TXN_${String(i + 1).padStart(4, '0')}`,
-      loanId: 'LN20240001',
-      loanName: 'Personal Loan',
-      date: m,
-      amount: 16133,
-      principal: 12800,
-      interest: 3333,
-      status: i === 0 ? 'upcoming' : 'paid',
-    }));
-  },
+  try {
+    const res = await fetch(`${CONFIG.API_BASE}/transactions`, {
+      headers: AuthService.getHeaders(),
+    });
+    if (!res.ok) {
+      console.error('getTransactions failed', res.status);
+      return [];
+    }
+    const result = await res.json();
+    return result?.data?.transactions ||
+           result?.transactions ||
+           result?.data ||
+           [];
+  } catch (err) {
+    console.error('getTransactions error', err);
+    return [];
+  }
+},
 
   async getDocuments() {
-    // REAL: return fetch(`${CONFIG.API_BASE}/documents`, { headers: AuthService.getHeaders() }).then(r => r.json());
-    return [
-      { id: 'doc_001', name: 'Loan Agreement â€“ LN20240001', type: 'PDF', size: '1.2 MB', date: '01 Jul 2025', loanId: 'LN20240001' },
-      { id: 'doc_002', name: 'Sanction Letter â€“ LN20240001', type: 'PDF', size: '480 KB', date: '28 Jun 2025', loanId: 'LN20240001' },
-      { id: 'doc_003', name: 'Account Statement â€“ Mar 2026', type: 'PDF', size: '320 KB', date: '01 Apr 2026', loanId: 'LN20240001' },
-      { id: 'doc_004', name: 'Loan Agreement â€“ LN20240032', type: 'PDF', size: '1.1 MB', date: '01 Apr 2024', loanId: 'LN20240032' },
-      { id: 'doc_005', name: 'NOC â€“ LN20240032', type: 'PDF', size: '210 KB', date: '10 Apr 2025', loanId: 'LN20240032' },
-      { id: 'doc_006', name: 'KYC Documents', type: 'ZIP', size: '2.4 MB', date: '25 Jun 2025', loanId: null },
-    ];
-  },
+  try {
+    const res = await fetch(`${CONFIG.API_BASE}/documents`, {
+      headers: AuthService.getHeaders(),
+    });
+    if (!res.ok) return [];
+    const result = await res.json();
+    return result?.data?.documents || result?.documents || result?.data || [];
+  } catch {
+    return [];
+  }
+},
 
-  async getNotifications() {
-    // REAL: return fetch(`${CONFIG.API_BASE}/notifications`, { headers: AuthService.getHeaders() }).then(r => r.json());
-    return [
-      { id: 'n1', title: 'EMI Due Reminder', body: 'Your EMI of â‚¹16,133 is due on 15 Apr 2026.', time: '2 hours ago', read: false },
-      { id: 'n2', title: 'Loan Statement Ready', body: 'Your Mar 2026 statement is available for download.', time: '1 day ago', read: false },
-      { id: 'n3', title: 'Payment Confirmed', body: 'Your EMI payment of â‚¹16,133 for Mar 2026 was successful.', time: '32 days ago', read: true },
-      { id: 'n4', title: 'New Offer Available', body: 'You are eligible for a top-up loan of up to â‚¹2,00,000.', time: '5 days ago', read: true },
-    ];
-  },
+ async getNotifications() {
+  try {
+    const res = await fetch(`${CONFIG.API_BASE}/notifications`, {
+      headers: AuthService.getHeaders(),
+    });
+    if (!res.ok) return [];
+    const result = await res.json();
+    return result?.data?.notifications || result?.notifications || result?.data || [];
+  } catch {
+    return [];
+  }
+},
 
   async getFAQs() {
     return [
@@ -151,8 +140,20 @@ const MockDataProvider = {
       { q: 'How to update bank account details?', href: '#' },
     ];
   },
-};
+  async getSummary() {
+  const res = await fetch(`${CONFIG.API_BASE}/account/summary`, {
+    headers: AuthService.getHeaders(),
+  });
 
+  if (!res.ok) throw new Error('Failed to fetch summary');
+
+  const data = await res.json();
+  return data;
+},
+};
+function getInitials(name) {
+  return name.split(' ').map(n => n[0]).join('').toUpperCase();
+}
 /* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
    DATA REPOSITORY
    The single source of truth for the UI.
@@ -294,7 +295,8 @@ const NavService = {
 
   async _filterTxns(filter) {
     const txns = await DataRepository.get('getTransactions');
-    const filtered = filter === 'all' ? txns : txns.filter(t => t.status === filter);
+    const list = Array.isArray(txns) ? txns : (txns?.data?.transactions ?? txns?.transactions ?? txns?.data ?? []);
+const filtered = filter === 'all' ? list : list.filter(t => t.status === filter);
     Renderers.renderTxnTable(document.getElementById('allTxns'), filtered);
   },
 };
@@ -312,14 +314,27 @@ const Renderers = {
 
   renderActiveLoans(loans) {
     const el = document.getElementById('activeLoansList');
+    console.log('Loans:', loans);
     if (!el) return;
-    const active = loans.filter(l => l.status === 'active');
-    el.innerHTML = active.map(l => {
+   const loanList = Array.isArray(loans)
+  ? loans
+  : (loans?.data || loans?.loans || []);
+
+const active = loanList.filter(
+  l => (l.status || '').toLowerCase() === 'active'
+);
+// Filter active loans (case-safe)
+const activeLoans = loanList.filter(
+  l => (l.status || '').toLowerCase() === 'active'
+);
+
+// Render
+el.innerHTML = activeLoans.map(l => {
       const pct = Utils.loanProgress(l);
       return `
         <div class="loan-item">
           <div class="loan-item-top">
-            <span class="loan-item-name">${l.type} Â· ${l.id}</span>
+            <span class="loan-item-name">${l.type} ${l.id}</span>
             <span class="loan-item-amount">${Utils.formatCurrency(l.outstanding)}</span>
           </div>
           <div class="progress-bar-wrap">
@@ -342,9 +357,18 @@ const Renderers = {
   renderEmiChart(txns) {
     const el = document.getElementById('emiChart');
     if (!el) return;
-    const recent = txns.slice(0, 6).reverse();
-    const maxAmt = Math.max(...recent.map(t => t.amount));
-    el.innerHTML = recent.map(t => {
+   const txnList = Array.isArray(txns)
+  ? txns
+  : (txns?.data?.transactions ||
+     txns?.transactions ||
+     txns?.data ||
+     []);
+
+const recentTxns = Array.isArray(txnList)
+  ? txnList.slice(0, 5)
+  : [];
+ const maxAmt = Math.max(...recentTxns.map(t => t.amount));
+    el.innerHTML = recentTxns.map(t => {
       const h = Math.round((t.amount / maxAmt) * 80);
       return `
         <div class="emi-bar-wrap">
@@ -356,12 +380,17 @@ const Renderers = {
 
   renderTxnTable(container, txns) {
     if (!container) return;
-    const rows = txns.map(t => `
+    const list = Array.isArray(txns) ? txns : [];
+if (!list.length) {
+  container.innerHTML = '<div style="padding:20px;color:var(--text-3);font-size:14px;text-align:center">No transactions found</div>';
+  return;
+}
+const rows = list.map(t => `
       <div class="txn-row">
-        <span class="txn-loan-name">${t.loanName}</span>
+        <span class="txn-loan-name">${t.loanName ?? '—'}</span>
         <span class="txn-date">${t.date}</span>
         <span class="txn-amount">${Utils.formatCurrency(t.amount)}</span>
-        <span class="txn-principal">${Utils.formatCurrency(t.principal)}</span>
+        <span class="txn-principal">${Utils.formatCurrency(t.principal ?? 0)}</span>
         <span>${Utils.statusBadge(t.status)}</span>
       </div>`).join('');
     container.innerHTML = `
@@ -565,39 +594,96 @@ const DashboardApp = {
     ModalService.init();
     extendNavService();       // must run after NavService.init()
 
-    // Load all data in parallel
-    const [loans, txns, docs, notifs, faqs] = await Promise.all([
-      DataRepository.get('getLoans'),
-      DataRepository.get('getTransactions'),
-      DataRepository.get('getDocuments'),
-      DataRepository.get('getNotifications'),
-      DataRepository.get('getFAQs'),
-    ]);
+    // ── 1. User — greeting + topbar + sidebar ──────────────────────────────
+try {
+  const user = await DataRepository.get('getUser');
+  if (user) {
+    const hour = new Date().getHours();
+    const salutation = hour < 12 ? 'Good morning' : hour < 17 ? 'Good afternoon' : 'Good evening';
+    const firstName  = (user.name || '').split(' ')[0] || 'there';
+    const initials   = (user.name || user.email || 'U').split(' ').map(w => w[0]).join('').slice(0,2).toUpperCase();
 
-    // Render overview
-    Renderers.renderActiveLoans(loans);
-    Renderers.renderEmiChart(txns);
-    Renderers.renderTxnTable(document.getElementById('recentTxns'), txns.slice(0, 5));
+    const greetEl = document.getElementById('greetingText');
+    if (greetEl) greetEl.innerHTML = `${salutation}, <em>${Sanitize.text(firstName)}</em>`;
 
-    // Render loans page
-    Renderers.renderLoansDetail(loans);
+    const topbarAvatar = document.getElementById('topbarAvatar');
+    if (topbarAvatar) topbarAvatar.textContent = initials;
 
-    // Render repayments page (all txns)
-    Renderers.renderTxnTable(document.getElementById('allTxns'), txns);
+    // Sidebar profile (already handled by ProfileService, but sync here too)
+    const avatarEl = document.querySelector('.profile-avatar');
+    if (avatarEl) avatarEl.textContent = initials;
+    const nameEl  = document.querySelector('.profile-name');
+    if (nameEl)  nameEl.textContent = Sanitize.text(user.name || '');
+    const emailEl = document.querySelector('.profile-email');
+    if (emailEl) emailEl.textContent = Sanitize.text(user.email || '');
+  }
+} catch (e) { console.warn('User fetch failed:', e); }
 
-    // Render documents
-    Renderers.renderDocuments(docs);
+// ── 2. Account summary cards ───────────────────────────────────────────
+try {
+  const summary = await MockDataProvider.getSummary();
+  const s = summary?.data || summary;
+  const bal = s?.balances ?? {};
+  const loans_meta = s?.loans ?? {};
 
-    // Notifications panel
-    Renderers.renderNotifications(notifs);
+  const setEl = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = val ?? '—'; };
+  setEl('sumOutstanding',     bal.outstanding  ?? '—');
+  setEl('sumOutstandingMeta', `Across ${loans_meta.active ?? 0} active loan${loans_meta.active !== 1 ? 's' : ''}`);
+  setEl('sumTotalLoaned',     bal.totalLoaned  ?? '—');
 
-    // FAQs
-    Renderers.renderFAQs(faqs);
-
-    // Animate credit score bar on load
+  // Credit score
+  const cs = s?.creditScore;
+  if (cs != null) {
+    const pct  = Math.min(100, Math.max(0, ((cs - 300) / 600) * 100));
+    const tag  = cs >= 750 ? 'Excellent' : cs >= 700 ? 'Good' : cs >= 650 ? 'Fair' : 'Poor';
+    setEl('sidebarCreditScore', cs);
+    setEl('sidebarCreditTag',   tag);
+    setEl('csScoreVal',         cs);
+    setEl('csScoreLabel',       tag);
     setTimeout(() => {
-      document.querySelector('.csw-fill')?.style.setProperty('width', '74.2%');
+      document.getElementById('sidebarCreditFill')?.style.setProperty('width', pct + '%');
+      document.querySelector('.csw-fill')?.style.setProperty('width', pct + '%');
     }, 300);
+  }
+} catch (e) { console.warn('Summary fetch failed:', e); }
+
+// ── 3. Load loans + transactions in parallel ───────────────────────────
+const [rawLoans, rawTxns, docs, notifs, faqs] = await Promise.all([
+  DataRepository.get('getLoans'),
+  DataRepository.get('getTransactions'),
+  DataRepository.get('getDocuments'),
+  DataRepository.get('getNotifications'),
+  DataRepository.get('getFAQs'),
+]);
+
+// Normalise to arrays
+const loanList = Array.isArray(rawLoans) ? rawLoans : (rawLoans?.data?.loans ?? rawLoans?.loans ?? rawLoans?.data ?? []);
+const txnList  = Array.isArray(rawTxns)  ? rawTxns  : (rawTxns?.data?.transactions ?? rawTxns?.transactions ?? rawTxns?.data ?? []);
+
+// ── 4. Derive next EMI from active loans ───────────────────────────────
+const activeLoans = loanList.filter(l => (l.status || '').toLowerCase() === 'active');
+const nextEmiLoan = activeLoans.find(l => l.nextDue || l.emiAmount);
+if (nextEmiLoan) {
+  const setEl = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = val ?? '—'; };
+  setEl('sumNextEmi',     nextEmiLoan.emiAmount ? Utils.formatCurrency(nextEmiLoan.emiAmount) : '—');
+  setEl('sumNextEmiDate', nextEmiLoan.nextDue   ? `Due on ${nextEmiLoan.nextDue}` : '—');
+}
+
+// Repayment health (on-time %)
+const paidTxns    = txnList.filter(t => t.status === 'paid').length;
+const totalTxns   = txnList.filter(t => ['paid','overdue'].includes(t.status)).length;
+const healthEl    = document.getElementById('sumRepaymentHealth');
+if (healthEl) healthEl.textContent = totalTxns ? Math.round((paidTxns / totalTxns) * 100) + '%' : '—';
+
+// ── 5. Render ──────────────────────────────────────────────────────────
+Renderers.renderActiveLoans(loanList);
+Renderers.renderEmiChart(txnList);
+Renderers.renderTxnTable(document.getElementById('recentTxns'), txnList.slice(0, 5));
+Renderers.renderLoansDetail(loanList);
+Renderers.renderTxnTable(document.getElementById('allTxns'), txnList);
+Renderers.renderDocuments(docs);
+Renderers.renderNotifications(notifs);
+Renderers.renderFAQs(faqs);
   },
 };
 
@@ -1010,12 +1096,12 @@ const CreditScoreService = {
     return new Promise(r => setTimeout(() => r({
       success: true,
       data: {
-        score: 742, label: 'Good',
+        score: '-', label: 'Good',
         insights: [
-          { label: 'Payment History', val: '96%' },
-          { label: 'Credit Utilisation', val: '28%' },
-          { label: 'Loan Age (avg)', val: '3.2 yrs' },
-          { label: 'Active Accounts', val: '3' },
+          { label: 'Payment History', val: '-' },
+          { label: 'Credit Utilisation', val: '-' },
+          { label: 'Loan Age (avg)', val: '-' },
+          { label: 'Active Accounts', val: '-' },
         ],
       },
     }), 1200));

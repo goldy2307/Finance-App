@@ -218,8 +218,8 @@ function calcEMI(principal, annualRate, months) {
 }
 
 function formatINR(n) {
-  if (!n || isNaN(n)) return 'â€”';
-  return 'â‚¹ ' + Math.round(n).toLocaleString('en-IN');
+  if (!n || isNaN(n)) return '₹';
+  return '₹ ' + Math.round(n).toLocaleString('en-IN');
 }
 
 function recalcEMI() {
@@ -233,7 +233,7 @@ function recalcEMI() {
   const rate      = RATE_MAP[state.selectedLoan]  || 10.5;
 
   const emi = calcEMI(principal, rate, months);
-  previewEl.textContent = emi > 0 ? formatINR(emi) : 'â€”';
+  previewEl.textContent = emi > 0 ? formatINR(emi) : '₹';
 
   updateAsideSummary();
 }
@@ -260,20 +260,20 @@ function updateAsideSummary() {
 
   const loanLabel = loanId
     ? LOAN_TYPES.find(l => l.id === loanId)?.label + ' Loan'
-    : 'â€”';
+    : ' —';
 
   const amountEl2 = document.getElementById('summaryAmount');
-  if (amountEl2) amountEl2.textContent = amount > 0 ? formatINR(amount) : 'â‚¹ â€”';
+  if (amountEl2) amountEl2.textContent = amount > 0 ? formatINR(amount) : '₹ —';
 
   const typeEl = document.getElementById('summaryType');
   if (typeEl) typeEl.textContent = loanLabel;
 
-  const tenureDisplay = months > 0 ? months + ' months' : 'â€”';
+  const tenureDisplay = months > 0 ? months + ' months' : '₹';
   const tenureEl2 = document.getElementById('summaryTenure');
   if (tenureEl2) tenureEl2.textContent = tenureDisplay;
 
   const emiEl = document.getElementById('summaryEMI');
-  if (emiEl) emiEl.textContent = emi > 0 ? formatINR(emi) + '/mo' : 'â€”';
+  if (emiEl) emiEl.textContent = emi > 0 ? formatINR(emi) + '/mo' : '₹';
 }
 
 /* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
@@ -398,7 +398,7 @@ function validateStep(step) {
     }
     const income = document.getElementById('monthlyIncome');
     if (!income.value || parseFloat(income.value) < 5000) {
-      showError(income, 'Enter your monthly income (min â‚¹5,000).');
+      showError(income, 'Enter your monthly income (min ₹ 5,000).');
       valid = false;
     }
     const employer = document.getElementById('employer');

@@ -23,15 +23,7 @@ const CONFIG = {
   DATE_LOCALE: 'en-IN',
 };
 
-const AuthService = {
-  getToken() { return localStorage.getItem('kashly_token') || ''; },
-  getHeaders() {
-    return {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${this.getToken()}`,
-    };
-  },
-};
+
 /* ══════════════════════════════════════════
    UTILS
 ══════════════════════════════════════════ */
@@ -1097,6 +1089,18 @@ window.addEventListener('resize', () => {
    BOOT
 ══════════════════════════════════════════ */
 document.addEventListener('DOMContentLoaded', async () => {
+  // ── Auth guard ────────────────────────────────────────────
+  if (!isLoggedIn()) {
+    window.location.replace(`login.html?redirect=${encodeURIComponent(location.pathname)}`);
+    return;
+  }
+  const user = getStoredUser();
+  if (!user || user.role !== 'admin') {
+    // Logged in but not admin — kick to their own dashboard
+    window.location.replace(getDashboardForRole(user?.role));
+    return;
+  }
+  // ── Proceed ───────────────────────────────────────────────
   initTheme();
   initSidebar();
   initNav();

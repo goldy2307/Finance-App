@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+  body {
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: white
+  }
+
+  .loader {
+    position: relative;
+    width: 248px;
+    height: 257px;
+  }
+
+  .bar, .curve {
+    position: absolute;
+    top: 0;
+    background-repeat: no-repeat;
+    background-size: contain;
+    will-change: transform, opacity;
+  }
+
+  /* Left vertical bar — anchored to the left */
+  .bar {
+    left: 0;
+    width: 74px;
+    height: 247px;
+    background-image: url('1.png');
+    background-position: left center;
+   
+    animation: showBar 0.4s  forwards;
+  }
+
+  /* Curved rupee part — sits right of the bar */
+  .curve {
+    left: 44px;
+    width: 184px;
+    height: 247px;
+    background-image: url('2.png');
+    background-position: left center;
+    opacity: 0;
+    transform: translateX(-50px);
+    animation: slideIn  0.4s  forwards;
+  }
+
+  @keyframes showBar {
+    to { opacity: 1; }
+  }
+
+  @keyframes slideIn {
+    to {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+</style>
+</head>
+<body>
+ <div id="loader-screen" style="
+    position: fixed;
+    inset: 0;
+    background: white;
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  ">
+    <div class="loader-wrapper">
+      <div class="progress-track">
+        <div class="progress-fill"></div>
+      </div>
+      <div class="loader">
+        <div class="bar"></div>
+        <div class="curve"></div>
+      </div>
+    </div>
+  </div>
+
+<div class="loader">
+  <div class="bar"></div>
+  <div class="curve"></div>
+</div>
+<script>
+  window.addEventListener('load', () => {
+    const wrapper = document.getElementById('loader-screen');
+    wrapper.style.opacity = '0';
+    wrapper.style.transition = 'opacity 0.4s ease';
+    setTimeout(() => wrapper.style.display = 'none', 400);
+  });
+</script>
+</body>
+</html>

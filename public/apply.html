@@ -45,12 +45,12 @@
 
       <div class="nav-user" id="navUser" style="display:none">
         <button class="nav-avatar-btn" id="navAvatarBtn" aria-label="Account menu">
-          <span class="nav-avatar-initials" id="navAvatarInitials">AR</span>
+          <span class="nav-avatar-initials" id="navAvatarInitials">-</span>
         </button>
         <div class="nav-dropdown" id="navDropdown">
           <div class="nav-dropdown-header">
-            <div class="nav-dd-name" id="navDdName">Arjun Rao</div>
-            <div class="nav-dd-email" id="navDdEmail">arjun@example.com</div>
+            <div class="nav-dd-name" id="navDdName">-</div>
+            <div class="nav-dd-email" id="navDdEmail">Kashly@example.com</div>
           </div>
           <div class="nav-dropdown-divider"></div>
 
@@ -170,19 +170,19 @@
         <!-- loan summary card (updates dynamically) -->
         <div class="aside-summary" id="asideSummary">
           <div class="summary-label">Your selected offer</div>
-          <div class="summary-amount num" id="summaryAmount">â‚¹ â€”</div>
+          <div class="summary-amount num" id="summaryAmount">₹ —</div>
           <div class="summary-rows">
             <div class="summary-row">
               <span>Loan type</span>
-              <span class="num" id="summaryType">â€”</span>
+              <span class="num" id="summaryType">—</span>
             </div>
             <div class="summary-row">
               <span>Tenure</span>
-              <span class="num" id="summaryTenure">â€”</span>
+              <span class="num" id="summaryTenure"></span>
             </div>
             <div class="summary-row">
               <span>Est. EMI</span>
-              <span class="num" id="summaryEMI">â€”</span>
+              <span class="num" id="summaryEMI">₹</span>
             </div>
           </div>
         </div>
@@ -219,10 +219,10 @@
           <div class="form-group">
             <label for="loanAmountInp">Loan amount <span class="req">*</span></label>
             <div class="input-wrap prefix">
-              <span class="input-prefix">â‚¹</span>
+              <span class="input-prefix">₹</span>
               <input type="number" id="loanAmountInp" class="num" placeholder="5,00,000" min="10000" max="5000000"/>
             </div>
-            <div class="range-hint">â‚¹10,000 â€” â‚¹50,00,000</div>
+            <div class="range-hint">₹10,000 — ₹50,00,000</div>
           </div>
           <div class="form-group">
             <label for="tenureInp">Preferred tenure <span class="req">*</span></label>
@@ -256,7 +256,7 @@
         <!-- EMI preview -->
         <div class="emi-preview" id="emiPreview">
           <div class="emi-preview-label">Estimated monthly EMI</div>
-          <div class="emi-preview-val num" id="emiPreviewVal">â€”</div>
+          <div class="emi-preview-val num" id="emiPreviewVal">₹</div>
           <div class="emi-preview-note">at 10.5% p.a. (rate may vary based on profile)</div>
         </div>
 
@@ -272,7 +272,7 @@
       <div class="form-step" id="step-2">
         <div class="step-header">
           <h2>Tell us about<br/>yourself</h2>
-          <p>Basic personal information â€” takes less than a minute.</p>
+          <p>Basic personal information takes less than a minute.</p>
         </div>
 
         <div class="form-row-2">
@@ -383,9 +383,9 @@
             <select id="workExp">
               <option value="">Select</option>
               <option>Less than 1 year</option>
-              <option>1 â€“ 2 years</option>
-              <option>2 â€“ 5 years</option>
-              <option>5 â€“ 10 years</option>
+              <option>1 - 2 years</option>
+              <option>2 - 5 years</option>
+              <option>5 - 10 years</option>
               <option>10+ years</option>
             </select>
           </div>
@@ -395,14 +395,14 @@
           <div class="form-group">
             <label for="monthlyIncome">Monthly income (net) <span class="req">*</span></label>
             <div class="input-wrap prefix">
-              <span class="input-prefix">â‚¹</span>
+              <span class="input-prefix">₹</span>
               <input type="number" id="monthlyIncome" class="num" placeholder="75,000"/>
             </div>
           </div>
           <div class="form-group">
             <label for="existingEMI">Existing EMI obligations</label>
             <div class="input-wrap prefix">
-              <span class="input-prefix">â‚¹</span>
+              <span class="input-prefix">₹</span>
               <input type="number" id="existingEMI" class="num" placeholder="0 (if none)"/>
             </div>
           </div>
@@ -454,7 +454,7 @@
             </div>
             <div class="upload-info">
               <div class="upload-title">PAN Card</div>
-              <div class="upload-hint">JPG, PNG or PDF â€” max 5 MB</div>
+              <div class="upload-hint">JPG, PNG or PDF max 5 MB</div>
             </div>
             <label class="upload-btn">
               <input type="file" accept=".jpg,.jpeg,.png,.pdf" class="upload-input" data-doc="pan"/>
@@ -473,7 +473,7 @@
             </div>
             <div class="upload-info">
               <div class="upload-title">Aadhaar Card</div>
-              <div class="upload-hint">Front &amp; back â€” JPG, PNG or PDF</div>
+              <div class="upload-hint">Front &amp; back JPG, PNG or PDF</div>
             </div>
             <label class="upload-btn">
               <input type="file" accept=".jpg,.jpeg,.png,.pdf" class="upload-input" data-doc="aadhaar"/>
@@ -491,7 +491,7 @@
             </div>
             <div class="upload-info">
               <div class="upload-title">Salary slips / Bank statement</div>
-              <div class="upload-hint">Last 3 months â€” PDF preferred</div>
+              <div class="upload-hint">Last 3 months PDF preferred</div>
             </div>
             <label class="upload-btn">
               <input type="file" accept=".jpg,.jpeg,.png,.pdf" class="upload-input" data-doc="salary"/>
@@ -509,7 +509,7 @@
             </div>
             <div class="upload-info">
               <div class="upload-title">Passport photo</div>
-              <div class="upload-hint">Recent, clear photo â€” JPG or PNG</div>
+              <div class="upload-hint">Recent, clear photo JPG or PNG</div>
             </div>
             <label class="upload-btn">
               <input type="file" accept=".jpg,.jpeg,.png" class="upload-input" data-doc="photo"/>
@@ -595,7 +595,7 @@
 
     </section><!-- /apply-form-wrap -->
   </main>
-  <script src="js/auth.js"></script>
+  
   <script src="js/apply.js"></script>
 </body>
 </html>
