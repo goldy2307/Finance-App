@@ -1,7 +1,7 @@
 ﻿// Shared auth helpers for all frontend pages.
 // Works with plain <script> includes (no bundler).
 
-const CASHLY_API_BASE = (window.CASHLY_API_BASE || 'http://localhost:5000')
+const CASHLY_API_BASE = (window.CASHLY_API_BASE || '')
   .toString()
   .trim();
 
