@@ -54,5 +54,15 @@ async function incrementFields(userId, delta) {
   }
   return instance.reload();
 }
-
-module.exports = { create, findByUserId, updateByUserId, incrementFields };
+async function findByKycStatus(statusArray, q = '') {
+  const Model = getModel();
+  if (config.db.driver === 'mongo') {
+    const filter = { kycStatus: { $in: statusArray } };
+    if (q) filter['$or'] = [{ userId: q }]; // extend if you have name via populate
+    return Model.find(filter).lean();
+  }
+  const { Op } = require('sequelize');
+  const where = { kycStatus: { [Op.in]: statusArray } };
+  return Model.findAll({ where });
+}
+module.exports = { create, findByUserId, updateByUserId, incrementFields, findByKycStatus };

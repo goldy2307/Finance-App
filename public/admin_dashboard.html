@@ -1,107 +1,119 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="dark">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Kashly 365| Admin Dashboard</title>
+  <title>Kashly 365 | Admin Dashboard</title>
+  
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="css/admin_dashboard.css"/>
 </head>
 <body>
+<script src="js/loader.js"></script>
 
   <!-- ── SIDEBAR ── -->
   <aside class="sidebar" id="sidebar">
     <div class="sidebar-header">
-<a href="index.html">
-      <img src="assets/Logos/cashly-main.png", alt="Kashly Logo" class="sb-logo" height="46px", width="auto"/>
-    </a>
+      <a href="index.html">
+        <img src="assets/Logos/cashly-main.png" alt="Kashly Logo" class="sb-logo" height="46px" width="auto"/>
+      </a>
       <button class="sidebar-close" id="sidebarClose" aria-label="Close sidebar">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M18 6L6 18M6 6l12 12"/>
-        </svg>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
       </button>
     </div>
+
+    <!-- Collapse toggle (desktop) -->
+    <button class="sb-collapse-btn" id="sidebarCollapseBtn" title="Collapse sidebar">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+    </button>
 
     <nav class="sb-nav">
       <p class="sb-nav-label">Overview</p>
       <ul>
-        <li>
-          <a href="#" class="sb-link active" data-section="dashboard">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
-            Dashboard
-          </a>
-        </li>
-        <li>
-          <a href="#" class="sb-link" data-section="applications">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
-            Applications
-            <span class="sb-badge">24</span>
-          </a>
-        </li>
-        <li>
-          <a href="#" class="sb-link" data-section="borrowers">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-            Borrowers
-          </a>
-        </li>
-        <li>
-          <a href="#" class="sb-link" data-section="disbursals">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-            Disbursals
-          </a>
-        </li>
-        <li>
-          <a href="#" class="sb-link" data-section="repayments">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
-            Repayments
-          </a>
-        </li>
+        <li><a href="#" class="sb-link active" data-section="dashboard">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+          <span>Dashboard</span>
+        </a></li>
+        <li><a href="#" class="sb-link" data-section="applications">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+          <span>Applications</span>
+          <span class="sb-badge" id="sbBadgeApps">—</span>
+        </a></li>
+        <li><a href="#" class="sb-link" data-section="borrowers">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          <span>Borrowers</span>
+        </a></li>
+        <li><a href="#" class="sb-link" data-section="disbursals">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+          <span>Disbursals</span>
+        </a></li>
+        <li><a href="#" class="sb-link" data-section="repayments">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+          <span>Repayments</span>
+        </a></li>
       </ul>
 
       <p class="sb-nav-label">Risk & Compliance</p>
       <ul>
-        <li>
-          <a href="#" class="sb-link" data-section="kyc">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-            KYC Review
-            <span class="sb-badge warn">7</span>
-          </a>
-        </li>
-        <li>
-          <a href="#" class="sb-link" data-section="collections">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-            Collections
-          </a>
-        </li>
-        <li>
-          <a href="#" class="sb-link" data-section="reports">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/></svg>
-            Reports
-          </a>
-        </li>
+        <li><a href="#" class="sb-link" data-section="kyc">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          <span>KYC Review</span>
+          <span class="sb-badge warn" id="sbBadgeKyc">—</span>
+        </a></li>
+        <li><a href="#" class="sb-link" data-section="collections">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          <span>Collections</span>
+        </a></li>
+        <li><a href="#" class="sb-link" data-section="fraud">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+          <span>Fraud & Risk</span>
+        </a></li>
+        <li><a href="#" class="sb-link" data-section="reports">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/></svg>
+          <span>Reports</span>
+        </a></li>
+        <li><a href="#" class="sb-link" data-section="audit">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+          <span>Audit Logs</span>
+        </a></li>
       </ul>
 
-      <p class="sb-nav-label">Settings</p>
+      <p class="sb-nav-label">Management</p>
       <ul>
-        <li>
-          <a href="#" class="sb-link" data-section="settings">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
-            Settings
-          </a>
-        </li>
+        <li><a href="#" class="sb-link" data-section="users">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          <span>User Management</span>
+        </a></li>
+        <li><a href="#" class="sb-link" data-section="admins">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/><polyline points="16 11 18 13 22 9"/></svg>
+          <span>Admin & Roles</span>
+        </a></li>
+        <li><a href="#" class="sb-link" data-section="notifications">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+          <span>Notifications</span>
+        </a></li>
+      </ul>
+
+      <p class="sb-nav-label">Config</p>
+      <ul>
+        <li><a href="#" class="sb-link" data-section="settings">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+          <span>Settings</span>
+        </a></li>
       </ul>
     </nav>
 
     <div class="sb-footer">
       <div class="sb-user">
-        <div class="sb-avatar">AD</div>
+        <div class="sb-avatar" id="sbAvatar">AD</div>
         <div class="sb-user-info">
-          <span class="sb-user-name">Admin User</span>
-          <span class="sb-user-role">Super Admin</span>
+          <span class="sb-user-name" id="sbUserName">Admin User</span>
+          <span class="sb-user-role" id="sbUserRole">Super Admin</span>
         </div>
-        <button class="sb-logout" title="Logout">
+        <button class="sb-logout" id="sidebarLogoutBtn" title="Logout">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
         </button>
       </div>
@@ -123,11 +135,11 @@
           <span class="bc-current" id="bcCurrent">Dashboard</span>
         </div>
       </div>
-
       <div class="topbar-right">
         <div class="search-box">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
           <input type="text" placeholder="Search borrower, loan ID…" id="globalSearch"/>
+          <div class="search-results" id="searchResults"></div>
         </div>
         <div class="topbar-actions">
           <button class="icon-btn notif-btn" id="notifBtn" aria-label="Notifications">
@@ -135,15 +147,8 @@
             <span class="notif-dot"></span>
           </button>
           <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
-            <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/>
-              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
-              <line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/>
-              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
-            </svg>
-            <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
-            </svg>
+            <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+            <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
           </button>
         </div>
       </div>
@@ -151,10 +156,9 @@
 
     <!-- ── PAGE: DASHBOARD ── -->
     <main class="page-content" id="pageDashboard">
-
       <div class="page-header">
         <div>
-          <h1 class="page-title">Good morning, Admin...  <span class="wave"><img src="assets/Logos/goodbye.png" height="35px" width="auto"/></span></h1>
+          <h1 class="page-title" id="dashGreeting">Good morning, Admin <span class="wave"><img src="assets/Logos/goodbye.png" height="35px" width="auto"/></span></h1>
           <p class="page-sub">Here's what's happening with Kashly today — <span class="num" id="todayDate"></span></p>
         </div>
         <div class="page-actions">
@@ -168,15 +172,8 @@
           </button>
         </div>
       </div>
-
-      <!-- KPI CARDS -->
-      <div class="kpi-grid" id="kpiGrid">
-        <!-- filled by JS -->
-      </div>
-
-      <!-- CHARTS ROW -->
+      <div class="kpi-grid" id="kpiGrid"></div>
       <div class="charts-row">
-        <!-- Disbursals chart -->
         <div class="chart-card" id="disbursalChart">
           <div class="chart-head">
             <div>
@@ -188,108 +185,62 @@
               <button class="cf-btn" data-range="1y">1Y</button>
             </div>
           </div>
-          <div class="bar-chart-wrap">
-            <canvas id="barChart" height="180"></canvas>
-          </div>
+          <div class="bar-chart-wrap"><canvas id="barChart" height="180"></canvas></div>
         </div>
-
-        <!-- Loan mix donut -->
         <div class="chart-card chart-card-sm">
           <div class="chart-head">
-            <div>
-              <h3 class="chart-title">Loan Mix</h3>
-              <p class="chart-sub">By product type</p>
-            </div>
+            <div><h3 class="chart-title">Loan Mix</h3><p class="chart-sub">By product type</p></div>
           </div>
           <div class="donut-wrap">
             <canvas id="donutChart" width="180" height="180"></canvas>
-            <div class="donut-center">
-              <span class="donut-label">Total</span>
-              <span class="donut-val num">₹850Cr</span>
-            </div>
+            <div class="donut-center"><span class="donut-label">Total</span><span class="donut-val num" id="donutTotal">—</span></div>
           </div>
           <ul class="donut-legend" id="donutLegend"></ul>
         </div>
       </div>
-
-      <!-- BOTTOM ROW -->
       <div class="bottom-row">
-        <!-- Recent Applications -->
         <div class="table-card">
           <div class="table-card-head">
-            <div>
-              <h3 class="chart-title">Recent Applications</h3>
-              <p class="chart-sub">Pending review</p>
-            </div>
+            <div><h3 class="chart-title">Recent Applications</h3><p class="chart-sub">Pending review</p></div>
             <a href="#" class="link-btn" data-section="applications">View all</a>
           </div>
           <div class="admin-table-wrap">
             <table class="admin-table" id="appsTable">
-              <thead>
-                <tr>
-                  <th>Applicant</th>
-                  <th>Product</th>
-                  <th>Amount</th>
-                  <th>Score</th>
-                  <th>Status</th>
-                  <th>Action</th>
-                </tr>
-              </thead>
-              <tbody id="appsTableBody">
-                <!-- filled by JS -->
-              </tbody>
+              <thead><tr><th>Applicant</th><th>Product</th><th>Amount</th><th>Score</th><th>Status</th><th>Action</th></tr></thead>
+              <tbody id="appsTableBody"></tbody>
             </table>
           </div>
         </div>
-
-        <!-- Activity Feed -->
         <div class="activity-card">
           <div class="table-card-head">
             <h3 class="chart-title">Activity Feed</h3>
             <span class="live-dot"><span></span>Live</span>
           </div>
-          <ul class="activity-list" id="activityList">
-            <!-- filled by JS -->
-          </ul>
+          <ul class="activity-list" id="activityList"></ul>
         </div>
       </div>
-
     </main>
 
     <!-- ── PAGE: APPLICATIONS ── -->
     <main class="page-content hidden" id="pageApplications">
       <div class="page-header">
-        <div>
-          <h1 class="page-title">Applications</h1>
-          <p class="page-sub">Review, approve or reject loan applications</p>
-        </div>
+        <div><h1 class="page-title">Applications</h1><p class="page-sub">Review, approve or reject loan applications</p></div>
         <div class="page-actions">
+          <input class="search-input" type="text" placeholder="Search by name, ID…" id="appsSearch"/>
           <div class="filter-tabs" id="appFilterTabs">
             <button class="ftab active" data-filter="all">All</button>
             <button class="ftab" data-filter="pending">Pending</button>
             <button class="ftab" data-filter="approved">Approved</button>
             <button class="ftab" data-filter="rejected">Rejected</button>
+            <button class="ftab" data-filter="disbursed">Disbursed</button>
           </div>
         </div>
       </div>
       <div class="table-card full-width">
         <div class="admin-table-wrap">
           <table class="admin-table" id="fullAppsTable">
-            <thead>
-              <tr>
-                <th>Loan ID</th>
-                <th>Applicant</th>
-                <th>Product</th>
-                <th>Amount</th>
-                <th>Applied</th>
-                <th>Score</th>
-                <th>Status</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody id="fullAppsBody">
-              <!-- filled by JS -->
-            </tbody>
+            <thead><tr><th>Loan ID</th><th>Applicant</th><th>Product</th><th>Amount</th><th>Applied</th><th>Score</th><th>Status</th><th>Actions</th></tr></thead>
+            <tbody id="fullAppsBody"></tbody>
           </table>
         </div>
         <div class="pagination" id="appPagination"></div>
@@ -299,58 +250,37 @@
     <!-- ── PAGE: BORROWERS ── -->
     <main class="page-content hidden" id="pageBorrowers">
       <div class="page-header">
-        <div>
-          <h1 class="page-title">Borrowers</h1>
-          <p class="page-sub">All registered borrowers on the platform</p>
-        </div>
+        <div><h1 class="page-title">Borrowers</h1><p class="page-sub">All registered borrowers</p></div>
+        <input class="search-input" type="text" placeholder="Search by name, mobile…" id="borrowersSearch"/>
       </div>
       <div class="kpi-grid mini" id="borrowerKpi"></div>
       <div class="table-card full-width" style="margin-top:24px;">
         <div class="admin-table-wrap">
           <table class="admin-table">
-            <thead>
-              <tr>
-                <th>Borrower</th>
-                <th>Mobile</th>
-                <th>Active Loans</th>
-                <th>Total Borrowed</th>
-                <th>Repayment Rate</th>
-                <th>KYC</th>
-                <th>Joined</th>
-              </tr>
-            </thead>
+            <thead><tr><th>Borrower</th><th>Mobile</th><th>Active Loans</th><th>Total Borrowed</th><th>Repayment Rate</th><th>KYC</th><th>Risk</th><th>Joined</th><th>Actions</th></tr></thead>
             <tbody id="borrowersBody"></tbody>
           </table>
         </div>
+        <div class="pagination" id="borrowersPagination"></div>
       </div>
     </main>
 
     <!-- ── PAGE: DISBURSALS ── -->
     <main class="page-content hidden" id="pageDisbursals">
       <div class="page-header">
-        <div>
-          <h1 class="page-title">Disbursals</h1>
-          <p class="page-sub">Track all loan disbursements</p>
+        <div><h1 class="page-title">Disbursals</h1><p class="page-sub">Track all loan disbursements</p></div>
+        <div class="page-actions">
+          <input class="search-input" type="text" placeholder="Search…" id="disbursalsSearch"/>
+          <button class="btn btn-ghost" id="exportDisbursalsBtn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Export CSV
+          </button>
         </div>
-        <button class="btn btn-ghost">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-          Export CSV
-        </button>
       </div>
       <div class="table-card full-width">
         <div class="admin-table-wrap">
           <table class="admin-table">
-            <thead>
-              <tr>
-                <th>Disbursal ID</th>
-                <th>Borrower</th>
-                <th>Product</th>
-                <th>Amount</th>
-                <th>Bank</th>
-                <th>Date</th>
-                <th>Status</th>
-              </tr>
-            </thead>
+            <thead><tr><th>Disbursal ID</th><th>Borrower</th><th>Product</th><th>Amount</th><th>Bank</th><th>Date</th><th>Status</th></tr></thead>
             <tbody id="disbursalsBody"></tbody>
           </table>
         </div>
@@ -360,26 +290,14 @@
     <!-- ── PAGE: REPAYMENTS ── -->
     <main class="page-content hidden" id="pageRepayments">
       <div class="page-header">
-        <div>
-          <h1 class="page-title">Repayments</h1>
-          <p class="page-sub">EMI collection tracker</p>
-        </div>
+        <div><h1 class="page-title">Repayments</h1><p class="page-sub">EMI collection tracker</p></div>
+        <input class="search-input" type="text" placeholder="Search by borrower, loan ID…" id="repaymentsSearch"/>
       </div>
       <div class="kpi-grid mini" id="repaymentKpi"></div>
       <div class="table-card full-width" style="margin-top:24px;">
         <div class="admin-table-wrap">
           <table class="admin-table">
-            <thead>
-              <tr>
-                <th>EMI ID</th>
-                <th>Borrower</th>
-                <th>Loan ID</th>
-                <th>Due Date</th>
-                <th>Amount</th>
-                <th>Paid On</th>
-                <th>Status</th>
-              </tr>
-            </thead>
+            <thead><tr><th>EMI ID</th><th>Borrower</th><th>Loan ID</th><th>Due Date</th><th>Amount</th><th>Paid On</th><th>Status</th></tr></thead>
             <tbody id="repaymentsBody"></tbody>
           </table>
         </div>
@@ -389,10 +307,8 @@
     <!-- ── PAGE: KYC ── -->
     <main class="page-content hidden" id="pageKyc">
       <div class="page-header">
-        <div>
-          <h1 class="page-title">KYC Review</h1>
-          <p class="page-sub">Documents pending verification</p>
-        </div>
+        <div><h1 class="page-title">KYC Review</h1><p class="page-sub">Documents pending verification</p></div>
+        <input class="search-input" type="text" placeholder="Search by name, ID…" id="kycSearch"/>
       </div>
       <div class="kyc-grid" id="kycGrid"></div>
     </main>
@@ -400,26 +316,39 @@
     <!-- ── PAGE: COLLECTIONS ── -->
     <main class="page-content hidden" id="pageCollections">
       <div class="page-header">
-        <div>
-          <h1 class="page-title">Collections</h1>
-          <p class="page-sub">Overdue accounts and recovery status</p>
-        </div>
+        <div><h1 class="page-title">Collections</h1><p class="page-sub">Overdue accounts and recovery status</p></div>
+        <input class="search-input" type="text" placeholder="Search by borrower…" id="collectionsSearch"/>
       </div>
       <div class="table-card full-width">
         <div class="admin-table-wrap">
           <table class="admin-table">
-            <thead>
-              <tr>
-                <th>Borrower</th>
-                <th>Loan ID</th>
-                <th>Overdue EMIs</th>
-                <th>Overdue Amount</th>
-                <th>DPD</th>
-                <th>Agent</th>
-                <th>Action</th>
-              </tr>
-            </thead>
+            <thead><tr><th>Borrower</th><th>Loan ID</th><th>Overdue EMIs</th><th>Overdue Amount</th><th>DPD</th><th>Agent</th><th>Action</th></tr></thead>
             <tbody id="collectionsBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+
+    <!-- ── PAGE: FRAUD & RISK ── -->
+    <main class="page-content hidden" id="pageFraud">
+      <div class="page-header">
+        <div><h1 class="page-title">Fraud &amp; Risk Management</h1><p class="page-sub">Flagged accounts, risk scores and suspicious activity</p></div>
+        <div class="page-actions">
+          <input class="search-input" type="text" placeholder="Search flagged users…" id="fraudSearch"/>
+          <div class="filter-tabs">
+            <button class="ftab active" data-fraud-filter="all">All</button>
+            <button class="ftab" data-fraud-filter="flagged">Flagged</button>
+            <button class="ftab" data-fraud-filter="blocked">Blocked</button>
+            <button class="ftab" data-fraud-filter="high_risk">High Risk</button>
+          </div>
+        </div>
+      </div>
+      <div class="kpi-grid mini" id="fraudKpi"></div>
+      <div class="table-card full-width" style="margin-top:24px;">
+        <div class="admin-table-wrap">
+          <table class="admin-table">
+            <thead><tr><th>User</th><th>Risk Score</th><th>Flag Reason</th><th>Transactions</th><th>Status</th><th>Last Activity</th><th>Actions</th></tr></thead>
+            <tbody id="fraudBody"></tbody>
           </table>
         </div>
       </div>
@@ -428,107 +357,342 @@
     <!-- ── PAGE: REPORTS ── -->
     <main class="page-content hidden" id="pageReports">
       <div class="page-header">
-        <div>
-          <h1 class="page-title">Reports</h1>
-          <p class="page-sub">Generate and export compliance reports</p>
-        </div>
+        <div><h1 class="page-title">Reports</h1><p class="page-sub">Generate and export compliance reports</p></div>
       </div>
       <div class="reports-grid" id="reportsGrid"></div>
+    </main>
+
+    <!-- ── PAGE: AUDIT LOGS ── -->
+    <main class="page-content hidden" id="pageAudit">
+      <div class="page-header">
+        <div><h1 class="page-title">Audit Logs</h1><p class="page-sub">System activity trail — filtered by role, action, or date</p></div>
+        <div class="page-actions">
+          <button class="btn btn-ghost" id="exportAuditBtn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Export
+          </button>
+        </div>
+      </div>
+      <!-- Filters -->
+      <div class="audit-filters">
+        <input class="search-input" type="text" placeholder="Search action, resource, actor…" id="auditSearch"/>
+        <select class="sf-input" id="auditRoleFilter">
+          <option value="">All Roles</option>
+          <option value="admin">Admin</option>
+          <option value="borrower">Borrower</option>
+          <option value="system">System</option>
+        </select>
+        <select class="sf-input" id="auditActionFilter">
+          <option value="">All Actions</option>
+          <option value="login">Login</option>
+          <option value="loan_approved">Loan Approved</option>
+          <option value="loan_rejected">Loan Rejected</option>
+          <option value="kyc_updated">KYC Updated</option>
+          <option value="account_updated">Account Updated</option>
+        </select>
+        <input class="sf-input" type="date" id="auditDateFrom" placeholder="From"/>
+        <input class="sf-input" type="date" id="auditDateTo" placeholder="To"/>
+        <button class="btn btn-ghost" id="auditFilterBtn">Apply</button>
+      </div>
+      <div class="table-card full-width" style="margin-top:16px;">
+        <div class="admin-table-wrap">
+          <table class="admin-table">
+            <thead><tr><th>Timestamp</th><th>Actor</th><th>Role</th><th>Action</th><th>Resource</th><th>IP</th><th>Details</th></tr></thead>
+            <tbody id="auditBody"></tbody>
+          </table>
+        </div>
+        <div class="pagination" id="auditPagination"></div>
+      </div>
+    </main>
+
+    <!-- ── PAGE: USER MANAGEMENT ── -->
+    <main class="page-content hidden" id="pageUsers">
+      <div class="page-header">
+        <div><h1 class="page-title">User Management</h1><p class="page-sub">All registered users — KYC, risk, repayment status</p></div>
+        <div class="page-actions">
+          <input class="search-input" type="text" placeholder="Search by name, email, mobile…" id="usersSearch"/>
+        </div>
+      </div>
+      <div class="table-card full-width">
+        <div class="admin-table-wrap">
+          <table class="admin-table">
+            <thead><tr><th>User</th><th>Email</th><th>Mobile</th><th>KYC</th><th>Risk</th><th>Repayment</th><th>Status</th><th>Joined</th><th>Actions</th></tr></thead>
+            <tbody id="usersBody"></tbody>
+          </table>
+        </div>
+        <div class="pagination" id="usersPagination"></div>
+      </div>
+    </main>
+
+    <!-- ── PAGE: ADMIN & ROLES ── -->
+    <main class="page-content hidden" id="pageAdmins">
+      <div class="page-header">
+        <div><h1 class="page-title">Admin &amp; Role Management</h1><p class="page-sub">Manage admins, permissions, roles and partner banks</p></div>
+        <button class="btn btn-primary" id="addAdminBtn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          Add Admin
+        </button>
+      </div>
+
+      <!-- Admin tabs -->
+      <div class="filter-tabs" id="adminSubTabs" style="margin-bottom:20px;">
+        <button class="ftab active" data-admin-tab="admins">Admins</button>
+        <button class="ftab" data-admin-tab="roles">Roles</button>
+        <button class="ftab" data-admin-tab="banks">Partner Banks</button>
+      </div>
+
+      <!-- Admins table -->
+      <div id="adminTabAdmins" class="table-card full-width">
+        <div class="admin-table-wrap">
+          <table class="admin-table">
+            <thead><tr><th>Admin</th><th>Email</th><th>Role</th><th>Last Login</th><th>Status</th><th>Actions</th></tr></thead>
+            <tbody id="adminsBody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Roles table -->
+      <div id="adminTabRoles" class="table-card full-width hidden">
+        <div class="table-card-head" style="padding:16px 20px;">
+          <h3 class="chart-title">Roles & Permissions</h3>
+          <button class="btn btn-ghost btn-sm" id="addRoleBtn">+ Add Role</button>
+        </div>
+        <div class="admin-table-wrap">
+          <table class="admin-table">
+            <thead><tr><th>Role</th><th>Permissions</th><th>Users</th><th>Actions</th></tr></thead>
+            <tbody id="rolesBody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Banks table -->
+      <div id="adminTabBanks" class="table-card full-width hidden">
+        <div class="table-card-head" style="padding:16px 20px;">
+          <h3 class="chart-title">Partner Banks</h3>
+          <button class="btn btn-ghost btn-sm" id="addBankBtn">+ Add Bank</button>
+        </div>
+        <div class="admin-table-wrap">
+          <table class="admin-table">
+            <thead><tr><th>Bank</th><th>Code</th><th>Contact</th><th>Active Loans</th><th>Status</th><th>Actions</th></tr></thead>
+            <tbody id="banksBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+
+    <!-- ── PAGE: NOTIFICATIONS ── -->
+    <main class="page-content hidden" id="pageNotifications">
+      <div class="page-header">
+        <div><h1 class="page-title">Notifications</h1><p class="page-sub">Send and manage notifications to users and staff</p></div>
+        <button class="btn btn-primary" id="sendNotifBtn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+          Send Notification
+        </button>
+      </div>
+      <div class="filter-tabs" id="notifSubTabs" style="margin-bottom:20px;">
+        <button class="ftab active" data-notif-tab="compose">Compose</button>
+        <button class="ftab" data-notif-tab="templates">Templates</button>
+        <button class="ftab" data-notif-tab="scheduled">Scheduled</button>
+        <button class="ftab" data-notif-tab="history">Delivery History</button>
+      </div>
+
+      <!-- Compose -->
+      <div id="notifTabCompose" class="settings-layout">
+        <div class="settings-card" style="flex:1.5">
+          <h3 class="settings-section-title">New Notification</h3>
+          <div class="settings-form">
+            <div class="sf-row">
+              <label>Send To (Role)</label>
+              <select class="sf-input" id="notifRole">
+                <option value="all">All Users</option>
+                <option value="borrower">Borrowers</option>
+                <option value="admin">Admins</option>
+                <option value="employee">Employees</option>
+              </select>
+            </div>
+            <div class="sf-row">
+              <label>Channel</label>
+              <select class="sf-input" id="notifChannel">
+                <option value="in_app">In-App</option>
+                <option value="email">Email</option>
+                <option value="sms">SMS</option>
+                <option value="push">Push</option>
+              </select>
+            </div>
+            <div class="sf-row">
+              <label>Title</label>
+              <input class="sf-input" type="text" id="notifTitle" placeholder="Notification title…"/>
+            </div>
+            <div class="sf-row">
+              <label>Message</label>
+              <textarea class="sf-input" id="notifMessage" rows="4" placeholder="Write your message…" style="resize:vertical"></textarea>
+            </div>
+            <div class="sf-row">
+              <label>Schedule (optional)</label>
+              <input class="sf-input" type="datetime-local" id="notifSchedule"/>
+            </div>
+          </div>
+          <div style="display:flex;gap:10px;margin-top:16px;">
+            <button class="btn btn-primary" id="sendNotifNowBtn">Send Now</button>
+            <button class="btn btn-ghost" id="scheduleNotifBtn">Schedule</button>
+          </div>
+        </div>
+        <div class="settings-card" style="flex:1">
+          <h3 class="settings-section-title">Preview</h3>
+          <div id="notifPreview" style="padding:16px;border:1px solid var(--line);border-radius:10px;min-height:120px;">
+            <p style="color:var(--text-3);font-size:13px;">Preview will appear here…</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Templates -->
+      <div id="notifTabTemplates" class="hidden">
+        <div class="table-card full-width">
+          <div class="table-card-head" style="padding:16px 20px;">
+            <h3 class="chart-title">Notification Templates</h3>
+            <button class="btn btn-ghost btn-sm" id="addTemplateBtn">+ New Template</button>
+          </div>
+          <div class="admin-table-wrap">
+            <table class="admin-table">
+              <thead><tr><th>Template Name</th><th>Channel</th><th>Target Role</th><th>Last Used</th><th>Actions</th></tr></thead>
+              <tbody id="notifTemplatesBody"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Scheduled -->
+      <div id="notifTabScheduled" class="hidden">
+        <div class="table-card full-width">
+          <div class="admin-table-wrap">
+            <table class="admin-table">
+              <thead><tr><th>Title</th><th>Target</th><th>Channel</th><th>Scheduled At</th><th>Status</th><th>Actions</th></tr></thead>
+              <tbody id="notifScheduledBody"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- History -->
+      <div id="notifTabHistory" class="hidden">
+        <div class="table-card full-width">
+          <div class="admin-table-wrap">
+            <table class="admin-table">
+              <thead><tr><th>Title</th><th>Target</th><th>Channel</th><th>Sent At</th><th>Delivered</th><th>Failed</th><th>Status</th></tr></thead>
+              <tbody id="notifHistoryBody"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
     </main>
 
     <!-- ── PAGE: SETTINGS ── -->
     <main class="page-content hidden" id="pageSettings">
       <div class="page-header">
-        <div>
-          <h1 class="page-title">Settings</h1>
-          <p class="page-sub">Platform configuration and admin preferences</p>
-        </div>
+        <div><h1 class="page-title">Settings</h1><p class="page-sub">Platform configuration and preferences</p></div>
       </div>
-      <div class="settings-layout">
+
+      <div class="filter-tabs" id="settingsSubTabs" style="margin-bottom:24px;">
+        <button class="ftab active" data-settings-tab="rates">Interest Rates</button>
+        <button class="ftab" data-settings-tab="rules">Auto-Approval</button>
+        <button class="ftab" data-settings-tab="penalties">Penalties</button>
+        <button class="ftab" data-settings-tab="site">Site Editor</button>
+      </div>
+
+      <!-- Rates -->
+      <div id="settingsTabRates" class="settings-layout">
         <div class="settings-card">
           <h3 class="settings-section-title">Interest Rate Config</h3>
           <div class="settings-form">
-            <div class="sf-row">
-              <label>Personal Loan Base Rate</label>
-              <div class="sf-input-wrap"><input type="number" value="10.5" step="0.5" class="sf-input"/><span class="sf-unit">% p.a.</span></div>
-            </div>
-            <div class="sf-row">
-              <label>Business Loan Base Rate</label>
-              <div class="sf-input-wrap"><input type="number" value="12.0" step="0.5" class="sf-input"/><span class="sf-unit">% p.a.</span></div>
-            </div>
-            <div class="sf-row">
-              <label>Home Loan Base Rate</label>
-              <div class="sf-input-wrap"><input type="number" value="8.5" step="0.5" class="sf-input"/><span class="sf-unit">% p.a.</span></div>
-            </div>
-            <div class="sf-row">
-              <label>Processing Fee</label>
-              <div class="sf-input-wrap"><input type="number" value="1.0" step="0.1" class="sf-input"/><span class="sf-unit">%</span></div>
-            </div>
+            <div class="sf-row"><label>Personal Loan Base Rate</label><div class="sf-input-wrap"><input type="number" value="10.5" step="0.5" class="sf-input" id="ratePersonal"/><span class="sf-unit">% p.a.</span></div></div>
+            <div class="sf-row"><label>Business Loan Base Rate</label><div class="sf-input-wrap"><input type="number" value="12.0" step="0.5" class="sf-input" id="rateBusiness"/><span class="sf-unit">% p.a.</span></div></div>
+            <div class="sf-row"><label>Home Loan Base Rate</label><div class="sf-input-wrap"><input type="number" value="8.5" step="0.5" class="sf-input" id="rateHome"/><span class="sf-unit">% p.a.</span></div></div>
+            <div class="sf-row"><label>Education Loan Base Rate</label><div class="sf-input-wrap"><input type="number" value="9.0" step="0.5" class="sf-input" id="rateEducation"/><span class="sf-unit">% p.a.</span></div></div>
+            <div class="sf-row"><label>Processing Fee</label><div class="sf-input-wrap"><input type="number" value="1.0" step="0.1" class="sf-input" id="processingFee"/><span class="sf-unit">%</span></div></div>
           </div>
-          <button class="btn btn-primary sf-save">Save changes</button>
+          <button class="btn btn-primary sf-save" data-save="rates">Save changes</button>
         </div>
+      </div>
+
+      <!-- Auto-Approval Rules -->
+      <div id="settingsTabRules" class="settings-layout hidden">
         <div class="settings-card">
           <h3 class="settings-section-title">Auto-Approval Rules</h3>
           <div class="settings-form">
-            <div class="sf-row">
-              <label>Min CIBIL score for auto-approve</label>
-              <div class="sf-input-wrap"><input type="number" value="750" class="sf-input"/></div>
-            </div>
-            <div class="sf-row">
-              <label>Max auto-approve amount (₹)</label>
-              <div class="sf-input-wrap"><input type="number" value="200000" class="sf-input"/></div>
-            </div>
-            <div class="sf-toggle-row">
-              <label>Enable auto-approval engine</label>
-              <label class="toggle-switch">
-                <input type="checkbox" checked/>
-                <span class="toggle-slider"></span>
-              </label>
-            </div>
-            <div class="sf-toggle-row">
-              <label>Send SMS on disbursals</label>
-              <label class="toggle-switch">
-                <input type="checkbox" checked/>
-                <span class="toggle-slider"></span>
-              </label>
-            </div>
-            <div class="sf-toggle-row">
-              <label>Require dual-admin for >₹10L loans</label>
-              <label class="toggle-switch">
-                <input type="checkbox"/>
-                <span class="toggle-slider"></span>
-              </label>
-            </div>
+            <div class="sf-row"><label>Min CIBIL score for auto-approve</label><div class="sf-input-wrap"><input type="number" value="750" class="sf-input" id="minCibil"/></div></div>
+            <div class="sf-row"><label>Max auto-approve amount (₹)</label><div class="sf-input-wrap"><input type="number" value="200000" class="sf-input" id="maxAutoAmount"/></div></div>
+            <div class="sf-toggle-row"><label>Enable auto-approval engine</label><label class="toggle-switch"><input type="checkbox" checked id="autoApproveEnabled"/><span class="toggle-slider"></span></label></div>
+            <div class="sf-toggle-row"><label>Send SMS on disbursals</label><label class="toggle-switch"><input type="checkbox" checked id="smsOnDisbursal"/><span class="toggle-slider"></span></label></div>
+            <div class="sf-toggle-row"><label>Require dual-admin for &gt;₹10L loans</label><label class="toggle-switch"><input type="checkbox" id="dualAdminRequired"/><span class="toggle-slider"></span></label></div>
           </div>
-          <button class="btn btn-primary sf-save">Save changes</button>
+          <button class="btn btn-primary sf-save" data-save="rules">Save changes</button>
+        </div>
+      </div>
+
+      <!-- Penalties -->
+      <div id="settingsTabPenalties" class="settings-layout hidden">
+        <div class="settings-card">
+          <h3 class="settings-section-title">Penalty Configuration</h3>
+          <div class="settings-form">
+            <div class="sf-row"><label>Late Payment Penalty</label><div class="sf-input-wrap"><input type="number" value="2.0" step="0.5" class="sf-input" id="penaltyLate"/><span class="sf-unit">% per month</span></div></div>
+            <div class="sf-row"><label>Bounce Charge (per instance)</label><div class="sf-input-wrap"><input type="number" value="500" step="50" class="sf-input" id="bounceCharge"/><span class="sf-unit">₹</span></div></div>
+            <div class="sf-row"><label>Pre-payment Penalty (before 12 months)</label><div class="sf-input-wrap"><input type="number" value="2.0" step="0.5" class="sf-input" id="prepayPenalty"/><span class="sf-unit">%</span></div></div>
+            <div class="sf-row"><label>Legal Action Threshold (DPD)</label><div class="sf-input-wrap"><input type="number" value="90" step="10" class="sf-input" id="legalThreshold"/><span class="sf-unit">days</span></div></div>
+            <div class="sf-row"><label>NPA Classification Threshold (DPD)</label><div class="sf-input-wrap"><input type="number" value="90" step="10" class="sf-input" id="npaThreshold"/><span class="sf-unit">days</span></div></div>
+            <div class="sf-toggle-row"><label>Auto-charge late penalty</label><label class="toggle-switch"><input type="checkbox" checked id="autoLatePenalty"/><span class="toggle-slider"></span></label></div>
+            <div class="sf-toggle-row"><label>Notify borrower on penalty charge</label><label class="toggle-switch"><input type="checkbox" checked id="notifyOnPenalty"/><span class="toggle-slider"></span></label></div>
+          </div>
+          <button class="btn btn-primary sf-save" data-save="penalties">Save changes</button>
+        </div>
+      </div>
+
+      <!-- Site Editor -->
+      <div id="settingsTabSite" class="settings-layout hidden">
+        <div class="settings-card" style="flex:1.5">
+          <h3 class="settings-section-title">Site Content Editor</h3>
+          <div class="settings-form">
+            <div class="sf-row"><label>Hero Headline</label><input class="sf-input" type="text" id="siteHeroTitle" placeholder="e.g. Fast Loans. Real People."/></div>
+            <div class="sf-row"><label>Hero Subheadline</label><input class="sf-input" type="text" id="siteHeroSub" placeholder="e.g. Apply in minutes…"/></div>
+            <div class="sf-row"><label>CTA Button Text</label><input class="sf-input" type="text" id="siteCtaText" placeholder="e.g. Apply Now"/></div>
+            <div class="sf-row"><label>Footer Tagline</label><input class="sf-input" type="text" id="siteFooter" placeholder="e.g. Kashly — Trusted by 1L+ borrowers"/></div>
+          </div>
+          <div style="display:flex;gap:10px;margin-top:16px;">
+            <button class="btn btn-primary sf-save" data-save="site">Save &amp; Publish</button>
+            <button class="btn btn-ghost" id="previewSiteBtn">Preview</button>
+          </div>
+        </div>
+        <div class="settings-card" style="flex:1">
+          <h3 class="settings-section-title">Upload Brand Assets</h3>
+          <div class="settings-form">
+            <div class="sf-row"><label>Logo (light)</label><input class="sf-input" type="file" accept="image/*"/></div>
+            <div class="sf-row"><label>Logo (dark)</label><input class="sf-input" type="file" accept="image/*"/></div>
+            <div class="sf-row"><label>Hero Background Image</label><input class="sf-input" type="file" accept="image/*"/></div>
+            <div class="sf-row"><label>Favicon</label><input class="sf-input" type="file" accept="image/*"/></div>
+          </div>
+          <button class="btn btn-primary sf-save" data-save="assets">Upload Assets</button>
         </div>
       </div>
     </main>
 
-  </div>
+  </div><!-- /main-wrap -->
 
-  <!-- MODAL: Application Detail -->
+  <!-- ── MODAL: User / Application Detail ── -->
   <div class="modal-overlay hidden" id="appModal">
     <div class="modal" id="appModalContent">
       <div class="modal-header">
-        <h2 class="modal-title">Application Review</h2>
+        <h2 class="modal-title" id="modalTitle">Application Review</h2>
         <button class="modal-close" id="modalClose">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
         </button>
       </div>
-      <div class="modal-body" id="modalBody">
-        <!-- filled by JS -->
-      </div>
+      <div class="modal-body" id="modalBody"></div>
     </div>
   </div>
 
   <!-- TOAST -->
   <div class="toast-wrap" id="toastWrap"></div>
+
   <script src="js/auth.js"></script>
-  <script>
-  // Redirect to login if not authenticated
-  requireAuth();
-</script>
   <script src="js/admin_dashboard.js"></script>
 </body>
 </html>

@@ -1,5 +1,5 @@
-﻿/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-   CASHLY â€” login.js
+﻿/* ═══════════════════════════════════════════════════════
+   CASHLY — login.js
    1.  Theme toggle
    2.  Auth tabs (Sign in / Register)
    3.  Login method toggle (mobile / email)
@@ -11,13 +11,13 @@
    9.  OTP digit input auto-advance + paste
    10. OTP countdown timer + resend
    11. Panel router utility
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
-// At the top of login.js and auth.js
+═══════════════════════════════════════════════════════ */
 // API base comes from auth.js (CASHLY_API_BASE)
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+
+/* ─────────────────────────────────────────
    1. THEME
-â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
-const THEME_KEY = 'cashly-theme';
+───────────────────────────────────────── */
+const THEME_KEY = 'kashly_theme';
 
 function applyTheme(theme) {
   document.documentElement.setAttribute('data-theme', theme);
@@ -34,9 +34,9 @@ function initTheme() {
   ).forEach(btn => btn && btn.addEventListener('click', toggleTheme));
 }
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
-   11. PANEL ROUTER â€” central show/hide
-â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ─────────────────────────────────────────
+   11. PANEL ROUTER — central show/hide
+───────────────────────────────────────── */
 // Panels: 'login' | 'register' | 'forgot' | 'otp-success'
 // Tabs only track login / register
 function showPanel(id) {
@@ -50,9 +50,9 @@ function showPanel(id) {
   });
 }
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+/* ─────────────────────────────────────────
    2. AUTH TABS
-â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+───────────────────────────────────────── */
 function initAuthTabs() {
   document.querySelectorAll('.auth-tab').forEach(tab => {
     tab.addEventListener('click', () => showPanel(tab.dataset.tab));
@@ -64,9 +64,9 @@ function initAuthTabs() {
   });
 }
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+/* ─────────────────────────────────────────
    3. LOGIN METHOD TOGGLE (mobile / email)
-â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+───────────────────────────────────────── */
 function initMethodToggle() {
   const btns      = document.querySelectorAll('.method-btn');
   const phoneGrp  = document.getElementById('phoneGroup');
@@ -89,9 +89,9 @@ function initMethodToggle() {
   });
 }
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+/* ─────────────────────────────────────────
    4. PASSWORD VISIBILITY TOGGLES
-â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+───────────────────────────────────────── */
 function wireEyeBtn(btnId, inputId) {
   const btn   = document.getElementById(btnId);
   const input = document.getElementById(inputId);
@@ -112,9 +112,9 @@ function initEyeButtons() {
   wireEyeBtn('toggleRegConfirm',  'regConfirm');
 }
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+/* ─────────────────────────────────────────
    5. PASSWORD STRENGTH METER
-â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+───────────────────────────────────────── */
 function getStrength(pw) {
   if (!pw || pw.length < 4) return { level: 0, label: 'Too short',  cls: ''       };
   let score = 0;
@@ -143,9 +143,9 @@ function initStrengthMeter() {
   });
 }
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+/* ─────────────────────────────────────────
    VALIDATION HELPERS
-â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+───────────────────────────────────────── */
 function clearErrors(scope) {
   const root = scope || document;
   root.querySelectorAll('.field-error').forEach(e => e.remove());
@@ -163,9 +163,9 @@ function showError(el, msg) {
     ?.appendChild(err);
 }
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+/* ─────────────────────────────────────────
    6. LOGIN FORM
-â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+───────────────────────────────────────── */
 function initLoginForm() {
   const form = document.getElementById('loginForm');
   const btn  = document.getElementById('loginSubmitBtn');
@@ -173,7 +173,7 @@ function initLoginForm() {
 
   form.addEventListener('submit', async e => {
     e.preventDefault();
-    
+
     clearErrors(form);
 
     let valid = true;
@@ -202,59 +202,63 @@ function initLoginForm() {
 
     if (!valid) return;
 
-    // simulate login
-  btn.textContent = 'Signing in ...';
-btn.disabled = true;
+    btn.textContent = 'Signing in ...';
+    btn.disabled = true;
 
-try {
-  const usePhone = document.getElementById('emailGroup')
-    ?.classList.contains('hidden');
+    try {
+      const usePhone2 = document.getElementById('emailGroup')
+        ?.classList.contains('hidden');
 
-  const identifier = usePhone
-    ? document.getElementById('loginPhone')?.value.trim()
-    : document.getElementById('loginEmail')?.value.trim();
+      const identifier = usePhone2
+        ? document.getElementById('loginPhone')?.value.trim()
+        : document.getElementById('loginEmail')?.value.trim();
 
-  const pwEl = document.getElementById('loginPassword');
+      const pwEl = document.getElementById('loginPassword');
 
-  const res = await fetch(apiUrl('/auth/login'), {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      identifier: identifier, // or phone depending on backend
-      password: pwEl.value
-    })
+      const res = await fetch(apiUrl('/auth/login'), {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          identifier,
+          password: pwEl.value,
+        }),
+      });
+
+      const body = await res.json().catch(() => null);
+
+      if (!res.ok) {
+        btn.textContent = 'Sign in';
+        btn.disabled = false;
+        showError(pwEl, (body && body.error ? body.error.message : null) || 'Invalid credentials.');
+        return;
+      }
+
+      // Save JWT + user
+      const payload = body && body.data ? body.data : null;
+
+      // FIX #3: guard against null payload/user before reading .role
+      const user = payload?.user ?? null;
+
+      setSession({
+        accessToken:  payload?.accessToken,
+        refreshToken: payload?.refreshToken,
+        user,
+      });
+
+      const redirect = safeRedirectTarget(new URLSearchParams(window.location.search).get('redirect'));
+      window.location.href = redirect || getDashboardForRole(user?.role);
+
+    } catch (err) {
+      btn.textContent = 'Sign in';
+      btn.disabled = false;
+      showError(document.getElementById('loginPassword'), 'Network error. Try again.');
+    }
   });
-
-  const body = await res.json().catch(() => null);
-
-  if (!res.ok) {
-    btn.textContent = 'Sign in';
-    btn.disabled = false;
-    showError(pwEl, (body && body.error ? body.error.message : null) || 'Invalid credentials.');
-    return;
-  }
-  // Save JWT + user
-  const payload = body && body.data ? body.data : null;
-  setSession({
-    accessToken:  payload && payload.accessToken,
-    refreshToken: payload && payload.refreshToken,
-    user:         payload && payload.user,
-  });
-
- const redirect = safeRedirectTarget(new URLSearchParams(window.location.search).get('redirect'));
-window.location.href = redirect || getDashboardForRole(payload.user.role);
-
-} catch (err) {
-  btn.textContent = 'Sign in';
-  btn.disabled = false;
-  showError(document.getElementById('loginPassword'), 'Network error. Try again.');
 }
-  });
-}
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+/* ─────────────────────────────────────────
    7. REGISTER FORM
-â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+───────────────────────────────────────── */
 function initRegisterForm() {
   const form = document.getElementById('registerForm');
   const btn  = document.getElementById('registerSubmitBtn');
@@ -317,7 +321,7 @@ function initRegisterForm() {
       return;
     }
 
-   btn.textContent = 'Creating account...';
+    btn.textContent = 'Creating account...';
     btn.disabled    = true;
 
     try {
@@ -349,14 +353,18 @@ function initRegisterForm() {
       }
 
       const payload = body && body.data ? body.data : null;
+
+      // FIX #3: guard against null payload/user before reading .role
+      const user = payload?.user ?? null;
+
       setSession({
-        accessToken:  payload && payload.accessToken,
-        refreshToken: payload && payload.refreshToken,
-        user:         payload && payload.user,
+        accessToken:  payload?.accessToken,
+        refreshToken: payload?.refreshToken,
+        user,
       });
 
-const redirect = safeRedirectTarget(new URLSearchParams(window.location.search).get('redirect'));
-window.location.href = redirect || getDashboardForRole(payload.user.role);
+      const redirect = safeRedirectTarget(new URLSearchParams(window.location.search).get('redirect'));
+      window.location.href = redirect || getDashboardForRole(user?.role);
 
     } catch {
       btn.textContent = 'Create account';
@@ -366,9 +374,9 @@ window.location.href = redirect || getDashboardForRole(payload.user.role);
   });
 }
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+/* ─────────────────────────────────────────
    8. FORGOT PASSWORD FLOW
-â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+───────────────────────────────────────── */
 function initForgotFlow() {
   // open forgot panel
   const forgotLink = document.getElementById('forgotLink');
@@ -402,7 +410,7 @@ function initForgotFlow() {
         return;
       }
 
-      forgotBtn.textContent = 'Sending OTPâ€¦';
+      forgotBtn.textContent = 'Sending OTP…';
       forgotBtn.disabled    = true;
 
       setTimeout(() => {
@@ -431,16 +439,16 @@ function initForgotFlow() {
         }
         return;
       }
-      verifyBtn.textContent = 'Verifyingâ€¦';
+      verifyBtn.textContent = 'Verifying…';
       verifyBtn.disabled    = true;
       setTimeout(() => showPanel('otp-success'), 900);
     });
   }
 }
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
-   9. OTP INPUT â€” auto-advance + paste
-â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ─────────────────────────────────────────
+   9. OTP INPUT — auto-advance + paste
+───────────────────────────────────────── */
 function initOTPInputs() {
   const digits = document.querySelectorAll('.otp-digit');
   if (!digits.length) return;
@@ -487,19 +495,19 @@ shakeStyle.textContent = `
 `;
 document.head.appendChild(shakeStyle);
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+/* ─────────────────────────────────────────
    10. OTP COUNTDOWN + RESEND
-â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+───────────────────────────────────────── */
 let otpInterval = null;
 
 function startOTPTimer(seconds = 30) {
-  const timerEl  = document.getElementById('otpTimer');
+  const timerEl   = document.getElementById('otpTimer');
   const resendBtn = document.getElementById('resendOtpBtn');
   if (!timerEl || !resendBtn) return;
 
   let remaining = seconds;
-  resendBtn.disabled     = true;
-  resendBtn.innerHTML    = `Resend in <span class="num" id="otpTimer">${remaining}s</span>`;
+  resendBtn.disabled  = true;
+  resendBtn.innerHTML = `Resend in <span class="num" id="otpTimer">${remaining}s</span>`;
 
   clearInterval(otpInterval);
   otpInterval = setInterval(() => {
@@ -509,7 +517,7 @@ function startOTPTimer(seconds = 30) {
 
     if (remaining <= 0) {
       clearInterval(otpInterval);
-      resendBtn.disabled   = false;
+      resendBtn.disabled    = false;
       resendBtn.textContent = 'Resend OTP';
     }
   }, 1000);
@@ -524,9 +532,9 @@ function startOTPTimer(seconds = 30) {
   }, { once: true });
 }
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+/* ─────────────────────────────────────────
    INIT
-â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+───────────────────────────────────────── */
 document.addEventListener('DOMContentLoaded', () => {
   initTheme();
   initAuthTabs();
@@ -538,4 +546,3 @@ document.addEventListener('DOMContentLoaded', () => {
   initForgotFlow();
   initOTPInputs();
 });
-

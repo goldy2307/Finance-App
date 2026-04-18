@@ -1066,3 +1066,90 @@ a { text-decoration: none; color: inherit; }
   .search-box { display: none; }
   .page-actions { flex-wrap: wrap; }
 }
+
+/* ── Search results dropdown ── */
+.search-box { position: relative; }
+.search-results {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0; right: 0;
+  background: var(--bg-4);
+  border: 1px solid var(--line-2);
+  border-radius: 10px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+  z-index: 500;
+  max-height: 320px;
+  overflow-y: auto;
+}
+
+/* ── Per-section search input ── */
+.search-input {
+  background: var(--bg-3);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  color: var(--text);
+  font-size: 13px;
+  padding: 8px 12px;
+  outline: none;
+  min-width: 220px;
+  transition: border-color 0.2s;
+}
+.search-input:focus { border-color: var(--green); }
+
+/* ── Audit filters row ── */
+.audit-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 4px;
+}
+.audit-filters .sf-input {
+  padding: 8px 12px;
+  font-size: 13px;
+  min-width: 140px;
+}
+
+/* ── KPI card red variant ── */
+.kpi-card.red  { border-color: rgba(255,80,80,0.18); }
+.kpi-icon.red  { background: rgba(255,80,80,0.12); color: var(--red); }
+
+/* ── Sidebar collapse ── */
+.sb-collapse-btn {
+  display: none;
+  position: absolute;
+  right: -14px;
+  top: 72px;
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  background: var(--bg-4);
+  border: 1px solid var(--line);
+  cursor: pointer;
+  color: var(--text-2);
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  transition: background 0.2s;
+}
+.sb-collapse-btn svg { width: 14px; height: 14px; }
+@media (min-width: 769px) { .sb-collapse-btn { display: flex; } }
+
+.sidebar.collapsed { width: 64px; }
+.sidebar.collapsed .sb-nav-label,
+.sidebar.collapsed .sb-link span,
+.sidebar.collapsed .sb-badge,
+.sidebar.collapsed .sb-user-info { display: none; }
+.sidebar.collapsed .sb-link { justify-content: center; padding: 10px; }
+.sidebar.collapsed .sb-link svg { margin: 0; }
+.sidebar.collapsed .sb-collapse-btn svg { transform: rotate(180deg); }
+.sidebar.collapsed .sb-avatar { margin: 0 auto; }
+
+/* ── Delta badges on KPI cards ── */
+.kpi-delta { font-size: 11px; margin-top: 4px; }
+.delta-up   { color: var(--green); }
+.delta-down { color: var(--text-3); }
+.delta-warn { color: var(--red); }
+
+/* ── action-dropdown (user actions menu) ── */
+.action-dropdown button:first-child { border-radius: 10px 10px 0 0; }
+.action-dropdown button:last-child  { border-radius: 0 0 10px 10px; }

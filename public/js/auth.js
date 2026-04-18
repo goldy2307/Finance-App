@@ -82,9 +82,10 @@ function clearSession() {
   localStorage.removeItem(REFRESH_KEY);
 }
 
+// FIX #5: redirect to login.html (not index.html) for cleaner UX
 function logout() {
   clearSession();
-  window.location.href = 'index.html';
+  window.location.href = 'login.html';
 }
 
 function safeRedirectTarget(raw) {
@@ -106,10 +107,9 @@ const ROLE_DASHBOARDS = {
 function getDashboardForRole(role) {
   if (!role) return 'user_dashboard.html';
   const key = role.toString().toLowerCase().trim();
-  // If a dashboard exists for this role, use it.
-  // Otherwise fall back to user_dashboard.html (auto-fallback).
   return ROLE_DASHBOARDS[key] || `${key}_dashboard.html`;
 }
+
 // Protect pages -- call this on dashboards/apply/profile etc.
 function requireAuth() {
   if (!isLoggedIn()) {
@@ -194,6 +194,27 @@ function initAuthNav() {
     if (initialsEl) initialsEl.textContent = getInitials(user.name || user.email || 'U');
     if (nameEl)     nameEl.textContent     = user.name  || 'User';
     if (emailEl)    emailEl.textContent    = user.email || '';
+
+    // FIX #1: Rewrite nav dropdown links based on user role
+    const dash = getDashboardForRole(user.role);
+
+    if (dropdown) {
+      dropdown.querySelectorAll('a.nav-dd-item').forEach(el => {
+        const href = el.getAttribute('href') || '';
+        // Match any existing dashboard href (user or admin)
+        if (/user_dashboard|admin_dashboard|bank_dashboard/.test(href)) {
+          if (href.includes('tab=profile')) {
+            el.setAttribute('href', `${dash}?tab=profile`);
+          } else if (href.includes('tab=settings')) {
+            el.setAttribute('href', `${dash}?tab=settings`);
+          } else {
+            // plain dashboard link (no tab param)
+            el.setAttribute('href', dash);
+          }
+        }
+      });
+    }
+
   } else {
     navSignIn.style.display = '';
     navUser.style.display   = 'none';
@@ -217,6 +238,8 @@ function initAuthNav() {
 
   if (logoutBtn) logoutBtn.addEventListener('click', () => logout());
 
+  // FIX #4: resetBtn is now a plain <button> (no wrapping <a>),
+  // so JS handles navigation here. HTML must NOT wrap it in <a>.
   if (resetBtn) {
     resetBtn.addEventListener('click', () => {
       if (dropdown) dropdown.classList.remove('open');

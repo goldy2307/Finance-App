@@ -1,9 +1,16 @@
 ﻿<!DOCTYPE html>
 <html lang="en" data-theme="dark">
 <head>
+  <!-- in <head>, before stylesheets -->
+<script>
+  (function() {
+    var t = localStorage.getItem('kashly_theme') || 'dark';
+    document.documentElement.setAttribute('data-theme', t);
+  })();
+</script>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <meta name="description" content="Cashly â€” Apply for a loan in minutes. Fast, transparent, 100% online."/>
+  <meta name="description" content="kashly 365” Apply for a loan in minutes. Fast, transparent, 100% online."/>
   <title>Kashly 365 | Apply for a Loan</title>
   <link rel="icon" href="assets/Logos/favicon-light.png">
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
@@ -13,7 +20,7 @@
   <link rel="stylesheet" href="css/apply.css"/>
 </head>
 <body>
-
+<script src="js/loader.js"></script>
   <!-- â”€â”€ NAV â”€â”€ -->
   <nav id="navbar">
     <a href="index.html" class="logo-link">

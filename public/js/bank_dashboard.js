@@ -410,7 +410,7 @@ function showToast(msg, type = 'info') {
    THEME
 ══════════════════════════════════════════ */
 function initTheme() {
-  const saved = localStorage.getItem('kashly_ops_theme') || 'dark';
+  const saved = localStorage.getItem('kashly_banker_theme');
   document.documentElement.setAttribute('data-theme', saved);
   document.getElementById('themeToggle').addEventListener('click', () => {
     const cur = document.documentElement.getAttribute('data-theme');

@@ -15,7 +15,7 @@
 /* ──────────────────────────────────────────
    1. THEME TOGGLE
 ────────────────────────────────────────── */
-const THEME_KEY = 'cashly-theme';
+const THEME_KEY = 'kashly_theme';
 
 function applyTheme(theme) {
   document.documentElement.setAttribute('data-theme', theme);

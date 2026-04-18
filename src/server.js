@@ -24,6 +24,18 @@ const app = express();
 // ── Security headers ──────────────────────────────────────────────────────
 app.use(helmet({
   crossOriginResourcePolicy: { policy: 'cross-origin' },
+  // Find your helmet config and update styleSrc:
+contentSecurityPolicy: {
+  directives: {
+    defaultSrc: ["'self'"],
+    scriptSrc:  ["'self'"],
+    styleSrc:   ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com", "https://cdnjs.cloudflare.com"],
+    fontSrc:    ["'self'", "https://fonts.gstatic.com", "https://cdnjs.cloudflare.com"],
+    imgSrc:     ["'self'", "data:", "blob:"],
+    connectSrc: ["'self'"],
+  },
+
+  },
 }));
 
 // ── CORS ──────────────────────────────────────────────────────────────────
@@ -65,6 +77,8 @@ app.use(express.static(path.join(__dirname, '..', 'public')));
 
 // ── API routes ────────────────────────────────────────────────────────────
 app.use('/api/v1', v1Router);
+app.use('/api/v1/admin', require('./routes/v1/admin.routes'));
+
 
 // ── SPA fallback: serve index.html for all non-API GET requests ───────────
 app.get(/^(?!\/api).*$/, (req, res) => {
@@ -76,6 +90,7 @@ app.use(notFoundHandler);
 
 // ── Global error handler — must be last ──────────────────────────────────
 app.use(errorHandler);
+
 
 // ── Boot ──────────────────────────────────────────────────────────────────
 async function boot() {
@@ -129,5 +144,7 @@ async function boot() {
 if (require.main === module) {
   boot();
 }
+
+
 
 module.exports = { app, boot };

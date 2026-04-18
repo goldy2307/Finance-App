@@ -1023,3 +1023,121 @@ footer {
   .hero-trust        { gap: 12px; }
   .trust-item        { min-width: 60px; }
 }
+/* ── Page Loader ─────────────────────────────────────────────────────── */
+#kl-loader {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: all;
+}
+
+/* Semi-transparent blur backdrop — only covers the page, not a solid white */
+.kl-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.55);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+[data-theme="dark"] .kl-backdrop {
+  background: rgba(10, 10, 18, 0.65);
+}
+
+/* Centered card that holds logo + bar + tip */
+.kl-box {
+  position: relative;           /* above backdrop */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+  padding: 36px 40px 28px;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.85);
+  box-shadow: 0 8px 40px rgba(0,0,0,0.10);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  min-width: 280px;
+}
+
+[data-theme="dark"] .kl-box {
+  background: rgba(18, 18, 30, 0.88);
+  box-shadow: 0 8px 40px rgba(0,0,0,0.45);
+}
+
+/* Logo — same two-part animation as loader.html */
+.kl-logo {
+  position: relative;
+  width: 124px;
+  height: 124px;
+}
+
+.kl-bar,
+.kl-curve {
+  position: absolute;
+  top: 0;
+  background-repeat: no-repeat;
+  background-size: contain;
+  will-change: transform, opacity;
+}
+
+.kl-bar {
+  left: 0;
+  width: 37px;
+  height: 124px;
+  background-image: url('../assets/Logos/1.png');
+  background-position: left center;
+  animation: kl-show-bar 0.4s forwards;
+}
+
+.kl-curve {
+  left: 22px;
+  width: 92px;
+  height: 124px;
+  background-image: url('../assets/Logos/2.png');
+  background-position: left center;
+  opacity: 0;
+  transform: translateX(-25px);
+  animation: kl-slide-in 0.4s 0.1s forwards;
+}
+
+@keyframes kl-show-bar  { to { opacity: 1; } }
+@keyframes kl-slide-in  { to { transform: translateX(0); opacity: 1; } }
+
+/* Progress bar */
+.kl-track {
+  width: 200px;
+  height: 4px;
+  background: rgba(0,0,0,0.10);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+[data-theme="dark"] .kl-track {
+  background: rgba(255,255,255,0.12);
+}
+
+.kl-fill {
+  height: 100%;
+  width: 0%;
+  border-radius: 4px;
+  background: linear-gradient(90deg, var(--accent, #6c63ff), var(--accent2, #a78bfa));
+  transition: width 0.12s linear;
+}
+
+/* Tip text */
+.kl-tip {
+  font-size: 12.5px;
+  color: var(--text-2, #666);
+  text-align: center;
+  max-width: 240px;
+  line-height: 1.5;
+  margin: 0;
+}
+
+[data-theme="dark"] .kl-tip {
+  color: rgba(255,255,255,0.55);
+}

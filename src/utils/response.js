@@ -44,7 +44,14 @@ const conflict     = (res, message) =>
 const unprocessable = (res, message, details = null) =>
   error(res, message, 422, 'UNPROCESSABLE', details);
 
+// Aliases for admin.controller compatibility
+const ok          = success;
+const serverError = (res, err) => {
+  console.error(err);
+  return error(res, 'Internal server error', 500, 'INTERNAL_ERROR');
+};
+
 module.exports = {
   success, created, noContent,
-  error, badRequest, unauthorized, forbidden, notFound, conflict, unprocessable,
+  error, badRequest, unauthorized, forbidden, notFound, conflict, unprocessable, serverError, ok,
 };

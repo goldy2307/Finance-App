@@ -1,35 +1,31 @@
-﻿/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-   CASHLY â€” apply.js
-   1. Theme toggle  (re-used from main.js pattern)
-   2. Nav scroll + hamburger
-   3. Loan type selector
-   4. Step navigation + progress bar
-   5. Live EMI preview
-   6. Aside summary updater
-   7. File upload handlers
-   8. Per-step validation
-   9. Form submission + success screen
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
-
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
-   1. THEME
+﻿/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+   1. THEME TOGGLE
 â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
-const THEME_KEY = 'cashly-theme';
+const THEME_KEY =  'kashly_theme'; // support both keys for backward compatibility
+
+function getStoredTheme() {
+  return localStorage.getItem(THEME_KEY) || 'dark';
+}
 
 function applyTheme(theme) {
   document.documentElement.setAttribute('data-theme', theme);
   localStorage.setItem(THEME_KEY, theme);
 }
+
 function toggleTheme() {
-  const cur = document.documentElement.getAttribute('data-theme') || 'dark';
-  applyTheme(cur === 'dark' ? 'light' : 'dark');
-}
-function initTheme() {
-  applyTheme(localStorage.getItem(THEME_KEY) || 'dark');
-  document.querySelectorAll('#themeToggle, #themeToggleMobile')
-    .forEach(btn => btn.addEventListener('click', toggleTheme));
+  const current = document.documentElement.getAttribute('data-theme') || 'dark';
+  applyTheme(current === 'dark' ? 'light' : 'dark');
 }
 
+function initTheme() {
+  // Apply stored / default theme before paint
+  applyTheme(getStoredTheme());
+
+  // Wire up both toggle buttons (desktop + mobile)
+  document.querySelectorAll('#themeToggle, #themeToggleMobile').forEach(btn => {
+    btn.addEventListener('click', toggleTheme);
+  });
+}
 /* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
    2. NAV
 â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
@@ -523,9 +519,12 @@ async function handleSubmit() {
    INIT
 â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 document.addEventListener('DOMContentLoaded', () => {
-  requireAuth();
+  
   initTheme();
   initNav();
+  requireAuth().then(() => {
+    document.body.classList.add('authenticated');
+  });
   buildLoanTypes();
   buildProgressSteps();
   updateProgress(1);

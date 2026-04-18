@@ -100,6 +100,60 @@ async function existsByPhone(phone) {
   return count > 0;
 }
 
+async function findAll({ role, page = 1, size = 8, q = '' } = {}) {
+  const Model = getModel();
+  const skip  = (page - 1) * size;
+  if (config.db.driver === 'mongo') {
+    const filter = {};
+    if (role) filter.role = role;
+    if (q) filter.$or = [
+      { firstName: { $regex: q, $options: 'i' } },
+      { lastName:  { $regex: q, $options: 'i' } },
+      { email:     { $regex: q, $options: 'i' } },
+      { phone:     { $regex: q, $options: 'i' } },
+    ];
+    const [items, total] = await Promise.all([
+      Model.find(filter).skip(skip).limit(size).lean(),
+      Model.countDocuments(filter),
+    ]);
+    return { items, total, page, pages: Math.ceil(total / size) };
+  }
+  // PG fallback
+  const { Op } = require('sequelize');
+  const where = {};
+  if (role) where.role = role;
+  if (q) where[Op.or] = [
+    { firstName: { [Op.iLike]: `%${q}%` } },
+    { email:     { [Op.iLike]: `%${q}%` } },
+    { phone:     { [Op.iLike]: `%${q}%` } },
+  ];
+  const { count, rows } = await Model.findAndCountAll({ where, offset: skip, limit: size });
+  return { items: rows, total: count, page, pages: Math.ceil(count / size) };
+}
+
+async function countActive() {
+  const Model = getModel();
+  if (config.db.driver === 'mongo') return Model.countDocuments({ isActive: true });
+  const { Op } = require('sequelize');
+  return Model.count({ where: { isActive: true } });
+}
+
+async function search(q, limit = 5) {
+  const Model = getModel();
+  if (config.db.driver === 'mongo') {
+    return Model.find({ $or: [
+      { firstName: { $regex: q, $options: 'i' } },
+      { lastName:  { $regex: q, $options: 'i' } },
+      { email:     { $regex: q, $options: 'i' } },
+    ]}).limit(limit).lean();
+  }
+  const { Op } = require('sequelize');
+  return Model.findAll({ where: { [Op.or]: [
+    { firstName: { [Op.iLike]: `%${q}%` } },
+    { email:     { [Op.iLike]: `%${q}%` } },
+  ]}, limit });
+}
+
 module.exports = {
   create,
   findById,
@@ -109,4 +163,7 @@ module.exports = {
   deactivate,
   existsByEmail,
   existsByPhone,
+  findAll, 
+  countActive,
+  search,
 };
